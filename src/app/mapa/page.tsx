@@ -1,5 +1,4 @@
 import Container from "@/components/Container";
-import Rules from "@/components/Rules";
 import Title from "@/components/Title";
 import {ArrowUpRightFromSquare} from "lucide-react";
 
