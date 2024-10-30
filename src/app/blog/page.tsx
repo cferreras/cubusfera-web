@@ -3,8 +3,7 @@ import PostList from '@/components/PostList';
 import Title from '@/components/Title';
 import { getPostData, getSortedPostsData } from '@/lib/posts';
 import { format } from 'date-fns';
-import { es } from 'date-fns/locale'
-import { Metadata } from 'next';
+import { es } from 'date-fns/locale';
 
 // export async function generateStaticParams() {
 //     const posts = getSortedPostsData();
@@ -23,7 +22,7 @@ import { Metadata } from 'next';
 // }
 
 
-export default async function Post({ params }: { params: { slug: string } }) {
+export default async function Post() {
     // const postData = await getPostData(params.slug);
     const posts = getSortedPostsData();
     const latestPost = posts[0];

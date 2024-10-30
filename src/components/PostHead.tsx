@@ -2,7 +2,12 @@
 import Head from 'next/head';
 
 interface PostHeadProps {
-    postData: any;
+    postData: {
+        title: string;
+        description: string;
+        author: string;
+        date: string;
+    }
 }
 
 export default function PostHead({ postData }: PostHeadProps) {

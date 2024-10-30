@@ -1,12 +1,8 @@
 "use client"
-import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import React from 'react';
-import Home from "./page";
-import Normas from "./normas/page";
-import Miembros from "./miembros/page";
 import { Lexend } from 'next/font/google'
 const lexend = Lexend({ subsets: ['latin'] })
 

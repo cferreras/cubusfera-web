@@ -2,7 +2,6 @@ import Title from "@/components/Title";
 import { player, columns } from "./columns"
 import { DataTable } from "./data-table"
 import Container from "@/components/Container";
-import { get } from "http";
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -26,7 +25,7 @@ const search = async () => {
 
     if (data.length > 0) {
     return data.map(
-        (d: any) => (
+        (d: { registered: string | number; activityIndex: string | number; }) => (
             {
                 ...d, registered: new Date(+d.registered).toLocaleString("ES-es",
                     {

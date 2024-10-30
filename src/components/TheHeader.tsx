@@ -1,6 +1,4 @@
 "use client";
-import Navbar from "./Navbar";
-import styles from './Title.module.css'
 
 export default function TheHeader() {
 

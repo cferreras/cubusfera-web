@@ -6,7 +6,6 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Button } from "./ui/button"
 import {ArrowUpRight} from "lucide-react"
 
 export default function Rank(props: { title: string, description: string, content: string[] }) {

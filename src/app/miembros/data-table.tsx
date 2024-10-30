@@ -87,10 +87,10 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell, index) => (
+                  {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
 
-                      {/* @ts-expect-error */}
+                      {/* @ts-expect-error Don't know how to fix this error */}
                       {cell.column.columnDef.accessorKey === "displayName" ?
                         <div className="flex items-center space-x-2">
                           <img className="h-7 w-7 sm:h-auto sm:w-auto" src={`https://mc-heads.net/head/${cell.getValue()}/24`} />

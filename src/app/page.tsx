@@ -1,7 +1,5 @@
 import Container from "@/components/Container";
 import TheHeader from "@/components/TheHeader";
-import { getSortedPostsData } from '@/lib/posts';
-import PostList from '@/components/PostList';
 
 export default function Home() {
   return (
