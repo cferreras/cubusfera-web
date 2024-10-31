@@ -29,6 +29,7 @@ import 'dotenv/config'
 const token = process.env.token;
 const guildId = process.env.guildId;
 let planPlayers = {};
+let discordGuild = ""
 
 import qs from 'querystring';
 
@@ -53,10 +54,11 @@ client.on('ready', async () => {
         console.error(`Guild with ID ${guildId} not found`);
     } else {
         console.info(`Guild ${guild.name} found`);
+        discordGuild = guild;
         // fetch members every 4 hours
-        setInterval(async () => await fetchMembers(guild), 4 * 60 * 60 * 1000);
+        setInterval(async () =>  members = await fetchMembers(guild), 4 * 60 * 60 * 1000);
         // fetch members on startup
-        await fetchMembers(guild);
+        let members = await fetchMembers(guild);
     }
 });
 
@@ -71,10 +73,11 @@ await loginAndFetch();
 
 
 async function fetchMembers(guild) {
-    members = await getMembers(guild);
+    const guildMembers = await getMembers(guild);
     // filter members with role id
-    members = members.filter(member => member.roles.cache.has('1011223459923238943'));
-    console.log(guild.name + ' has ' + members.length + ' members with role');
+    const filteredMembers = guildMembers.filter(member => member.roles.cache.has('1011223459923238943'));
+    console.log(guild.name + ' has ' + filteredMembers.length + ' members with role');
+    return filteredMembers;
 }
 
 
@@ -91,7 +94,8 @@ function getMembers(guild) {
 client.login(token);
 
 app.get('/', async(req, res) => {
-    
+    let members = await fetchMembers(discordGuild);
+    console.log('Valor de members:', members);
     // Filter results by query
     // const q = req.query.q?.toLowerCase() || '';
     // const results = members.filter(
