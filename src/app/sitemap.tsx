@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MetadataRoute } from 'next'
 import fs from 'fs'
 import path from 'path'
