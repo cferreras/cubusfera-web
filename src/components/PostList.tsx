@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale'
 
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export default function PostList({ posts }: { posts: any[] }) {
     return (
         <>
