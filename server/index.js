@@ -27,9 +27,6 @@ import { Client, GatewayIntentBits } from 'discord.js';
 import 'dotenv/config'
 
 const token = process.env.token;
-const guildId = process.env.guildId;
-let planPlayers = {};
-let discordGuild = ""
 
 import qs from 'querystring';
 
@@ -47,31 +44,9 @@ const credentials = {
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
-client.on('ready', async () => {
-    console.log(`Logged in as ${client.user.tag}!`);
-    const guild = client.guilds.cache.get(guildId);
-    if (!guild) {
-        console.error(`Guild with ID ${guildId} not found`);
-    } else {
-        console.info(`Guild ${guild.name} found`);
-        discordGuild = guild;
-        // fetch members every 4 hours
-        // setInterval(async () =>  members = await fetchMembers(guild), 4 * 60 * 60 * 1000);
-        // fetch members on startup
-        // let members = await fetchMembers(guild);
-    }
-});
-
-// Fetch JSON from plan api each 4 hours
-setInterval(async () => {
-    await loginAndFetch();
-}, 4 * 60 * 60 * 1000);
-
-await loginAndFetch();
-
-//
-
-
+async function getGuild(client, guildId) {
+    return await client.guilds.cache.get(guildId) || "error";
+}
 async function fetchMembers(guild) {
     const guildMembers = await getMembers(guild);
     // filter members with role id
@@ -79,10 +54,7 @@ async function fetchMembers(guild) {
     console.log(guild.name + ' has ' + filteredMembers.length + ' members with role');
     return filteredMembers;
 }
-
-
 function getMembers(guild) {
-
     // get all members and return them
     return guild.members.fetch()
         .then(data => {
@@ -94,13 +66,8 @@ function getMembers(guild) {
 client.login(token);
 
 app.get('/', async(req, res) => {
-    let members = await fetchMembers(discordGuild);
-    console.log('Valor de members:', members);
-    // Filter results by query
-    // const q = req.query.q?.toLowerCase() || '';
-    // const results = members.filter(
-    //     member => member.user.displayName.toLowerCase().includes(q));
-    // Search MinecraftName in database by id
+    let planPlayers = await loginAndFetch()
+    let members = await fetchMembers(await getGuild(client, process.env.guildId));
     await Promise.all(members.map(async member => {
         const user = await User.findOne({ where: { id: member.user.id } });
         if (user) {
@@ -172,7 +139,7 @@ async function loginAndFetch() {
 
         const data = await getResponse.json();
         // console.log('Respuesta de la solicitud GET:', data);
-        planPlayers = data;
+        return data;
 
     } catch (error) {
         console.error('Error:', error.message);
