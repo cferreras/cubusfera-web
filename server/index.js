@@ -56,9 +56,9 @@ client.on('ready', async () => {
         console.info(`Guild ${guild.name} found`);
         discordGuild = guild;
         // fetch members every 4 hours
-        setInterval(async () =>  members = await fetchMembers(guild), 4 * 60 * 60 * 1000);
+        // setInterval(async () =>  members = await fetchMembers(guild), 4 * 60 * 60 * 1000);
         // fetch members on startup
-        let members = await fetchMembers(guild);
+        // let members = await fetchMembers(guild);
     }
 });
 
