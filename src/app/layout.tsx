@@ -13,12 +13,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es"  >
-      <body className={`bg-amber-100 bg-fixed text-gray-600 ${lexend.className}`}>
+      <body className={`bg-indigo-700 bg-fixed text-gray-600 ${lexend.className}`}>
+        <div className="bg-amber-100">
         <Navbar />
         <div>
         </div>
         {children}
         <Footer />
+        </div>
       </body>
     </html>
   );

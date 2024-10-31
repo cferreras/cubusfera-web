@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <div className="mx-8 xl:mx-auto  xl:px-0  max-w-6xl mb-4">
+        <div className="mx-8 xl:mx-auto  xl:px-0  max-w-6xl pb-4">
         <div className="sm:inline-flex justify-between w-full space-y-4 sm:space-y-1 items-center">
 
             <div>
