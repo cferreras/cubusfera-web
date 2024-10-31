@@ -28,7 +28,6 @@ import 'dotenv/config'
 
 const token = process.env.token;
 const guildId = process.env.guildId;
-let members = [];
 let planPlayers = {};
 
 import qs from 'querystring';
@@ -55,7 +54,7 @@ client.on('ready', async () => {
     } else {
         console.info(`Guild ${guild.name} found`);
         // fetch members every 4 hours
-        setInterval(() => fetchMembers(guild), 4 * 60 * 60 * 1000);
+        setInterval(async () => await fetchMembers(guild), 4 * 60 * 60 * 1000);
         // fetch members on startup
         await fetchMembers(guild);
     }
@@ -92,6 +91,7 @@ function getMembers(guild) {
 client.login(token);
 
 app.get('/', async(req, res) => {
+    
     // Filter results by query
     // const q = req.query.q?.toLowerCase() || '';
     // const results = members.filter(
