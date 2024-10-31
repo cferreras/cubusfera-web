@@ -18,7 +18,7 @@ const search = async () => {
         headers: {
             'X-API-Key': EXPRESS_SECRET as string
         },
-        cache: 'no-store',
+        // cache: 'no-store',
     });
 
     const data = await response.json();
