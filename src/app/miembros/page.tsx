@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
-const EXPRESS_PORT = process.env.EXPRESS_PORT;
 const EXPRESS_SECRET = process.env.EXPRESS_SECRET;
 
 async function getData(): Promise<player[]> {
