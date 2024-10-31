@@ -17,7 +17,8 @@ const search = async () => {
     const response = await fetch(REACT_APP_API_URL as string, {
         headers: {
             'X-API-Key': EXPRESS_SECRET as string
-        }
+        },
+        cache: 'no-store',
     });
 
     const data = await response.json();
