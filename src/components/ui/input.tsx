@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-object-type I don't know why */
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
