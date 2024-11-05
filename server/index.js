@@ -68,30 +68,35 @@ client.login(token);
 app.get('/', async(req, res) => {
     let planPlayers = await loginAndFetch()
     let members = await fetchMembers(await getGuild(client, process.env.guildId));
+    
+    const players = []
+    
     await Promise.all(members.map(async member => {
         const user = await User.findOne({ where: { id: member.user.id } });
-        if (user) {
-            // member.plan = await loginAndFetch(user.minecraftName);
-            member.minecraftName = user.minecraftName;
-            const playerData = planPlayers.data.filter(player => player.name.match(/<a.*?>(.*?)<\/a>/)[1] === member.minecraftName)[0]
-            member.activePlaytime = playerData?.activePlaytime.v || "-"
-            member.activityIndex = playerData?.index.v || "-"
-            member.registered = playerData?.registered.v || "-"
-            member.primaryGroup = playerData?.primaryGroup.v || "-"
-            member.geolocation = playerData?.geolocation || "-"
+        if (user) {       
+            const player = {}
+            const playerData = planPlayers.data.filter(player => player.name.match(/<a.*?>(.*?)<\/a>/)[1] === user.minecraftName)[0]
+            if (playerData) {
+                player.id = member.user.id
+                player.minecraftName = user.minecraftName;
+                player.activePlaytime = playerData?.activePlaytime.v || "-"
+                player.activityIndex = playerData?.index.v || "-"
+                player.registered = playerData?.registered.v || "-"
+                player.primaryGroup = playerData?.primaryGroup.v || "-"
+                player.geolocation = playerData?.geolocation || "-"
+                players.push(player)
+            }
         }
-        return member;
     }));
 
-
-    res.send(members.map(member => ({
-        id: member.user.id,
-        displayName: member.minecraftName,
-        activePlaytime: member.activePlaytime,
-        activityIndex: member.activityIndex,
-        registered: member.registered,
-        primaryGroup: member.primaryGroup,
-        geolocation: member.geolocation
+    res.send(players.map(player => ({
+        id: player.id,
+        displayName: player.minecraftName,
+        activePlaytime: player.activePlaytime,
+        activityIndex: player.activityIndex,
+        registered: player.registered,
+        primaryGroup: player.primaryGroup,
+        geolocation: player.geolocation
     })));
 })
 
