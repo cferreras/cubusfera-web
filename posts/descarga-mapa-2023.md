@@ -1,7 +1,7 @@
 ---
 title: 'Descarga del mapa de 2023'
 subtitle: 'Todo se acaba'
-description: ''
+description: '¡El momento de la descarga del mapa de 2023 ha llegado! Después de un emocionante año en nuestro servidor de Minecraft, ahora puedes conservar tus increíbles construcciones y aventuras. Sigue leyendo para conocer los pasos sencillos para descargar el mapa y seguir explorando este mundo lleno de recuerdos. ¡No dejes pasar esta oportunidad de revivir los mejores momentos del 2023!'
 publishedAt: '11/11/2023'
 author: 'cferreras'
 image: ''

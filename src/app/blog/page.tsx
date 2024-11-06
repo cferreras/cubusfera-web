@@ -5,23 +5,6 @@ import { getPostData, getSortedPostsData } from '@/lib/posts';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-// export async function generateStaticParams() {
-//     const posts = getSortedPostsData();
-//     return posts.map((post) => ({
-//         slug: post.slug,
-//     }));
-// }
-
-// export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-//     const postData = await getPostData(params.slug);
-//     return {
-//         // guion largo de
-//         title: postData.title + " – " + "Cubusfera",
-//         description: postData.description,
-//     };
-// }
-
-
 export default async function Post() {
     // const postData = await getPostData(params.slug);
     const posts = getSortedPostsData();

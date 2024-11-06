@@ -1,7 +1,7 @@
 ---
 title: 'Siete consejos para nuevos jugadores'
 subtitle: 'Un buen comienzo'
-description: ''
+description: '¿Eres nuevo en el servidor de Minecraft? ¡No te preocupes! En este artículo encontrarás 7 consejos clave para comenzar tu aventura de la mejor manera posible. Desde aprender las reglas hasta aprovechar los recursos del servidor, estos consejos te ayudarán a tener un excelente inicio en este mundo de bloques.'
 publishedAt: '02/14/2023'
 author: 'cferreras'
 image: ''

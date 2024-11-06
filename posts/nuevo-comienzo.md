@@ -1,7 +1,7 @@
 ---
 title: 'Nuevo comienzo'
 subtitle: 'hello world'
-description: ''
+description: '¡Cubusfera, el servidor Vanilla de Minecraft, está de vuelta con su versión 1.16.5! Si eres un fanático del juego en su forma más pura, sin modificaciones ni jerarquías abusivas, este es el lugar perfecto para ti. Únete a nuestra vibrante comunidad y disfruta de una experiencia de juego fluida y sin interrupciones. ¡No esperes más, ingresa ahora y comienza tu aventura en el mundo de Minecraft!'
 publishedAt: '01/02/2023'
 author: 'cferreras'
 image: 'https://cubusfera.com/img/1-16-5-header.jpg'

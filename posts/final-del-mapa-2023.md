@@ -1,7 +1,7 @@
 ---
 title: 'Fin del mapa del 2023'
 subtitle: 'Todo se acaba'
-description: ''
+description: 'El fin de una era en nuestro servidor de Minecraft: el mapa 2023 llega a su conclusión. Pero esto no es el final, sino el comienzo de una nueva y emocionante temporada. En este artículo, descubre las lecciones valiosas que hemos aprendido durante esta etapa y cómo las estamos aplicando para ofrecer una experiencia mejorada a nuestra comunidad. ¡Prepárate para unirte a nosotros en el próximo capítulo de nuestra aventura en Minecraft!'
 publishedAt: '10/11/2023'
 author: 'cferreras'
 image: ''

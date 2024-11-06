@@ -1,7 +1,7 @@
 ---
 title: 'Mejores mods del lado de cliente'
 subtitle: 'mejora tu experiencia'
-description: ''
+description: '¿Quieres mejorar tu experiencia de juego en Minecraft? Descubre los mejores mods del lado de cliente que te permitirán personalizar, optimizar y disfrutar aún más de tu mundo virtual. Desde incrementar el rendimiento hasta agregar nuevas funcionalidades, este artículo te presenta una selección de los mods más útiles y populares para la versión Fabric de Minecraft. ¡Mejora tu gameplay con estos imprescindibles complementos!'
 publishedAt: '05/17/2023'
 author: 'cferreras'
 image: ''
