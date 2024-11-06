@@ -1,6 +1,10 @@
 import Container from "@/components/Container";
 import TheHeader from "@/components/TheHeader";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: 'Inicio – Cubusfera',
+  description: 'Tienda del servidor de Minecraft Cubusfera',
+}
 export default function Home() {
   return (
     <>

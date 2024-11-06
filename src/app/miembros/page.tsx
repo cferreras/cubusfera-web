@@ -3,7 +3,12 @@ import { player, columns } from "./columns"
 import { DataTable } from "./data-table"
 import Container from "@/components/Container";
 import dotenv from 'dotenv';
+import { Metadata } from "next";
 dotenv.config();
+export const metadata: Metadata = {
+    title: 'Miembros – Cubusfera',
+    description: 'Miembros del servidor de Minecraft Cubusfera',
+}
 
 const REACT_APP_API_URL = process.env.REACT_APP_API_URL;
 const EXPRESS_SECRET = process.env.EXPRESS_SECRET;

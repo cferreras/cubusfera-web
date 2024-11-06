@@ -4,7 +4,11 @@ import Title from '@/components/Title';
 import { getPostData, getSortedPostsData } from '@/lib/posts';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-
+import { Metadata } from 'next';
+export const metadata: Metadata = {
+    title: 'Blog – Cubusfera',
+    description: 'Blog del servidor de Minecraft Cubusfera',
+}
 export default async function Post() {
     // const postData = await getPostData(params.slug);
     const posts = getSortedPostsData();

@@ -1,6 +1,12 @@
 import Container from "@/components/Container";
+import type { Metadata } from 'next'
 import Rank from "@/components/Rank";
 import Title from "@/components/Title";
+
+export const metadata: Metadata = {
+    title: 'Tienda – Cubusfera',
+    description: 'Tienda del servidor de Minecraft Cubusfera',
+}
 
 export default function Normas() {
     const content = {
@@ -47,7 +53,7 @@ export default function Normas() {
             "/anvil (abre un yunque)",
             "/wastebin (abre una basura que elimina objetos)",
             "4000 bloques de protección"
-        ]   
+        ]
     }
     return (
         <>
