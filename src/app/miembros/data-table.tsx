@@ -93,7 +93,7 @@ export function DataTable<TData, TValue>({
                       {/* @ts-expect-error Don't know how to fix this error */}
                       {cell.column.columnDef.accessorKey === "displayName" ?
                         <div className="flex items-center space-x-2">
-                          <img className="h-7 w-7 sm:h-10 sm:w-10" src={`https://mc-heads.net/head/${cell.getValue()}/24`} />
+                          <img className="h-7 sm:h-10 w-auto" src={`https://mc-heads.net/head/${cell.getValue()}/24`} />
                           <div>{flexRender(cell.column.columnDef.cell, cell.getContext())}</div>
                         </div>
                         :
