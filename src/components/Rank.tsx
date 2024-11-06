@@ -10,7 +10,7 @@ import {ArrowUpRight} from "lucide-react"
 
 export default function Rank(props: { title: string, description: string, content: string[] }) {
     return (
-        <Card className="md:w-1/3 border-gray-500 border-2">
+        <Card className="md:w-1/3 border">
             <CardHeader>
                 <CardTitle>{props.title}</CardTitle>
                 <CardDescription>{props.description}</CardDescription>
