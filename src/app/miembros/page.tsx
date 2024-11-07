@@ -21,9 +21,9 @@ async function getData(): Promise<player[]> {
 const search = async () => {
     const response = await fetch(REACT_APP_API_URL as string, {
         headers: {
-            'X-API-Key': EXPRESS_SECRET as string
+            'X-API-Key': EXPRESS_SECRET as string,
+            'Cache-Control': 'max-age=3600, stale-while-revalidate=59'
         },
-        // cache: 'no-store',
     });
 
     const data = await response.json();
