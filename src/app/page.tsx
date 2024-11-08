@@ -3,7 +3,7 @@ import TheHeader from "@/components/TheHeader";
 import { Metadata } from "next";
 export const metadata: Metadata = {
   title: 'Inicio – Cubusfera',
-  description: 'Tienda del servidor de Minecraft Cubusfera',
+  description: 'Cubusfera es un servidor de Minecraft técnico y vanilla en español, ofreciendo una experiencia de juego vanilla con características técnicas para los amantes de los desafíos y las construcciones avanzadas.',
 }
 export default function Home() {
   return (
