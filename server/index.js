@@ -95,7 +95,7 @@ app.get('/', async(req, res) => {
         activePlaytime: player.activePlaytime,
         activityIndex: player.activityIndex,
         registered: player.registered,
-        primaryGroup: player.primaryGroup,
+        primaryGroup: player.primaryGroup.charAt(0).toUpperCase() + player.primaryGroup.slice(1),
         geolocation: player.geolocation
     })));
 })
