@@ -23,7 +23,7 @@ export default function Navbar() {
                 setServerStatus({
                     online: data.online,
                     players: {
-                        online: data.players?.online || "0",
+                        online: data.players?.online ?? "0",
                         list: data.players?.list ?? []
                     }
                 });
@@ -31,11 +31,7 @@ export default function Navbar() {
                 console.error('Error fetching server status:', error);
             }
         };
-
         fetchServerStatus();
-        const interval = setInterval(fetchServerStatus, 5000);
-
-        return () => clearInterval(interval);
     }, []);
     const [isOpen, setIsOpen] = useState(false);
 
