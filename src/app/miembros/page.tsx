@@ -22,8 +22,8 @@ const search = async () => {
     const response = await fetch(REACT_APP_API_URL as string, {
         headers: {
             'X-API-Key': EXPRESS_SECRET as string,
-            'Cache-Control': 'max-age=3600, stale-while-revalidate=59'
         },
+         next: { revalidate: 3600 },
     });
 
     const data = await response.json();
