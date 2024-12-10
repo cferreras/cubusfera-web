@@ -17,32 +17,38 @@ async function getData(): Promise<player[]> {
     // Fetch data from your API here.
     return await search()
 }
-
 const search = async () => {
     const response = await fetch(REACT_APP_API_URL as string, {
         headers: {
             'X-API-Key': EXPRESS_SECRET as string,
         },
-         next: { revalidate: 3600 },
     });
 
     const data = await response.json();
 
     if (data.length > 0) {
-    return data.map(
-        (d: { registered: string | number; activityIndex: string | number; }) => (
-            {
-                ...d, registered: new Date(+d.registered).toLocaleString("ES-es",
-                    {
-                        year: "numeric",
-                        month: "numeric",
-                        day: "numeric",
-                    }), activityIndex: (+d.activityIndex).toFixed(2) + " (" + getAcctivityIndexSuffix(+d.activityIndex) + ")",
-            }
-        ));}
+        return data.map(
+            (d: { registered: string | number; activityIndex: string | number; }) => ({
+                ...d,
+                registered: new Date(+d.registered).toLocaleString("ES-es", {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                }),
+                activityIndex: (+d.activityIndex).toFixed(2) + " (" + getAcctivityIndexSuffix(+d.activityIndex) + ")",
+            })
+        );
+    }
     return [];
-}
+};
 
+export async function getStaticProps() {
+    const data = await search();
+    return {
+        props: { data },
+        revalidate: 3600, // Revalidar cada hora
+    };
+}
 export default async function Miembros() {
     const data = await getData()
     return (
