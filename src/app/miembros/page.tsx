@@ -19,6 +19,7 @@ async function getData(): Promise<player[]> {
 }
 const search = async () => {
     const response = await fetch(REACT_APP_API_URL as string, {
+        next: { revalidate: 3600 }, // Revalidate every hour
         headers: {
             'X-API-Key': EXPRESS_SECRET as string,
         },
@@ -42,13 +43,6 @@ const search = async () => {
     return [];
 };
 
-export async function getStaticProps() {
-    const data = await search();
-    return {
-        props: { data },
-        revalidate: 3600, // Revalidar cada hora
-    };
-}
 export default async function Miembros() {
     const data = await getData()
     return (
