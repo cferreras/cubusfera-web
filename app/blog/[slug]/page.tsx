@@ -8,12 +8,14 @@ import { es } from 'date-fns/locale'
 export async function generateStaticParams() {
     const posts = getSortedPostsData();
     return posts.map((post) => ({
-        slug: post.slug,
+        slug: String(post.slug),
     }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-    const resolvedParams = await params;
+export type paramsType = Promise<{ slug: string }>;
+
+export async function generateMetadata(props: { params: paramsType }) {
+    const resolvedParams = await props.params;
     const postData = await getPostData(resolvedParams.slug);
     return {
         title: postData.title + " – " + "Cubusfera",
