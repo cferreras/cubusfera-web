@@ -8,9 +8,9 @@ import { Metadata } from 'next';
 
 
 interface PageProps {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 }
 
 export async function generateStaticParams() {
@@ -21,13 +21,13 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const postData = await getPostData(params.slug);
+    const resolvedParams = await params;
+    const postData = await getPostData(resolvedParams.slug);
     return {
         title: postData.title + " – " + "Cubusfera",
         description: postData.description,
     };
 }
-
 
 export default async function Post({ params }: { params: { slug: string } }) {
     const postData = await getPostData(params.slug);
