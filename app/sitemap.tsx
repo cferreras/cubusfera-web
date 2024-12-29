@@ -16,7 +16,7 @@ function getPathsFromDir(dir: string): string[] {
         if (stat.isDirectory()) {
             paths = paths.concat(getPathsFromDir(filePath))
         } else if (file === 'page.tsx' || file === 'page.js') {
-            let routePath = dir.replace(path.join(process.cwd(), 'src', 'app'), '')
+            let routePath = dir.replace(path.join(process.cwd(), 'app'), '')
             routePath = routePath.replace(/\\/g, '/')
             if (routePath === '') {
                 paths.push('/')
@@ -40,7 +40,7 @@ function getBlogPaths(): string[] {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const appDirectory = path.join(process.cwd(), 'src', 'app')
+    const appDirectory = path.join(process.cwd(), 'app')
     const appPaths = getPathsFromDir(appDirectory)
     const blogPaths = getBlogPaths()
 
@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             if (route.startsWith('/blog/')) {
                 filePath = path.join(process.cwd(), 'posts', `${route.split('/').pop()}.md`)
             } else {
-                filePath = path.join(process.cwd(), 'src', route === '/' ? 'app' : `app${route}`)
+                filePath = path.join(process.cwd(), route === '/' ? 'app' : `app${route}`)
             }
 
             let lastModified = new Date()
