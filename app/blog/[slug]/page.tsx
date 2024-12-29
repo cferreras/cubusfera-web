@@ -4,7 +4,7 @@ import Title from '@/components/Title';
 import { getPostData, getSortedPostsData } from '@/lib/posts';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale'
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata } from 'next'
 
 type Props = {
     params: Promise<{ slug: string }>
@@ -19,7 +19,6 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(
     { params }: Props,
-    parent: ResolvingMetadata
 ): Promise<Metadata> {
     // read route params
     const slug = (await params).slug
