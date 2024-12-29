@@ -13,8 +13,11 @@ export async function generateStaticParams() {
     }));
 }
 
+<<<<<<< HEAD
 export type paramsType = { slug: string };
 
+=======
+>>>>>>> 766d8a2e6653409ce0ee0ee6950992e721185ef0
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
     const postData = await getPostData(params.slug);
     return {
@@ -25,7 +28,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 
+<<<<<<< HEAD
 export default async function Post( { params }: { params: paramsType } ) {
+=======
+export default async function Post({ params }: { params: { slug: string } }) {
+>>>>>>> 766d8a2e6653409ce0ee0ee6950992e721185ef0
     const postData = await getPostData(params.slug);
     const posts = getSortedPostsData();
     return (
