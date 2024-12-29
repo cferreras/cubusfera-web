@@ -8,8 +8,7 @@ import type { Metadata, ResolvingMetadata } from 'next'
 
 type Props = {
     params: Promise<{ slug: string }>
-    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-  }
+}
 
 export async function generateStaticParams() {
     const posts = getSortedPostsData();
@@ -19,9 +18,9 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-    { params, searchParams }: Props,
+    { params }: Props,
     parent: ResolvingMetadata
-  ): Promise<Metadata> {
+): Promise<Metadata> {
     // read route params
     const slug = (await params).slug
     const postData = await getPostData(slug);
@@ -33,7 +32,7 @@ export async function generateMetadata(
 }
 
 
-export default async function Post({ params, searchParams }: Props) {
+export default async function Post({ params }: Props) {
     const slug = (await params).slug
     const postData = await getPostData(slug);
     const posts = getSortedPostsData();
@@ -42,19 +41,19 @@ export default async function Post({ params, searchParams }: Props) {
             <Title title="Blog" subtitle="Nuestro blog" />
             <Container>
                 <div className='lg:grid grid-cols-6'>
-                <div className='lg:order-last col-span-2 mt-8 p-4'>
-                    <PostList posts={posts} />
+                    <div className='lg:order-last col-span-2 mt-8 p-4'>
+                        <PostList posts={posts} />
                     </div>
-                <article className=" mx-auto mt-8 p-4 col-span-4">
-                    <h1 className="text-3xl font-bold mb-4">{postData.title}</h1>
-                    <p className="text-gray-500 mb-4">
-                        {format(new Date(postData.publishedAt), 'd MMMM, yyyy', { locale: es })}
-                    </p>
-                    <div
-                        className="prose lg:prose-md prose-h1:text-2xl prose-h1:font-semibold prose-headings:text-gray-700"
-                        dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-                    />
-                </article>
+                    <article className=" mx-auto mt-8 p-4 col-span-4">
+                        <h1 className="text-3xl font-bold mb-4">{postData.title}</h1>
+                        <p className="text-gray-500 mb-4">
+                            {format(new Date(postData.publishedAt), 'd MMMM, yyyy', { locale: es })}
+                        </p>
+                        <div
+                            className="prose lg:prose-md prose-h1:text-2xl prose-h1:font-semibold prose-headings:text-gray-700"
+                            dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+                        />
+                    </article>
                 </div>
             </Container>
         </>
