@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 
 export type paramsType = { slug: string };
 
-export async function generateMetadata(props: { params: paramsType }): Promise<Metadata> {
+export async function generateMetadata(props: { params: paramsType }) {
     const postData = await getPostData(props.params.slug);
     return {
         // guion largo de
