@@ -4,7 +4,12 @@ import Title from '@/components/Title';
 import { getPostData, getSortedPostsData } from '@/lib/posts';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale'
-import { Metadata } from 'next';
+import type { Metadata, ResolvingMetadata } from 'next'
+
+type Props = {
+    params: Promise<{ slug: string }>
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+  }
 
 export async function generateStaticParams() {
     const posts = getSortedPostsData();
@@ -13,14 +18,13 @@ export async function generateStaticParams() {
     }));
 }
 
-export type paramsType = { slug: string };
-
-interface PageProps {
-    params: paramsType;
-  }
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const postData = await getPostData(params.slug);
+export async function generateMetadata(
+    { params, searchParams }: Props,
+    parent: ResolvingMetadata
+  ): Promise<Metadata> {
+    // read route params
+    const slug = (await params).slug
+    const postData = await getPostData(slug);
     return {
         // guion largo de
         title: postData.title + " – " + "Cubusfera",
@@ -28,8 +32,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
 }
 
-export default async function Post({ params }: PageProps) {
-    const postData = await getPostData(params.slug);
+
+export default async function Post({ params, searchParams }: Props) {
+    const slug = (await params).slug
+    const postData = await getPostData(slug);
     const posts = getSortedPostsData();
     return (
         <>
