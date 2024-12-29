@@ -4,14 +4,6 @@ import Title from '@/components/Title';
 import { getPostData, getSortedPostsData } from '@/lib/posts';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale'
-import { Metadata } from 'next';
-
-
-interface PageProps {
-    params: Promise<{
-        slug: string;
-    }>;
-}
 
 export async function generateStaticParams() {
     const posts = getSortedPostsData();
@@ -20,7 +12,7 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
     const resolvedParams = await params;
     const postData = await getPostData(resolvedParams.slug);
     return {
