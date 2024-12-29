@@ -15,8 +15,12 @@ export async function generateStaticParams() {
 
 export type paramsType = { slug: string };
 
-export async function generateMetadata(props: { params: paramsType }) {
-    const postData = await getPostData(props.params.slug);
+interface PageProps {
+    params: paramsType;
+  }
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+    const postData = await getPostData(params.slug);
     return {
         // guion largo de
         title: postData.title + " – " + "Cubusfera",
@@ -24,8 +28,8 @@ export async function generateMetadata(props: { params: paramsType }) {
     };
 }
 
-export default async function Post(props: { params: paramsType }) {
-    const postData = await getPostData(props.params.slug);
+export default async function Post({ params }: PageProps) {
+    const postData = await getPostData(params.slug);
     const posts = getSortedPostsData();
     return (
         <>
