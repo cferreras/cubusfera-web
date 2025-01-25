@@ -1,14 +1,16 @@
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+
 export default function Title(props: { title: string, subtitle: string }) {
     return (
-        <div className="bg-banner bg-no-repeat bg-center bg-cover  px-8 pt-20 pb-28 bg-blend-multiply bg-purple-700 -mb-60">
-            <div className='mx-auto container max-w-6xl space-y-2'>
-                <h1 className="text-5xl text-white font-bold">
+        <Card className="bg-gradient-to-r from-indigo-500 to-purple-600 dark:from-black dark:to-gray-900 rounded-none border-0 mb-8">
+            <CardHeader className="text-center py-20">
+                <CardTitle className="text-5xl font-bold text-white dark:text-gray-100">
                     {props.title}
-                </h1>
-                <h2 className="text-2xl text-muted">
+                </CardTitle>
+                <CardDescription className="text-2xl text-gray-200 dark:text-gray-300">
                     {props.subtitle}
-                </h2>
-            </div>
-        </div>
+                </CardDescription>
+            </CardHeader>
+        </Card>
     );
 }

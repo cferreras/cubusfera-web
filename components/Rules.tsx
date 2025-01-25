@@ -46,21 +46,21 @@ export default function Rules() {
     return (
         <div className="" id="normas">
             <div className="mx-auto max-w-7xl">
-                <div className="px-6 py-8 mx-auto max-w-7xl ">
+                <div className="py-8 mx-auto max-w-7xl ">
                         <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-12 lg:grid-cols-3">
 
                             {/* Iterate rules here with map*/}
                             {rules.map((rule) => (
                                 <div key={rule.id}>
-                                    <dt className="text-lg font-medium leading-6 text-gray-700 pb-2 font-bold">
+                                    <dt className="text-lg leading-6 text-gray-700 dark:text-white pb-2 font-bold">
                                         {rule.id}. <span>{rule.title}</span>
                                     </dt>
-                                    <dd className="mt-2 text-base text-gray-700 whitespace-pre-line">
+                                    <dd className="mt-2 text-base text-gray-700 dark:text-white whitespace-pre-line">
                                         {rule.body}
                                     </dd>
                                 </div>)
                             )}
-                            <p className="text-sm text-gray-700 border-t border-white">
+                            <p className="text-sm opacity-75  dark:text-white border-t border-black border-opacity-75 dark:border-gray-600 pt-4">
                                 Todas las decisiones de los moderadores son definitivas y no se
                                 pueden discutir.
                             </p>

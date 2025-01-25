@@ -4,6 +4,7 @@ import { encodedRedirect } from "@/utils/utils";
 import { createClient } from "@/utils/supabase/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { Provider } from "@supabase/supabase-js";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -131,4 +132,35 @@ export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
   return redirect("/sign-in");
+};
+
+
+
+
+const signInWith = async (provider: Provider) => {
+  const supabase = await createClient();
+  const auth_callback_url = `${process.env.SITE_URL}/auth/callback`;
+
+  const { data, error } =
+    await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: auth_callback_url
+      },
+    });
+
+  console.log(data);
+
+
+  if (error) {
+    console.error(error.message);
+  }
+
+  if (data?.url) {
+    redirect(data.url);
+  }
+};
+
+export const signInWithDiscord = async () => {
+  return await signInWith("discord");
 };
