@@ -164,3 +164,9 @@ const signInWith = async (provider: Provider) => {
 export const signInWithDiscord = async () => {
   return await signInWith("discord");
 };
+
+export async function logout() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect('/login'); // Redirige al usuario a la página de inicio de sesión después de cerrar sesión
+}

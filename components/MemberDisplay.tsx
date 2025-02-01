@@ -1,6 +1,7 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Calendar, Activity } from "lucide-react"; // Importamos los iconos
 
 export default function MemberDisplay({ member }: { member: any }) {
     return (
@@ -24,13 +25,15 @@ export default function MemberDisplay({ member }: { member: any }) {
                     {member.displayName}
                 </div>
             </CardHeader>
-            <CardContent>
-                <p className="text-gray-500 dark:text-gray-400">
-                    Registrado: {member.registered}
-                </p>
-                <p className="text-gray-500 dark:text-gray-400">
-                    Actividad: {member.activityIndex}
-                </p>
+            <CardContent className="space-y-2">
+                <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                    <Calendar className="h-4 w-4" />
+                    <p>Registrado: {member.registered}</p>
+                </div>
+                <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
+                    <Activity className="h-4 w-4" />
+                    <p>Actividad: {member.activityIndex}</p>
+                </div>
             </CardContent>
         </Card>
     );

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { logout } from "@/app/actions";
 
 export default async function LoginProfileButton() {
     const supabase = await createClient();
@@ -36,7 +37,7 @@ export default async function LoginProfileButton() {
                             </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                            <form action={""} className="w-full">
+                            <form action={logout} className="w-full"> {/* Usa la acción de cierre de sesión aquí */}
                                 <button type="submit" className="w-full text-left">
                                     Cerrar sesión
                                 </button>

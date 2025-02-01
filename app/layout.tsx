@@ -1,3 +1,5 @@
+
+import { ToastTrigger } from "@/components/ToastTrigger";
 import "./globals.css";
 import { ReactNode } from 'react';
 export default function GlobalLayout({ children }: { children: ReactNode }) {
