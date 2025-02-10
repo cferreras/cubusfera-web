@@ -17,8 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <>
+
       <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] ${lexend.className}`}>
-        <ThemeProvider
+      <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem

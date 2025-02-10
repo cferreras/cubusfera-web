@@ -106,7 +106,7 @@ export default function Navbar() {
             {/* Barra inferior */}
             <div className="flex justify-between container mx-auto max-w-7xl">
                 <NavbarMenu />
-                <div className="flex items-center space-x-4 py-3">
+                <div className="flex items-center py-3 gap-x-1">
                     <DarkmodeToggle />
                     <LoginProfileButton />
                 </div>

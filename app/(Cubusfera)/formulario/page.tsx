@@ -22,35 +22,35 @@ export default function Formulario() {
             title: "Nombre en Minecraft",
             subtitle: "",
             type: 'text',
-            apiRef: 'minecraftUsername'
+            apiRef: 'minecraft_username'
         },
         {
             title: "¿Utilizas Minecraft en versión Premium?",
             subtitle: "",
             type: 'radio',
             options: ['Sí', 'No'],
-            apiRef: 'premiumMinecraft'
+            apiRef: 'premium_minecraft'
         },
         {
             title: "¿Dispones de micrófono?",
             subtitle: "",
             type: 'radio',
             options: ['Sí', 'No'],
-            apiRef: 'micAvailable'
+            apiRef: 'mic_available'
         },
         {
             title: "¿Te sientes cómodo/a usando micrófono para comunicarte con otros miembros mientras juegas?",
             subtitle: "",
             type: 'radio',
             options: ['Sí', 'Otro:'],
-            apiRef: 'usesMic'
+            apiRef: 'uses_mic'
         },
         {
             title: "¿Has experimentado problemas de conexión recientemente como retrasos, ping alto, desconexiones u otras dificultades con tu red?",
             subtitle: "",
             type: 'radio',
             options: ['Sí', 'No', 'Otro:'],
-            apiRef: 'connectivityIssues'
+            apiRef: 'connectivity_issues'
         },
         {
             title: "¿Sabes jugar a Minecraft?",
@@ -58,13 +58,13 @@ export default function Formulario() {
             type: 'slider',
             min: 1,
             max: 5,
-            apiRef: 'minecraftKnowledge'
+            apiRef: 'minecraft_knowledge'
         },
         {
             title: "Cuéntanos tus motivaciones para unirte al servidor y comparte tus ideas o proyectos específicos que te gustaría desarrollar aquí.",
             subtitle: "Buscamos respuestas detalladas que muestren tu verdadero interés y objetivos, no solo respuestas simples o genéricas.",
             type: 'textarea',
-            apiRef: 'killerQuestion'
+            apiRef: 'killer_question'
         },
         {
             title: "Términos y condiciones",
@@ -76,7 +76,7 @@ export default function Formulario() {
                 "Voy a jugar un mínimo de 3 horas semanales",
                 "Avisaré de mis ausencias cuando no pueda jugar",
             ],
-            apiRef: ''
+            apiRef: 'already_submitted'
         }
     ];
     type Question = {
@@ -93,7 +93,7 @@ export default function Formulario() {
         <div>
             <Title title="Formulario" subtitle="Forma parte de Cubusfera" />
             <Container className='max-w-xl border rounded-lg py-8 px-2'>
-                <Form apiUrl={process.env.SPRING_API || ''} questions={questions} />
+                <Form apiUrl={process.env.EXPRESS_API || ''} questions={questions} />
             </Container>
         </div>
     );
