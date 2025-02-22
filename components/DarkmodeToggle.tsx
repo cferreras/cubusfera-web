@@ -32,8 +32,8 @@ export default function DarkmodeToggle() {
                 {theme === 'system' && <ComputerIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
             </div>
             <div>
-                {theme === 'dark' && 'Claro'}
-                {theme === 'light' && 'Oscuro'}
+                {theme === 'dark' && 'Oscuro'}
+                {theme === 'light' && 'Claro'}
                 {theme === 'system' && 'Sistema'}
             </div>
             <span className="sr-only">Cambiar tema</span>

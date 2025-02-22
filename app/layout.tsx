@@ -1,9 +1,9 @@
 import { ThemeProvider } from "@/components/theme-provider"
-import "./globals.css"
 import { ReactNode } from 'react'
 import { Lexend } from "next/font/google";
 const lexend = Lexend({ subsets: ['latin'] })
 
+import "./globals.css"
 export default function GlobalLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="es" suppressHydrationWarning>

@@ -7,7 +7,7 @@ import ProfileTitle from "@/components/ProfileTitle";
 import { User } from "@supabase/supabase-js";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"; // Importa Spinner
 import { DiscordLogoIcon } from "@radix-ui/react-icons";
-import { ArrowUpRight, ExternalLink, ExternalLinkIcon, LoaderIcon } from "lucide-react";
+import { ArrowUpRight, ExternalLink, ExternalLinkIcon, LoaderIcon, LocateIcon, Pin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { set } from "date-fns";
@@ -16,7 +16,7 @@ import { Avatar } from "@radix-ui/react-avatar";
 import { AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import ReactMarkdown from 'react-markdown';
-import { FaDiscord, FaInstagram, FaXTwitter, FaYoutube } from "react-icons/fa6";
+import { FaDiscord, FaInstagram, FaLocationDot, FaLocationPin, FaLocationPinLock, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function Perfil() {
@@ -104,32 +104,32 @@ export default function Perfil() {
                         </div>
                         <div className="flex items-center gap-4 mb-4">
                             {location && (
-                                <div className="text-sm text-neutral-600 dark:text-neutral-400">
-                                    📍 {location}
+                                <div className="flex items-center text-sm text-neutral-600 dark:text-neutral-400">
+                                    <FaLocationDot className="w-4 h-4 mr-1" /> {location}
                                 </div>
                             )}
                             {discord && (
-                                <div className="text-sm text-neutral-600 dark:text-neutral-400">
-                                    <FaDiscord className="inline-block w-4 h-4 mr-1" />
+                                <div className="flex items-center text-sm text-neutral-600 dark:text-neutral-400">
+                                    <FaDiscord className="w-4 h-4 mr-1" />
                                     {discord}
                                 </div>
                             )}
                             {twitter && (
                                 <a href={`https://twitter.com/${twitter}`} target="_blank" rel="noopener noreferrer"
-                                    className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors">
-                                    <FaXTwitter className="inline-block w-4 h-4 mr-0.5" /> @{twitter}
+                                    className="flex items-center text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors">
+                                    <FaXTwitter className="w-4 h-4 mr-0.5" /> @{twitter}
                                 </a>
                             )}
                             {instagram && (
                                 <a href={`https://instagram.com/${instagram}`} target="_blank" rel="noopener noreferrer"
-                                    className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors">
-                                    <FaInstagram className="inline-block w-4 h-4 mr-0.5" /> @{instagram}
+                                    className="flex items-center text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors">
+                                    <FaInstagram className="w-4 h-4 mr-0.5" /> @{instagram}
                                 </a>
                             )}
                             {youtube && (
                                 <a href={youtube} target="_blank" rel="noopener noreferrer"
-                                    className="text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors">
-                                    <FaYoutube className="inline-block w-4 h-4 mr-0.5" /> YouTube
+                                    className="flex items-center text-sm text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200 transition-colors">
+                                    <FaYoutube className="w-4 h-4 mr-0.5" /> YouTube
                                 </a>
                             )}
                         </div>
@@ -151,22 +151,6 @@ export default function Perfil() {
                         </div>
                     </div>
                 </div>
-
-                {/* Stats Bar */}
-                {/* <div className="flex gap-8 p-6 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800">
-                <div className="flex items-center gap-2">
-                    <span className="text-xl font-semibold">3+</span>
-                    <span className="text-sm text-neutral-600 dark:text-neutral-400">Years Experience</span>
-                </div>
-                <div className="flex items-center gap-2">
-                    <span className="text-xl font-semibold">5</span>
-                    <span className="text-sm text-neutral-600 dark:text-neutral-400">Certificates</span>
-                </div>
-                <div className="flex items-center gap-2">
-                    <span className="text-xl font-semibold">2</span>
-                    <span className="text-sm text-neutral-600 dark:text-neutral-400">Internships</span>
-                </div>
-            </div> */}
             </div>
 
             {/* Tabs and Content */}
@@ -190,7 +174,7 @@ export default function Perfil() {
                     <div className="space-y-6">
                         <div className="p-6 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800">
                             <h3 className="font-semibold mb-4">Estadísticas del jugador</h3>
-                            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                            <p className="flex items-center text-sm text-neutral-600 dark:text-neutral-400">
                                 Próximamente...
                             </p>
                         </div>
@@ -201,7 +185,7 @@ export default function Perfil() {
                     <div className="space-y-6">
                         <div className="p-6 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800">
                             <h3 className="font-semibold mb-4">Comentarios</h3>
-                            <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                            <p className="flex items-center text-sm text-neutral-600 dark:text-neutral-400">
                                 Próximamente...
                             </p>
                         </div>

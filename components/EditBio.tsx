@@ -109,7 +109,7 @@ export default function EditBio({
             try {
                 const { data: profile, error } = await supabase
                     .from("profiles")
-                    .select("bio, twitter_username, instagram_username, youtube_channel_url, discord_username")
+                    .select("bio, twitter_username, instagram_username, youtube_channel_url, discord_username, location")
                     .eq("id", userId)
                     .single();
 
@@ -124,7 +124,8 @@ export default function EditBio({
                         twitterUsername: profile.twitter_username || null,
                         instagramUsername: profile.instagram_username || null,
                         youtubeChannelUrl: profile.youtube_channel_url || null,
-                        discordUsername: profile.discord_username || null, // Reset Discord username
+                        discordUsername: profile.discord_username || null,
+                        location: profile.location || null,
                     });
                 }
             } catch (error) {
@@ -144,6 +145,7 @@ export default function EditBio({
                 instagram_username: values.instagramUsername || null,
                 youtube_channel_url: values.youtubeChannelUrl || null,
                 discord_username: values.discordUsername || null,
+                location: values.location || null,
             };
 
             const { data: profile, error: updateError } = await supabase
@@ -199,7 +201,12 @@ export default function EditBio({
                     <DialogTitle className="text-xl font-semibold">Editar Perfil</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(handleSave)} className="px-1 space-y-6 overflow-y-auto max-h-[calc(90vh-120px)] pr-2 mx-4">
+                    <form onSubmit={form.handleSubmit(handleSave)} 
+                        className="px-1 space-y-6 overflow-y-auto max-h-[calc(90vh-120px)]
+                        scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-700 
+                        scrollbar-track-neutral-100 dark:scrollbar-track-neutral-800 
+                        hover:scrollbar-thumb-neutral-400 dark:hover:scrollbar-thumb-neutral-600
+                        pr-4">
                         <FormField
                             control={form.control}
                             name="bio"
@@ -211,7 +218,7 @@ export default function EditBio({
                                             {...field}
                                             value={field.value || ""}
                                             placeholder="Escribe tu biografía aquí..."
-                                            className="min-h-[100px] bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 resize-none"
+                                            className="min-h-[100px] border-neutral-200 dark:border-neutral-800 resize-none"
                                         />
                                     </FormControl>
                                     <FormDescription className="text-neutral-600 dark:text-neutral-400">

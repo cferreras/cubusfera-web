@@ -5,6 +5,9 @@ import { getPostData, getSortedPostsData } from '@/lib/posts';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale'
 import type { Metadata } from 'next'
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import Link from 'next/link';
+import { ChevronLeftIcon, ChevronRight, ChevronRightIcon } from 'lucide-react';
 
 type Props = {
     params: Promise<{ slug: string }>
@@ -34,27 +37,35 @@ export async function generateMetadata(
 export default async function Post({ params }: Props) {
     const slug = (await params).slug
     const postData = await getPostData(slug);
-    const posts = getSortedPostsData();
     return (
-        <>
-            <Title title="Blog" subtitle="Nuestro blog" />
-            <Container>
-                <div className='lg:grid grid-cols-6'>
-                    <div className='lg:order-last col-span-2 mt-8 p-4'>
-                        <PostList posts={posts} />
-                    </div>
-                    <article className="mt-8 p-4 col-span-4">
-                        <h1 className="text-3xl font-bold mb-4">{postData.title}</h1>
-                        <p className="mb-4">
-                            {format(new Date(postData.publishedAt), 'd MMMM, yyyy', { locale: es })}
-                        </p>
-                        <div
-                            className="prose lg:prose-md prose-h1:text-2xl prose-h1:font-semibold dark:prose-invert"
-                            dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-                        />
-                    </article>
-                </div>
-            </Container>
-        </>
+        <Container className="py-20">
+            <div>
+                <Breadcrumb className="mb-8">
+                    <BreadcrumbList>
+                        <BreadcrumbItem>
+                            <BreadcrumbLink asChild>
+                                <Link className='text-lg dark:text-white text-black' href="/blog">Blog</Link>
+                            </BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator  className='[&>svg]:w-5 [&>svg]:h-5'>
+                        <ChevronRightIcon/>
+                        </BreadcrumbSeparator>
+                        <BreadcrumbItem className='text-lg'>
+                                {postData.title}
+                        </BreadcrumbItem>
+                    </BreadcrumbList>
+                </Breadcrumb>
+                <article className="mt-8 ">
+                    <h1 className="text-3xl font-bold mb-4">{postData.title}</h1>
+                    <p className="mb-4 text-muted-foreground">
+                        {format(new Date(postData.publishedAt), 'd MMMM, yyyy', { locale: es })}
+                    </p>
+                    <div
+                        className="prose !max-w-none lg:prose-md prose-h1:text-2xl prose-h1:font-semibold dark:prose-invert prose-img:rounded-2xl prose-img:border"
+                        dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
+                    />
+                </article>
+            </div>
+        </Container>
     );
 }

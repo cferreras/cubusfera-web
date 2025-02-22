@@ -27,12 +27,12 @@ export default function Mapa() {
                 </div>
                 {/* Skeleton mientras carga */}
                 {isLoading && (
-                    <Skeleton className="w-full aspect-video rounded-2xl border" />
+                    <Skeleton className="w-full aspect-video rounded-2xl border dark:border-neutral-800" />
                 )}
 
                 {/* Iframe del mapa */}
                 <iframe
-                    className={`w-full aspect-video rounded-2xl border ${isLoading ? "opacity-0 pointer-events-none" : "opacity-100"
+                    className={`w-full aspect-video rounded-2xl border dark:border-neutral-800 ${isLoading ? "opacity-0 pointer-events-none" : "opacity-100"
                         }`}
                     src="https://mapa.cubusfera.com/"
                     onLoad={() => setIsLoading(false)} // Desactivar el skeleton cuando el iframe cargue
