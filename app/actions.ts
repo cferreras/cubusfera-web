@@ -134,23 +134,15 @@ export const signOutAction = async () => {
   return redirect("/sign-in");
 };
 
-
-
-
-const signInWith = async (provider: Provider) => {
+export const signInWithDiscord = async (next?: string) => {
   const supabase = await createClient();
   const auth_callback_url = `${process.env.SITE_URL}/auth/callback`;
-
-  const { data, error } =
-    await supabase.auth.signInWithOAuth({
-      provider,
-      options: {
-        redirectTo: auth_callback_url
-      },
-    });
-
-  console.log(data);
-
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "discord",
+    options: {
+      redirectTo: next ? `${auth_callback_url}?next=${encodeURIComponent(next)}` : auth_callback_url,
+    },
+  });
 
   if (error) {
     console.error(error.message);
@@ -159,10 +151,6 @@ const signInWith = async (provider: Provider) => {
   if (data?.url) {
     redirect(data.url);
   }
-};
-
-export const signInWithDiscord = async () => {
-  return await signInWith("discord");
 };
 
 export async function logout() {

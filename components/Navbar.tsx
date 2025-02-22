@@ -1,17 +1,10 @@
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import Tooltip from './Tooltip';
-import LoginProfileButton from './LoginProfileButton';
 import ServerStatus from './ServerStatus';
-import DarkmodeToggle from './DarkmodeToggle';
 import NavbarMenu from './NavbarMenu';
-
-
-
+import AuthenticationButton from './AuthenticationButton';
 
 export default function Navbar() {
     return (
-        <nav className="bg-white dark:bg-black shadow-lg border-b dark:border-gray-600">
+        <>
             {/* Barra superior */}
             <div className="bg-indigo-600 w-full h-9">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-9">
@@ -104,14 +97,15 @@ export default function Navbar() {
             </div>
 
             {/* Barra inferior */}
-            <div className="flex justify-between container mx-auto max-w-7xl">
-                <NavbarMenu />
-                <div className="flex items-center py-3 gap-x-1">
-                    <DarkmodeToggle />
-                    <LoginProfileButton />
+            <nav className="backdrop-blur-sm border-b dark:border-gray-600 w-full bg-white/55 dark:bg-black/45 sticky top-0 z-50">
+                <div className="flex justify-between container mx-auto max-w-7xl h-16">
+                    <NavbarMenu />
+                    <div className="flex items-center py-3 gap-x-1">
+                        <AuthenticationButton />
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </>
     );
 }
 

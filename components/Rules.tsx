@@ -52,15 +52,15 @@ export default function Rules() {
                             {/* Iterate rules here with map*/}
                             {rules.map((rule) => (
                                 <div key={rule.id}>
-                                    <dt className="text-lg leading-6 text-gray-700 dark:text-white pb-2 font-bold">
+                                    <dt className="text-left text-base">
                                         {rule.id}. <span>{rule.title}</span>
                                     </dt>
-                                    <dd className="mt-2 text-base text-gray-700 dark:text-white whitespace-pre-line">
+                                    <dd className="mt-2 text-left text-base dark:text-neutral-400 text-neutral-600 whitespace-pre-line">
                                         {rule.body}
                                     </dd>
                                 </div>)
                             )}
-                            <p className="text-sm opacity-75  dark:text-white border-t border-black border-opacity-75 dark:border-gray-600 pt-4">
+                            <p className="text-sm dark:text-neutral-400 text-neutral-600 border-t border-black border-opacity-75 dark:border-gray-600 pt-4">
                                 Todas las decisiones de los moderadores son definitivas y no se
                                 pueden discutir.
                             </p>

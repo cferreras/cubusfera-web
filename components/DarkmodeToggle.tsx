@@ -13,31 +13,30 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export default function DarkmodeToggle() {
-    const { setTheme } = useTheme()
+    const { theme, setTheme } = useTheme()
+    const cycleTheme = () => {
+        if (theme === 'system') {
+            setTheme('dark')
+        } else if (theme === 'dark') {
+            setTheme('light')
+        } else {
+            setTheme('system')
+        }
+    }
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="">
-                    <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                    <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                    <span className="sr-only">Toggle theme</span>
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuItem className="flex items-center gap-x-2" onClick={() => setTheme("light")}>
-                    <SunIcon className="h-4 w-4"/>
-                    Claro
-                </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-x-2" onClick={() => setTheme("dark")}>
-                    <MoonIcon className="h-4 w-4"/>
-                    Oscuro
-                </DropdownMenuItem>
-                <DropdownMenuItem className="flex items-center gap-x-2" onClick={() => setTheme("system")}>
-                    <ComputerIcon className="h-4 w-4"/>
-                    Sistema
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <button onClick={() => cycleTheme()} className="flex items-center gap-4 px-4 py-5 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-2xl outline-none">
+            <div className="relative w-[1.2rem] h-[1.2rem]">
+                {theme === 'dark' && <MoonIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
+                {theme === 'light' && <SunIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
+                {theme === 'system' && <ComputerIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
+            </div>
+            <div>
+                {theme === 'dark' && 'Claro'}
+                {theme === 'light' && 'Oscuro'}
+                {theme === 'system' && 'Sistema'}
+            </div>
+            <span className="sr-only">Cambiar tema</span>
+        </button>
     )
 }

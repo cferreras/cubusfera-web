@@ -1,50 +1,134 @@
-"use client"
+"use client";
+import { useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 import Container from "@/components/Container";
+import EditBio from "@/components/EditBio";
 import ProfileTitle from "@/components/ProfileTitle";
-import { Separator } from "@/components/ui/separator";
+import { User } from "@supabase/supabase-js";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"; // Importa Spinner
+import { DiscordLogoIcon } from "@radix-ui/react-icons";
+import { ArrowUpRight, ExternalLink, ExternalLinkIcon, LoaderIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { set } from "date-fns";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar } from "@radix-ui/react-avatar";
+import { AvatarFallback } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
+import ReactMarkdown from 'react-markdown';
+import { use } from "react";
 
-export default function Perfil() {
-    // get params from the URL
-    const { slug } = useParams();
-    const slugString = Array.isArray(slug) ? slug[0] : slug || "No user session";
-    return (<>
-        <ProfileTitle title={slugString} rank="Owner" tooltip={slugString} />
-        <Container>
+export default function Perfil({ params }: { params: Promise<{ slug: string }> }) {
+    const resolvedParams = use(params);
+    const [user, setUser] = useState<User | null>(null);
+    const [bio, setBio] = useState("");
+    const [twitter, setTwitter] = useState("");
+    const [minecraftUsername, setMinecraftUsername] = useState("");
+    const [instagram, setInstagram] = useState("");
+    const [discordFullName, setDiscordFullName] = useState("");
+    const [discord, setDiscord] = useState("");
+    const [youtube, setYoutube] = useState("");
+    const [location, setLocation] = useState("");
+    const supabase = createClient();
 
-            <div className="grid grid-cols-12 gap-8 mt-3">
-                <div className="col-span-8 space-y-2">
-                    <div className="flex gap-2">
-                        <Link href="#" className="text-lg space-x-1 hover:underline"><span className="font-bold">8</span><span className="opacity-75">Amigos</span></Link>
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const { data: profile, error } = await supabase
+                    .from("profiles")
+                    .select("bio, minecraft_username, twitter_username, instagram_username, youtube_channel_url, discord_username, location")
+                    .eq("minecraft_username", resolvedParams.slug)
+                    .single();
+
+                if (error) {
+                    console.info("No se ha encontrado perfil:", error);
+                }
+
+                if (profile) {
+                    setBio(profile.bio || "No se ha proporcionado una biografía.");
+                    setTwitter(profile.twitter_username || "");
+                    setYoutube(profile.youtube_channel_url || "");
+                    setDiscord(profile.discord_username || "");
+                    setInstagram(profile.instagram_username || "");
+                    setLocation(profile.location || "");
+                    setMinecraftUsername(profile.minecraft_username || "");
+                }
+            } catch (error) {
+                console.error("Error al cargar los datos del usuario:", error);
+            }
+        };
+        fetchUser();
+    }, [resolvedParams.slug]); // Updated dependency
+
+    return (
+        <>
+            <ProfileTitle
+                title={minecraftUsername ?? "Guest"}
+                rank="Owner"
+                tooltip={minecraftUsername ?? "Guest"}
+            />
+            <Container className="mb-12 pb-12">
+                <div className="md:flex gap-16 space-y-8 md:space-y-0">
+                    <div className="md:w-3/4">
+                        <h3 className="font-bold text-2xl">Bio</h3>
+                        {bio ? (
+                            <div className="text-md/7 prose dark:prose-invert max-w-none">
+                                <ReactMarkdown
+                                    components={{
+                                        h1: 'span',
+                                        h2: 'span',
+                                        h3: 'span',
+                                        h4: 'span',
+                                        h5: 'span',
+                                        h6: 'span',
+                                        img: ({ node, ...props }) => <span>{props.alt}</span>,
+                                        a: ({ node, ...props }) => <span>{props.children}</span>
+                                    }}
+                                >
+                                    {bio}
+                                </ReactMarkdown>
+                            </div>
+                        ) : (
+                            <Skeleton className="w-full h-24 " />
+                        )}
+                        <Separator className="mt-7 mb-4" />
+                        <h3 className="font-bold text-2xl">Estadísticas</h3>
+                        <div className="text-md/7">Próximamente...</div>
                     </div>
-                    <p className="text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at nisl nec nunc facilisis ultricies. Donec eget ris
-                    </p>
-
+                    <div className="md:w-1/4">
+                        <div className="border rounded-lg px-6 py-8 space-y-6">
+                            {location && <div className="">
+                                <div className="font-semibold text-xs">Ubicación</div>
+                                <div className="font-semibold py-1 text-md">
+                                    {location}
+                                </div>
+                            </div>}
+                            {discord && <div className="">
+                                <div className="font-semibold text-xs">Discord</div>
+                                <div className="font-semibold py-1 text-md">
+                                    {discord}
+                                </div>
+                            </div>}
+                            {twitter && <div className="">
+                                <div className="font-semibold text-xs">Twitter (x)</div>
+                                <Button variant="link" asChild className="font-semibold p-0 text-md"><a href={`https://twitter.com/${twitter}`}>@{twitter} <ArrowUpRight className="h-4 w-4 ml-1" /></a></Button>
+                            </div>}
+                            {instagram && <div className="">
+                                <div className="font-semibold text-xs">Instagram</div>
+                                <Button variant="link" asChild className="font-semibold p-0 text-md">
+                                    <a href={`https://instagram.com/${instagram}`}>@{instagram} <ArrowUpRight className="h-4 w-4 ml-1" /></a>
+                                </Button>
+                            </div>}
+                            {youtube && <div className="">
+                                <div className="font-semibold text-xs">Youtube</div>
+                                <Button variant="link" asChild className="font-semibold p-0 text-md">
+                                    <a href={youtube}>@{youtube.split('@')[1]} <ArrowUpRight className="h-4 w-4 ml-1" /></a>
+                                </Button>
+                            </div>}
+                        </div>
+                    </div>
                 </div>
-                <div className="col-span-4 space-y-2">
-                    <div className="flex items-center text-lg opacity-75">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 7.35q3.05-2.8 4.525-5.087T18 10.2q0-2.725-1.737-4.462T12 4T7.738 5.738T6 10.2q0 1.775 1.475 4.063T12 19.35M12 22q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22m0-12" />
-                            </svg>
-                        </span>
-                        <span>España</span>
-                    </div>
-                    <div className="flex items-center text-lg opacity-75">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M11 14v-2h2v2zm-4 0v-2h2v2zm8 0v-2h2v2zm-4 4v-2h2v2zm-4 0v-2h2v2zm8 0v-2h2v2zM3 22V4h3V2h2v2h8V2h2v2h3v18zm2-2h14V10H5zM5 8h14V6H5zm0 0V6z" />
-                            </svg>
-                        </span>
-                        <span>Se unió en enero de 2025</span>
-                    </div>
-
-
-
-                </div>
-            </div>
-        </Container>
-    </>
-    )
+            </Container>
+        </>
+    );
 }

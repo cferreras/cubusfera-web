@@ -4,11 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import React from 'react';
 import { ThemeProvider } from "@/components/theme-provider";
-import { Lexend } from "next/font/google";
 import { ToastTrigger } from "@/components/ToastTrigger";
 import { Toaster } from "@/components/ui/toaster";
-const lexend = Lexend({ subsets: ['latin'] })
-
 
 export default function RootLayout({
   children,
@@ -16,24 +13,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
+      <div className="w-full h-screen absolute left-0 top-0 z-[-1] pointer-events-none" data-pattern="diamonds">
+        <div className="w-full h-full absolute left-0 bottom-0 z-10 bg-gradient-to-t from-white to-neutral-white/0 dark:from-neutral-950 dark:to-neutral-950/0 pointer-events-none"></div>
+      </div>
 
-      <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] ${lexend.className}`}>
-      <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          <main>
-            {children}
-          </main>
-          <Toaster/>
-          <ToastTrigger />
-          <Footer />
-        </ThemeProvider>
-      </body>
-    </>
+      <Navbar />
+      <main className="w-full flex flex-col grow">
+        {children}
+      </main>
+      <Toaster/>
+      <ToastTrigger />
+      <Footer />
+    </div>
   );
 }

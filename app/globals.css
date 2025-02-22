@@ -60,10 +60,52 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
+  body[data-pattern="diamonds"],
+  body [data-pattern="diamonds"] {
+    --rgb: 0 0 0;
+    --opacity: 0.02;
+    --size: 6px 6px;
+    background-image: linear-gradient(
+      45deg,
+      rgb(var(--rgb) / var(--opacity)) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgb(var(--rgb) / var(--opacity)) 50%,
+      rgb(var(--rgb) / var(--opacity)) 75%,
+      transparent 75%,
+      transparent 100%
+    );
+    background-size: var(--size);
+    background-position: 0 0;
   }
-  body {
-    @apply bg-background text-foreground;
+
+  .dark body[data-pattern="diamonds"],
+  .dark body [data-pattern="diamonds"] {
+    --rgb: 255 255 255;
+    --opacity: 0.1;
+  }
+
+  body[data-pattern="cross"],
+  body [data-pattern="cross"] {
+    --rgb: 0 0 0;
+    --opacity: 0.03;
+    --size: 20px;
+    background-image: linear-gradient(
+        to right,
+        rgb(var(--rgb) / var(--opacity)) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        rgb(var(--rgb) / var(--opacity)) 1px,
+        transparent 1px
+      );
+    background-size: var(--size) var(--size);
+  }
+
+  .dark body[data-pattern="cross"],
+  .dark body [data-pattern="cross"] {
+    --rgb: 255 255 255;
+    --opacity: 0.03;
   }
 }
