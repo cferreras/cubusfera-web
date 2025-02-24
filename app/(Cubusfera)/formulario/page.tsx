@@ -42,14 +42,14 @@ export default function Formulario() {
             title: "¿Te sientes cómodo/a usando micrófono para comunicarte con otros miembros mientras juegas?",
             subtitle: "",
             type: 'radio',
-            options: ['Sí', 'Otro:'],
+            options: ['Sí', 'No'],
             apiRef: 'uses_mic'
         },
         {
             title: "¿Has experimentado problemas de conexión recientemente como retrasos, ping alto, desconexiones u otras dificultades con tu red?",
             subtitle: "",
             type: 'radio',
-            options: ['Sí', 'No', 'Otro:'],
+            options: ['Sí', 'No'],
             apiRef: 'connectivity_issues'
         },
         {
@@ -90,11 +90,14 @@ export default function Formulario() {
         apiRef: string;
     };
     return (
-        <div>
-            <Title title="Formulario" subtitle="Forma parte de Cubusfera" />
-            <Container className='max-w-xl border rounded-lg py-8 px-2'>
-                <Form apiUrl={process.env.EXPRESS_API || ''} questions={questions} />
-            </Container>
-        </div>
+        <Container className='py-20'>
+            <div className="flex flex-col gap-1 mb-12">
+                <h1 className="text-lg font-bold">Formulario</h1>
+                <p className="text-base text-muted-foreground">
+                    Formulario de inscripción al servidor de Minecraft.
+                </p>
+            </div>
+            <Form questions={questions} />
+        </Container>
     );
 }

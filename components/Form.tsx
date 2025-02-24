@@ -25,7 +25,7 @@ type Question = {
     apiRef: string;
 };
 
-export default function Form(props: { questions: Question[], apiUrl: string }) {
+export default function Form(props: { questions: Question[] }) {
     const [alreadySubmitted, setAlreadySubmitted] = useState<boolean | null>(null);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState<(string | number | boolean | boolean[] | null)[]>(Array(11).fill(null));
@@ -124,7 +124,35 @@ export default function Form(props: { questions: Question[], apiUrl: string }) {
             textareaRef.current?.focus();
         }
     }, [currentQuestion]);
-
+    // Add this new state at the top with other states
+        const [formStatus, setFormStatus] = useState<'accepted' | 'pending' | 'rejected' | 'unknown'>('pending');
+    
+        // Add this function to fetch the status
+        const fetchFormStatus = async () => {
+            const supabase = createClient();
+            const userId = await getUserID();
+            
+            const { data, error } = await supabase
+                .from('forms')
+                .select('status')
+                .eq('id', userId)
+                .single();
+    
+            if (error) {
+                console.error('Error fetching form status:', error);
+                setFormStatus('unknown');
+                return;
+            }
+    
+            setFormStatus(data?.status || 'pending');
+        };
+    
+        // Add this to your existing useEffect that checks submission status
+        useEffect(() => {
+            isAlreadySubmitted();
+            fetchFormStatus(); // Add this line
+        }, [currentQuestion]);
+        
     const handleNext = async (): Promise<void> => {
         if (answers[currentQuestion] === null || answers[currentQuestion] === '') {
             setError('Por favor, responde esta pregunta antes de continuar.');
@@ -189,34 +217,34 @@ export default function Form(props: { questions: Question[], apiUrl: string }) {
             handleNext(); // Llama a handleNext cuando se presiona Enter
         }
     };
-
+    // Update the PostulationStatus component call
     return (
-        <div className="space-y-6">
+        <div className="space-y-8">
             {alreadySubmitted === null ? (
-                // Skeleton cuando alreadySubmitted es null
-                <div className="animate-pulse space-y-6 flex flex-col  p-6">
+                // Skeleton loader
+                <div className="animate-pulse space-y-8 flex flex-col p-8 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800">
                     <div className="space-y-4">
-                        <div className="h-6 w-2/4 bg-gray-200 rounded" />
-                        <div className="h-4 w-3/4 bg-gray-200 rounded" />
+                        <div className="h-6 w-2/4 bg-neutral-200 dark:bg-neutral-800 rounded-xl" />
+                        <div className="h-4 w-3/4 bg-neutral-200 dark:bg-neutral-800 rounded-xl" />
                     </div>
-                    <div className="min-h-10 w-full bg-gray-200 rounded" />
-                    <div className="min-h-4 w-3/4 bg-gray-200 rounded" />
+                    <div className="min-h-10 w-full bg-neutral-200 dark:bg-neutral-800 rounded-xl" />
+                    <div className="min-h-4 w-3/4 bg-neutral-200 dark:bg-neutral-800 rounded-xl" />
 
                     <div className="flex justify-between items-center gap-x-4 pt-1.5">
-                        <div className="h-10 w-36 bg-gray-200 rounded-lg" />
-                        <div className="h-4 w-full bg-gray-200 rounded-full" />
-                        <div className="h-10 w-36 bg-gray-200 rounded-lg" />
+                        <div className="h-10 w-36 bg-neutral-200 dark:bg-neutral-800 rounded-xl" />
+                        <div className="h-4 w-full bg-neutral-200 dark:bg-neutral-800 rounded-xl" />
+                        <div className="h-10 w-36 bg-neutral-200 dark:bg-neutral-800 rounded-xl" />
                     </div>
                 </div>
             ) : !alreadySubmitted ? (
-                // Contenido principal cuando alreadySubmitted es false
-                <div className="space-y-6  p-6">
+                // Main form content
+                <div className="space-y-8 p-8 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800">
                     <div className="space-y-2">
-                        <Label className="text-xl font-semibold">{props.questions[currentQuestion].title}</Label>
-                        <p className="text-sm text-gray-500">{props.questions[currentQuestion].subtitle}</p>
+                        <Label className="text-lg font-bold">{props.questions[currentQuestion].title}</Label>
+                        <p className="text-base text-muted-foreground">{props.questions[currentQuestion].subtitle}</p>
                     </div>
 
-                    {/* Renderizar el tipo de pregunta */}
+                    {/* Input types remain the same, just updating their styling classes */}
                     {props.questions[currentQuestion].type === 'text' && (
                         <div className="space-y-2">
                             <Input
@@ -227,7 +255,7 @@ export default function Form(props: { questions: Question[], apiUrl: string }) {
                                 placeholder="Escribe tu respuesta aquí"
                                 autoFocus
                                 disabled={currentQuestion === 0}
-                                className="w-full border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md"
+                                className="w-full rounded-xl bg-white dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700"
                             />
                             {currentQuestion === 0 && (
                                 <div className="flex items-center text-sm text-gray-500">
@@ -318,10 +346,17 @@ export default function Form(props: { questions: Question[], apiUrl: string }) {
                     {error && <p className="text-red-500 text-sm">{error}</p>}
 
                     <div className="flex justify-between items-center gap-x-4">
-                        <Button onClick={handlePrevious} disabled={currentQuestion === 0}>
+                        <Button 
+                            onClick={handlePrevious} 
+                            disabled={currentQuestion === 0}
+                            className="rounded-xl"
+                        >
                             Anterior
                         </Button>
-                        <Progress value={currentQuestion / (props.questions.length - 1) * 100}></Progress>
+                        <Progress 
+                            value={currentQuestion / (props.questions.length - 1) * 100}
+                            className="bg-neutral-200 dark:bg-neutral-800"
+                        />
                         <Button
                             onClick={handleNext}
                             disabled={
@@ -331,14 +366,14 @@ export default function Form(props: { questions: Question[], apiUrl: string }) {
                                 (props.questions[currentQuestion].type === 'checkbox' &&
                                     !areAllChecked(answers[currentQuestion] as boolean[]))
                             }
+                            className="rounded-xl"
                         >
                             {props.questions.length - 1 === currentQuestion ? 'Finalizar' : 'Siguiente'}
                         </Button>
                     </div>
                 </div>
             ) : (
-                // Contenido cuando alreadySubmitted es true
-                <PostulationStatus status="pending"></PostulationStatus>
+                <PostulationStatus status={formStatus} />
             )}
         </div>
     );

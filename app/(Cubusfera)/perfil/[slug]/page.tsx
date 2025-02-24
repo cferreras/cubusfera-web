@@ -21,6 +21,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { use } from "react";
 import { useParams } from 'next/navigation';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import AdminBadge from "@/components/AdminBadge";
 
 export default function Perfil() {
     const params = useParams<{ slug: string }>();
@@ -33,6 +34,7 @@ export default function Perfil() {
     const [youtube, setYoutube] = useState("");
     const [location, setLocation] = useState("");
     const [isOwner, setIsOwner] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
     const supabase = createClient();
     useEffect(() => {
         const fetchUser = async () => {
@@ -42,7 +44,7 @@ export default function Perfil() {
 
                 const { data: profile, error } = await supabase
                     .from("profiles")
-                    .select("bio, minecraft_username, twitter_username, instagram_username, youtube_channel_url, discord_username, location, id")
+                    .select("bio, minecraft_username, twitter_username, instagram_username, youtube_channel_url, discord_username, location, id, role")
                     .eq("minecraft_username", params.slug)
                     .single();
                 if (error) {
@@ -57,8 +59,8 @@ export default function Perfil() {
                     setInstagram(profile.instagram_username || "");
                     setLocation(profile.location || "");
                     setMinecraftUsername(profile.minecraft_username || "");
-
-                    // Show edit button only if the authenticated user is the profile owner
+                    const isAdmin = profile.role === 'admin';
+                    setIsAdmin(isAdmin);
                     const isOwner = user?.id === profile.id;
                     setIsOwner(isOwner);
 
@@ -98,7 +100,7 @@ export default function Perfil() {
                     </Avatar>
                     <div className="flex-1">
                         <div className="flex items-center justify-between mb-2">
-                            <h1 className="text-2xl font-semibold">{minecraftUsername || "Guest"}</h1>
+                            <h1 className="text-2xl font-semibold">{minecraftUsername || "Guest"}{isAdmin && <AdminBadge/>}</h1>
                             {isOwner && (
                                 <EditBio
                                     userId={user?.id ?? ""}

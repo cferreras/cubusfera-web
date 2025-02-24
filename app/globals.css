@@ -79,19 +79,17 @@
     background-position: 0 0;
   }
 
-
   .dark body[data-pattern="diamonds"],
   .dark body [data-pattern="diamonds"] {
     --rgb: 255 255 255;
     --opacity: 0.1;
   }
 
-  .dark body > footer[data-pattern="diamonds"],
-  .dark body > footer [data-pattern="diamonds"] {
+  .dark footer[data-pattern="diamonds"],
+  .dark [data-pattern="diamonds"].footer {
     --rgb: 255 255 255;
-    --opacity: 0.03;
+    --opacity: 0.04;
   }
-
 
   body[data-pattern="cross"],
   body [data-pattern="cross"] {
