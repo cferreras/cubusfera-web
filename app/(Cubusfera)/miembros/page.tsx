@@ -1,11 +1,8 @@
-import Title from "@/components/Title";
+
 import Container from "@/components/Container";
 import { Metadata } from "next";
-import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
 import dotenv from "dotenv";
 import MemberDisplay from "@/components/MemberDisplay";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { createClient } from "@/utils/supabase/server";
 
 dotenv.config();
@@ -15,37 +12,43 @@ export const metadata: Metadata = {
 }
 
 export default async function Miembros() {
-    const supabase = createClient();
-    
-    const { data: members, error } = await (await supabase)
+    const supabase = await createClient();
+
+    const { data: members, error } = await supabase
         .from('profiles')
-        .select('id, minecraft_username, created_at')
-        .order('created_at', { ascending: false });
+        .select('id, minecraft_username, created_at, role')
+        .not('minecraft_username', 'is', null)
+        .order('created_at', { ascending: false })
+        .throwOnError();
 
     if (error) {
         console.error('Error fetching members:', error);
         return <div>Error loading members</div>;
     }
 
-    const formattedMembers = members?.map((member: { id: any; minecraft_username: any; created_at: string | number | Date; }) => ({
+    const formattedMembers = members?.map((member: { id: string; minecraft_username: string; role: string; created_at: string | number | Date; }) => ({
         id: member.id,
+        role: member.role,
         displayName: member.minecraft_username,
         registered: new Date(member.created_at).toLocaleDateString()
     })) || [];
 
     return (
-        <TooltipProvider>
-            <Title title="Miembros" subtitle="Miembros del servidor" />
-            <Container className="py-9">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {formattedMembers.map((member) => (
-                        <MemberDisplay
-                            key={member.id}
-                            member={member}
-                        />
-                    ))}
-                </div>
-            </Container>
-        </TooltipProvider>
+        <Container className="py-20">
+            <div className="flex flex-col gap-1 mb-12">
+                <h1 className="text-lg font-bold">Miembros</h1>
+                <p className="text-base text-muted-foreground">
+                    Explora la lista de jugadores que forman parte de nuestra comunidad.
+                </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {formattedMembers.map((member) => (
+                    <MemberDisplay
+                        key={member.id}
+                        member={member}
+                    />
+                ))}
+            </div>
+        </Container>
     );
 }

@@ -1,15 +1,12 @@
 import Container from "@/components/Container";
 import TheHeader from "@/components/TheHeader";
 import { Metadata } from "next";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button"; // Ícono de Discord
 import Footer from "@/components/Footer";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Lexend } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import { FileIcon } from "lucide-react";
-const lexend = Lexend({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Inicio – Cubusfera',
   description: 'Cubusfera es un servidor de Minecraft técnico y vanilla en español...',
@@ -46,17 +43,17 @@ export default function Home() {
                 </CardDescription>
               </div>
               <img
-                className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-2xl"
+                className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-3xl"
                 src="/images/mob-farm.webp"
                 alt="Granja de mobs"
               />
             </article>
           </Card>
-  
+
           <Card className="bg-transparent border-none shadow-none">
             <article className="flex flex-col md:flex-row gap-12 items-center">
               <img
-                className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-2xl"
+                className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-3xl"
                 src="/images/cama.webp"
                 alt="Cama en Minecraft"
               />
@@ -70,7 +67,7 @@ export default function Home() {
               </div>
             </article>
           </Card>
-  
+
           <Card className="bg-transparent border-none shadow-none">
             <article className="flex flex-col md:flex-row gap-12 items-center">
               <div className="flex flex-col space-y-4 md:w-2/3">
@@ -82,13 +79,13 @@ export default function Home() {
                 </CardDescription>
               </div>
               <img
-                className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-2xl"
+                className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-3xl"
                 src="/images/jungla.webp"
                 alt="Bioma de jungla"
               />
             </article>
           </Card>
-  <Card className="flex flex-col md:flex-row gap-4 justify-between items-center md:p-16 p-8 bg-neutral-900 dark:border-neutral-800 rounded-3xl mt-8">
+          <Card className="flex flex-col md:flex-row gap-4 justify-between items-center md:p-16 p-8 bg-neutral-900 dark:border-neutral-800 rounded-3xl !mt-8">
             <div className="flex flex-col gap-4 justify-start">
               <div className="text-3xl md:text-5xl font-bold text-white">
                 Comienza a jugar ahora
@@ -108,7 +105,6 @@ export default function Home() {
               </Link>
             </Button>
           </Card>
-  
         </Container>
       </main>
       <Footer />

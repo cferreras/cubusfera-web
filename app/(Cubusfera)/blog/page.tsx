@@ -39,8 +39,8 @@ export default function Post() {
         <>
             <Container className='py-20'>
                 <div className="flex flex-col gap-1 mb-12">
-                    <div className="dark:text-neutral-300 text-neutral-600 text-base">Blog</div>
-                    <p className="dark:text-neutral-300 text-neutral-600 text-sm">Descubre las ultimas novedades del servidor aquí.</p>
+                    <div className="text-lg font-bold">Blog</div>
+                    <p className="text-base text-muted-foreground">Descubre las ultimas novedades del servidor aquí.</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

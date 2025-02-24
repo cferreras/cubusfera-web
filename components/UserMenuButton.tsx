@@ -10,9 +10,10 @@ interface UserMenuButtonProps {
     discordUser: string
     discordAvatar: string
     email: string
+    minecraftUsername: string
 }
 
-export default function UserMenuButton({ discordUser, discordAvatar, email }: UserMenuButtonProps) {
+export default function UserMenuButton({ discordUser, discordAvatar, email, minecraftUsername }: UserMenuButtonProps) {
     const [isOpen, setIsOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -51,6 +52,7 @@ export default function UserMenuButton({ discordUser, discordAvatar, email }: Us
                 <UserDropdownMenu 
                     discordUser={discordUser}
                     discordAvatar={discordAvatar}
+                    minecraftUsername={minecraftUsername}
                     email={email}
                     isOpen={isOpen}
                     onClose={() => setIsOpen(false)}

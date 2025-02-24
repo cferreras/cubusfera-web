@@ -21,9 +21,11 @@ export default function Mapa() {
     return (
         <>
             <Container className="py-20">
-            <div className="flex flex-col gap-1 pb-8">
-                    <div className="dark:text-neutral-300 text-neutral-600 text-base">Mapa</div>
-                    <p className="dark:text-neutral-300 text-neutral-600 text-sm">Mapa interactivo del mundo de Cubusfera.</p>
+                <div className="flex flex-col gap-1 mb-12">
+                    <h1 className="text-lg font-bold">Mapa</h1>
+                    <p className="text-base text-muted-foreground">
+                        Mapa interactivo del mundo de Cubusfera.
+                    </p>
                 </div>
                 {/* Skeleton mientras carga */}
                 {isLoading && (
@@ -40,13 +42,13 @@ export default function Mapa() {
                 />
 
                 {/* Enlace para ver en pantalla completa */}
-                <Button asChild variant="link" className="px-0 my-2">                                                 
-                <a
-                    target="_blank"
-                    href="https://mapa.cubusfera.com/"
-                >
-                    Ver en pantalla completa <ArrowUpRightFromSquare className="h-4 w-4 ml-1.5" />
-                </a>
+                <Button asChild variant="link" className="px-0 my-2">
+                    <a
+                        target="_blank"
+                        href="https://mapa.cubusfera.com/"
+                    >
+                        Ver en pantalla completa <ArrowUpRightFromSquare className="h-4 w-4 ml-1.5" />
+                    </a>
                 </Button>
             </Container>
         </>

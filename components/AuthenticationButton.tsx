@@ -14,10 +14,21 @@ export default async function LoginProfileButton() {
     const discordAvatar = session?.data?.user?.user_metadata?.avatar_url
     const email = session?.data?.user?.email
 
+    let minecraftUsername = ""
+    if (session?.data?.user) {
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('minecraft_username')
+            .eq('id', session.data.user.id)
+            .single()
+        minecraftUsername = profile?.minecraft_username || ""
+    }
+
     return (
         <>
             {discordUser ? (
                 <UserMenuButton
+                    minecraftUsername={minecraftUsername}
                     discordUser={discordUser}
                     discordAvatar={discordAvatar}
                     email={email || ''}

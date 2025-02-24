@@ -13,8 +13,8 @@ export default function Normas() {
         <>
             <Container className="py-20">
                 <div className="flex flex-col gap-1">
-                    <div className="dark:text-neutral-300 text-neutral-600 text-base">Normas</div>
-                    <p className="dark:text-neutral-300 text-neutral-600 text-sm">Estas son la normas de Cubusfera tanto para Discord como para Minecraft.</p>
+                    <div className="text-lg font-bold">Normas</div>
+                    <p className="text-base text-muted-foreground">Estas son la normas de Cubusfera tanto para Discord como para Minecraft.</p>
                 </div>
                 <Rules />
             </Container>
