@@ -28,11 +28,11 @@ export default function Footer() {
                 <div className="flex flex-col items-center gap-2">
                     <span className="text-xs dark:text-neutral-300 text-neutral-700">© 2025 Cubusfera</span>
                     <div className="flex items-center gap-3">
-                        <a href="/legal/privacy" className="dark:text-neutral-400 text-neutral-600 text-xs hover:underline">Privacidad</a>
+                        <a href="/legal/privacidad" className="dark:text-neutral-400 text-neutral-600 text-xs hover:underline">Privacidad</a>
                         <span className="dark:text-neutral-400 text-neutral-600 text-sm">·</span>
-                        <a href="/legal/terms" className="dark:text-neutral-400 text-neutral-600 text-xs hover:underline">Términos</a>
+                        <a href="/legal/terminos" className="dark:text-neutral-400 text-neutral-600 text-xs hover:underline">Términos</a>
                         <span className="dark:text-neutral-400 text-neutral-600 text-sm">·</span>
-                        <a href="/contact" className="dark:text-neutral-400 text-neutral-600 text-xs hover:underline">Contacto</a>
+                        <a href="/contacto" className="dark:text-neutral-400 text-neutral-600 text-xs hover:underline">Contacto</a>
                     </div>
                 </div>
             </div>
