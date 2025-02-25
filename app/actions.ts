@@ -135,7 +135,9 @@ export const signOutAction = async () => {
 
 export const signInWithDiscord = async (next?: string) => {
   const supabase = await createClient();
-  const auth_callback_url = `${process.env.SITE_URL}/auth/callback`;
+  const origin = (await headers()).get("origin");
+  const auth_callback_url = `${origin}/auth/callback`;
+  
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "discord",
     options: {
