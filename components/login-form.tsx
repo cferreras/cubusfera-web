@@ -16,7 +16,7 @@ export function LoginForm({
       <form>
         <Button
           variant="outline"
-          className="w-full gap-2 bg-neutral-900 border-neutral-700 hover:bg-neutral-800 hover:border-neutral-600 py-6"
+          className="w-full gap-2 bg-white dark:bg-neutral-900 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-600 py-6 text-neutral-900 dark:text-white"
           formAction={() => signInWithDiscord(next || undefined)}
         >
           <svg className="-ml-0.5 h-5 w-5" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
@@ -25,11 +25,11 @@ export function LoginForm({
           Iniciar sesión con Discord
         </Button>
       </form>
-      <div className="mt-6 text-center text-xs text-neutral-400">
+      <div className="mt-6 text-center text-xs text-neutral-600 dark:text-neutral-400">
         Al continuar, aceptas nuestros{" "}
-        <a href="legal/privacidad" className="underline hover:text-neutral-200">Términos de Servicio</a>{" "}
+        <a href="legal/privacidad" className="underline hover:text-neutral-900 dark:hover:text-neutral-200">Términos de Servicio</a>{" "}
         y{" "}
-        <a href="legal/terminos" className="underline hover:text-neutral-200">Política de Privacidad</a>.
+        <a href="legal/terminos" className="underline hover:text-neutral-900 dark:hover:text-neutral-200">Política de Privacidad</a>.
       </div>
     </div>
   );
