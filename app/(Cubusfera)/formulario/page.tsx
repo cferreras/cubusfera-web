@@ -1,6 +1,5 @@
 import Container from '@/components/Container';
 import Form from '@/components/Form';
-import Title from '@/components/Title';
 import dotenv from "dotenv";
 dotenv.config(); // Carga las variables de entorno desde el archivo .env
 export default function Formulario() {

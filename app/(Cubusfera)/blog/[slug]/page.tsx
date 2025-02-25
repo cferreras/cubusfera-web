@@ -1,13 +1,11 @@
 import Container from '@/components/Container';
-import PostList from '@/components/PostList';
-import Title from '@/components/Title';
 import { getPostData, getSortedPostsData } from '@/lib/posts';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale'
 import type { Metadata } from 'next'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import Link from 'next/link';
-import { ChevronLeftIcon, ChevronRight, ChevronRightIcon } from 'lucide-react';
+import { ChevronRightIcon } from 'lucide-react';
 
 type Props = {
     params: Promise<{ slug: string }>

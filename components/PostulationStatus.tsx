@@ -1,6 +1,5 @@
 import React from 'react';
 import { Badge } from './ui/badge';
-import { Card } from './ui/card';
 import { CheckCircle2, Clock, XCircle, HelpCircle } from "lucide-react";
 
 interface PostulationStatusProps {

@@ -1,8 +1,7 @@
 import ServerStatus from './ServerStatus';
 import NavbarMenu from './NavbarMenu';
 import AuthenticationButton from './AuthenticationButton';
-import { FaDiscord, FaEarthAfrica, FaEarthEurope, FaXTwitter, FaYoutube } from 'react-icons/fa6';
-import { EarthIcon, WholeWord, WholeWordIcon } from 'lucide-react';
+import { FaDiscord, FaEarthAfrica, FaXTwitter, FaYoutube } from 'react-icons/fa6';
 
 export default function Navbar() {
     return (

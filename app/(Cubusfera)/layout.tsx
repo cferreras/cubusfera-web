@@ -3,9 +3,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import React from 'react';
-import { ThemeProvider } from "@/components/theme-provider";
-import { ToastTrigger } from "@/components/ToastTrigger";
-import { Toaster } from "@/components/ui/toaster";
 
 export default function RootLayout({
   children,

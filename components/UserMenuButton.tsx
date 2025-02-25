@@ -1,7 +1,6 @@
 "use client"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { Cross, MenuIcon } from "lucide-react"
 import UserDropdownMenu from "./UserDropdownMenu"
 import { Cross1Icon, HamburgerMenuIcon } from "@radix-ui/react-icons"
 import { useState, useEffect, useRef } from "react"

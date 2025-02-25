@@ -243,7 +243,7 @@ export default function EditBio({
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Ingresa tu nombre de usuario de Twitter/X sin el "@".
+                                        Ingresa tu nombre de usuario de Twitter/X sin el &#34;@&#34;.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -263,7 +263,7 @@ export default function EditBio({
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Ingresa tu nombre de usuario de Instagram sin el "@".
+                                        Ingresa tu nombre de usuario de Instagram sin el &#34;@&#34;.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>
@@ -305,7 +305,7 @@ export default function EditBio({
                                         />
                                     </FormControl>
                                     <FormDescription>
-                                        Ingresa tu nombre de usuario de Discord".
+                                        Ingresa tu nombre de usuario de Discord.
                                     </FormDescription>
                                     <FormMessage />
                                 </FormItem>

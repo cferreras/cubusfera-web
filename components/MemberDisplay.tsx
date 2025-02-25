@@ -5,7 +5,13 @@ import { Calendar } from "lucide-react"; // Importamos los iconos
 import Link from "next/link";
 import AdminBadge from "./AdminBadge";
 
-export default function MemberDisplay({ member }: { member: any }) {
+interface Member {
+    displayName?: string;
+    role?: string;
+    registered?: string;
+}
+
+export default function MemberDisplay({ member }: { member: Member }) {
     const displayName = member?.displayName || 'Unknown';
     const isAdmin = member?.role === 'admin' || false;
     console.log(member?.role + ' ' + isAdmin)

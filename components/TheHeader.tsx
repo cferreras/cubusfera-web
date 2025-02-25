@@ -1,10 +1,3 @@
-"use client";
-
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";// Usamos un ícono de Radix UI para Discord
-import Link from "next/link";
-import { FileIcon } from "lucide-react";
-
 export default function TheHeader() {
     return (
         <header className="max-w-7xl mx-auto py-20 md:py-40 text-center" >

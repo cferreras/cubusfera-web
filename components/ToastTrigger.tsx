@@ -56,7 +56,6 @@ export const ToastTrigger = () => {
     };
   
     fetchSessionAndShowToast();
-  }, [toast]);
-
+}, [dismiss, supabase, toast]); // Add missing dependencies
   return null; // Este componente no renderiza nada
 };

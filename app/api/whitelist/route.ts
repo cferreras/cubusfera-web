@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import env from 'dotenv';
 env.config();
 interface RequestBody {

@@ -1,6 +1,5 @@
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { TooltipContent, Tooltip, TooltipTrigger } from "./ui/tooltip";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Skeleton } from "./ui/skeleton";

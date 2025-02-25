@@ -1,6 +1,5 @@
 import Container from "@/components/Container";
 import Rules from "@/components/Rules";
-import Title from "@/components/Title";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

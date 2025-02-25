@@ -3,25 +3,17 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import Container from "@/components/Container";
 import EditBio from "@/components/EditBio";
-import ProfileTitle from "@/components/ProfileTitle";
 import { User } from "@supabase/supabase-js";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"; // Importa Spinner
-import { DiscordLogoIcon } from "@radix-ui/react-icons";
-import { ArrowUpRight, ChevronRightIcon, ExternalLink, ExternalLinkIcon, LoaderIcon, LocateIcon, Pin } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { set } from "date-fns";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Avatar } from "@radix-ui/react-avatar";
 import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
 import ReactMarkdown from 'react-markdown';
-import { FaDiscord, FaInstagram, FaLocationDot, FaLocationPin, FaLocationPinLock, FaXTwitter, FaYoutube } from "react-icons/fa6";
+import { FaDiscord, FaInstagram, FaLocationDot, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { use } from "react";
 import { useParams } from 'next/navigation';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import AdminBadge from "@/components/AdminBadge";
+import { ChevronRightIcon } from "lucide-react";
 
 export default function Perfil() {
     const params = useParams<{ slug: string }>();

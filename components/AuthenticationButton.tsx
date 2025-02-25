@@ -1,10 +1,8 @@
 "use server"
 import Link from "next/link";
 import { createClient } from '@/utils/supabase/server';
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { LogInIcon, MenuIcon } from "lucide-react";
-import UserDropdownMenu from "./UserDropdownMenu";
+import { LogInIcon } from "lucide-react";
 import UserMenuButton from "./UserMenuButton"
 
 export default async function LoginProfileButton() {

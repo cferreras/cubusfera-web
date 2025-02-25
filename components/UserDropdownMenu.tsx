@@ -22,7 +22,6 @@ export default function UserDropdownMenu({
     isOpen,
     onClose,
     minecraftUsername,
-    isMobile,
 }: UserDropdownMenuProps) {
     return (
         <div className={`w-[calc(100vw-4rem)] sm:w-96 flex flex-col gap-2 absolute right-0 -bottom-4 translate-y-full p-4 dark:bg-neutral-900 bg-neutral-50 border border-white/10 rounded-3xl shadow-xl shadow-black/25 backdrop-blur-sm transition-all duration-200 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>

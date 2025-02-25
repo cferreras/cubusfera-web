@@ -1,16 +1,20 @@
 "use client"
 import Container from '@/components/Container';
-import {  getSortedPostsData } from '@/lib/posts';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
 import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext, PaginationLink } from '@/components/ui/pagination';
 import { Skeleton } from "@/components/ui/skeleton"
 import Link from 'next/link';
-
+interface Post {
+    slug: string;
+    title: string;
+    description: string;
+    publishedAt: string;
+}
 export default function Post() {
     const [currentPage, setCurrentPage] = useState(1);
-    const [posts, setPosts] = useState<any[]>([]);
+    const [posts, setPosts] = useState<Post[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const postsPerPage = 4;
 
@@ -47,16 +51,16 @@ export default function Post() {
                     {isLoading ? (
                         <>
                             {Array.from({ length: postsPerPage }).map((_, index) => (
-                                <Skeleton 
-                                    key={index} 
+                                <Skeleton
+                                    key={index}
                                     className="h-[300px] w-full rounded-3xl"
                                 />
                             ))}
                         </>
                     ) : (
                         currentPosts.map((post) => (
-                            <Link 
-                                href={`/blog/${post?.slug}`} 
+                            <Link
+                                href={`/blog/${post?.slug}`}
                                 key={post?.slug}
                             >
                                 <div className="group relative overflow-hidden rounded-3xl dark:bg-neutral-900 bg-neutral-100 p-8 dark:hover:bg-neutral-800 hover:bg-neutral-200 transition-colors">

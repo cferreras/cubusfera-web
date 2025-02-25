@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Container from "@/components/Container";
-import Title from "@/components/Title";
 import { ArrowUpRightFromSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
 

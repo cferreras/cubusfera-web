@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import CubusferaIconDark from "@/components/icon/cubusfera-icon-dark"
 import CubusferaIconLight from "@/components/icon/cubusfera-icon-light"
 import { HomeIcon, MapIcon, NotebookIcon, ScaleIcon, UsersIcon } from "lucide-react";

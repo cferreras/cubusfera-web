@@ -6,9 +6,21 @@ import { Button } from './ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 import { Check, X } from "lucide-react";
 
+interface Form {
+    id: string;
+    name: string;
+    minecraft_username: string;
+    connectivity_issues: boolean;
+    minecraft_knowledge: number;
+    killer_question: string;
+    mic_available: boolean;
+    status: 'pending' | 'accepted' | 'rejected';
+    revision_date: string;
+}
+
 const FormsTable = () => {
     const supabase = createClient();
-    const [forms, setForms] = useState<any[]>([]);
+    const [forms, setForms] = useState<Form[]>([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const itemsPerPage = 10;
@@ -88,7 +100,7 @@ const FormsTable = () => {
             fetchForms();
         } catch (error) {
             console.error('Error al cambiar el estado del jugador:', error);
-            alert(`Ocurrió un error: ${(error as any).message}`);
+            console.error('Error occurred:', (error as Error).message);
         }
     };
 
