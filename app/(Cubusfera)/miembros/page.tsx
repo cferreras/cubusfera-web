@@ -18,6 +18,13 @@ export default async function Miembros() {
         .from('profiles')
         .select('id, minecraft_username, created_at, role')
         .not('minecraft_username', 'is', null)
+        .in('id', 
+            (await supabase
+                .from('forms')
+                .select('id')
+                .eq('status', 'accepted'))
+                .data?.map(form => form.id) || []
+        )
         .order('created_at', { ascending: false })
         .throwOnError();
 

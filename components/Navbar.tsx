@@ -12,7 +12,7 @@ export default function Navbar() {
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-9">
                     <div className="flex justify-between items-center h-full">
                         {/* Información del servidor */}
-                        <div className="hidden sm:flex items-center text-gray-700 text-sm space-x-4">
+                        <div className="hidden md:flex items-center text-gray-700 text-sm space-x-4">
                             <div className="text-white py-2 text-sm text-balance sm:text-nowrap flex items-center">
                                 <span>
                                     <FaEarthAfrica className='h-5 w-5 mr-1.5'/>

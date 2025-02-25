@@ -5,12 +5,15 @@ export const updateSession = async (request: NextRequest) => {
   try {
     const currentPath = request.nextUrl.pathname;
 
-    // Excluir rutas específicas del middleware
-    if (
-      currentPath.startsWith("/auth/callback") || // Excluir la ruta de callback
-      currentPath === "/login" || // Evitar procesar si ya está en /login
-      currentPath === "/" // Opcional: Excluir la ruta principal si no necesitas protegerla
-    ) {
+    // Only process authentication for protected routes
+    const protectedPaths = ["/configuracion", "/formulario"];
+    const isProtectedRoute = protectedPaths.some(path => 
+      currentPath === path
+    );
+    const isAdminRoute = currentPath === "/formulario/admin";
+
+    // Skip middleware for non-protected routes and auth callbacks
+    if (!isProtectedRoute && !isAdminRoute || currentPath === "/login" || currentPath.startsWith("/auth/callback")) {
       return NextResponse.next();
     }
 
@@ -48,53 +51,29 @@ export const updateSession = async (request: NextRequest) => {
     // Obtener información del usuario actual
     const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-    if (userError) {
-      console.error("Error al obtener el usuario:", userError);
-      return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    // Definir rutas protegidas
-    const protectedRoutes = ["/perfil", "/configuracion", "/formulario"];
-    const adminOnlyRoutes = ["/formulario/admin"]; // Ruta específica para administradores
-
-    // Verificar si la ruta actual es protegida y si el usuario no está autenticado
-    if (
-      protectedRoutes.some((route) => currentPath.startsWith(route)) &&
-      !user // Solo redirigir si el usuario no está autenticado
-    ) {
+    // Redirect to login if no user for protected routes
+    if (!user || userError) {
       const loginUrl = new URL("/login", request.url);
-      loginUrl.searchParams.set("next", currentPath); // Usar la ruta actual como valor predeterminado
+      loginUrl.searchParams.set("next", currentPath);
       return NextResponse.redirect(loginUrl);
     }
 
-    // Si la ruta requiere rol de administrador, verificar el rol
-    if (adminOnlyRoutes.includes(currentPath)) {
-      if (!user) {
-        // Si no hay usuario, redirigir al inicio de sesión
-        return NextResponse.redirect(new URL("/login", request.url));
-      }
-
-      // Consultar el rol del usuario en la tabla profiles
+    // Additional admin check for admin routes
+    if (isAdminRoute) {
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
         .select("role")
         .eq("id", user.id)
         .single();
 
-      if (profileError || profile.role !== "admin") {
-        // Si no es administrador, redirigir a una página de acceso denegado
+      if (profileError || profile?.role !== "admin") {
         return NextResponse.redirect(new URL("/access-denied", request.url));
       }
     }
 
-    // Si todo está bien, permitir el acceso
     return response;
   } catch (e) {
-    console.error("Error en updateSession:", e);
-    return NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
+    console.error("Error in updateSession:", e);
+    return NextResponse.next();
   }
 };

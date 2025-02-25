@@ -11,9 +11,10 @@ interface UserMenuButtonProps {
     discordAvatar: string
     email: string
     minecraftUsername: string
+    isMobile: boolean
 }
 
-export default function UserMenuButton({ discordUser, discordAvatar, email, minecraftUsername }: UserMenuButtonProps) {
+export default function UserMenuButton({ discordUser, discordAvatar, email, minecraftUsername, isMobile }: UserMenuButtonProps) {
     const [isOpen, setIsOpen] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -36,16 +37,18 @@ export default function UserMenuButton({ discordUser, discordAvatar, email, mine
                     className="min-w-20 flex grow items-center justify-center gap-3 px-4 h-full"
                     onClick={() => setIsOpen(!isOpen)}
                 >
-                    <Avatar className="w-6 h-6 flex rounded-full shrink-0">
-                        <AvatarImage
-                            src={discordAvatar}
-                            alt="Avatar del usuario"
-                            className="rounded-full object-cover"
-                        />
-                        <AvatarFallback className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-bold">
-                            {discordUser[0]?.toUpperCase() || 'U'}
-                        </AvatarFallback>
-                    </Avatar>
+                    {!isMobile && (
+                        <Avatar className="w-6 h-6 flex rounded-full shrink-0">
+                            <AvatarImage
+                                src={discordAvatar}
+                                alt="Avatar del usuario"
+                                className="rounded-full object-cover"
+                            />
+                            <AvatarFallback className="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-bold">
+                                {discordUser[0]?.toUpperCase() || 'U'}
+                            </AvatarFallback>
+                        </Avatar>
+                    )}
                     {!isOpen ? <HamburgerMenuIcon className="w-4 h-4 items-center justify-center" /> :
                     <Cross1Icon className="w-4 h-4 items-center justify-center" />}
                 </Button>
@@ -56,6 +59,7 @@ export default function UserMenuButton({ discordUser, discordAvatar, email, mine
                     email={email}
                     isOpen={isOpen}
                     onClose={() => setIsOpen(false)}
+                    isMobile={isMobile}
                 />
             </div>
         </div>

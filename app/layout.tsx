@@ -3,6 +3,8 @@ import { ReactNode } from 'react'
 import { Geist } from "next/font/google";
 const geist = Geist({ subsets: ['latin'] })
 import "./globals.css"
+import { Toaster } from "@/components/ui/toaster";
+import { ToastTrigger } from "@/components/ToastTrigger";
 export default function GlobalLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="es" suppressHydrationWarning>
@@ -18,6 +20,8 @@ export default function GlobalLayout({ children }: { children: ReactNode }) {
                     disableTransitionOnChange
                 > {children}
                 </ThemeProvider>
+                <Toaster/>
+                <ToastTrigger />
             </body>
         </html>
     )

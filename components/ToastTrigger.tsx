@@ -15,8 +15,8 @@ export const ToastTrigger = () => {
   useEffect(() => {
     const fetchSessionAndShowToast = async () => {
       const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return; // Si no hay ID de usuario, no continuamos
       const userId = await getUserID();
-      if (!userId) return; // Si no hay ID de usuario, no continuamos
 
       // Consultar la tabla `forms` para obtener el estado de `already_submitted`
       const { data, error } = await supabase.from("forms").select("already_submitted").eq("id", userId).single();
@@ -28,21 +28,23 @@ export const ToastTrigger = () => {
 
       const submitted = data?.already_submitted ?? false; // Leer el valor de `already_submitted`
 
-      // Mostrar el Toast si el formulario no ha sido enviado
-      if (!submitted) {
+      // Mostrar el Toast si el formulario no ha sido enviado y no estamos en la página del formulario
+      if (!submitted && window.location.pathname !== '/formulario') {
         console.log("Mostrando Toast");
         toast({
           title: "Acceso al servidor de Minecraft",
           description: "Por favor, completa el formulario de acceso para continuar.",
           duration: Infinity,
+          className: "bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl",
           action: (
             <Link href="/formulario">
               <Button
-                variant="default"
+                variant="outline"
                 size="sm"
+                className="rounded-xl border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900"
                 onClick={() => {
                   dismiss();
-                  localStorage.setItem("toastClosed", "true"); // Marcar como cerrado
+                  localStorage.setItem("toastClosed", "true");
                 }}
               >
                 Ir al formulario

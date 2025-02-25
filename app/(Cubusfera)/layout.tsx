@@ -22,8 +22,6 @@ export default function RootLayout({
       <main className="w-full flex flex-col grow">
         {children}
       </main>
-      <Toaster/>
-      <ToastTrigger />
       <Footer />
     </div>
   );
