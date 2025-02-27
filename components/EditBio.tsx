@@ -192,7 +192,7 @@ export default function EditBio({
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" className="bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 text-lg rounded-xl mx-4 py-6">
+                <Button variant="outline" className="bg-neutral-100 dark:bg-neutral-900 border-neutral-200 dark:border-neutral-800 text-md md:text-lg rounded-xl md:mx-4 md:py-6 py-5">
                     Editar Perfil
                 </Button>
             </DialogTrigger>

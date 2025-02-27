@@ -20,6 +20,8 @@ export default function Perfil() {
 
                     if (profile?.minecraft_username) {
                         window.location.href = `/perfil/${profile.minecraft_username}`;
+                    } else {
+                        window.location.href = '/formulario';
                     }
                 }
             } catch (error) {
