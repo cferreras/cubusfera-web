@@ -42,19 +42,19 @@ export default function UserDropdownMenu({
             </div>}
 
             <div className="flex gap-0 md:hidden">
-                <Link href="/" className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-l-2xl outline-none">
+                <Link href="/" onClick={onClose} className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-l-2xl outline-none">
                     <HomeIcon className="mx-auto w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
                 </Link>
-                <Link href="/mapa" className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
+                <Link href="/mapa" onClick={onClose} className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
                     <MapIcon className="mx-auto w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
                 </Link>
-                <Link href="/blog" className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
+                <Link href="/blog" onClick={onClose} className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
                     <NotebookIcon className="mx-auto w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
                 </Link>
-                <Link href="/normas" className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
+                <Link href="/normas" onClick={onClose} className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
                     <ScaleIcon className="mx-auto w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
                 </Link>
-                <Link href="/miembros" className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-l-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-r-2xl outline-none">
+                <Link href="/miembros" onClick={onClose} className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-l-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-r-2xl outline-none">
                     <UsersIcon className="mx-auto w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
                 </Link>
             </div>

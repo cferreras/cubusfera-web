@@ -14,7 +14,7 @@ export default function Navbar() {
                         <div className="hidden md:flex items-center text-gray-700 text-sm space-x-4">
                             <div className="text-white py-2 text-sm text-balance sm:text-nowrap flex items-center">
                                 <span>
-                                    <FaEarthAfrica className='h-5 w-5 mr-1.5'/>
+                                    <FaEarthAfrica className='h-4 w-4 mr-1.5'/>
                                 </span>
                                 <div>
                                     IP del servidor:{" "}

@@ -1,7 +1,7 @@
 // components/ToastTrigger.tsx
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -9,28 +9,31 @@ import { createClient } from "@/utils/supabase/client";
 import { getUserID } from "@/utils/supabaseUtils";
 
 export const ToastTrigger = () => {
-  const { toast, dismiss } = useToast(); // Usamos `dismiss` para cerrar el Toast
+  const { toast, dismiss } = useToast();
   const supabase = createClient();
+  const hasShownToast = useRef(false);
 
   useEffect(() => {
+    let mounted = true;
+
     const fetchSessionAndShowToast = async () => {
+      if (hasShownToast.current) return;
+      
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) return; // Si no hay ID de usuario, no continuamos
+      if (!session || !mounted) return;
       const userId = await getUserID();
 
-      // Consultar la tabla `forms` para obtener el estado de `already_submitted`
-      const { data, error } = await supabase.from("forms").select("already_submitted").eq("id", userId).single();
+      // First check if user exists in forms table
+      const { data: userExists, error: existsError } = await supabase
+        .from("forms")
+        .select("id, already_submitted")
+        .eq("id", userId)
+        .maybeSingle();
 
-      if (error) {
-        console.error("Error al consultar la base de datos:", error.message);
-        return;
-      }
-
-      const submitted = data?.already_submitted ?? false; // Leer el valor de `already_submitted`
-
-      // Mostrar el Toast si el formulario no ha sido enviado y no estamos en la página del formulario
-      if (!submitted && window.location.pathname !== '/formulario') {
-        console.log("Mostrando Toast");
+      if ((!userExists || !userExists.already_submitted) && 
+          window.location.pathname !== '/formulario' && 
+          mounted) {
+        hasShownToast.current = true;
         toast({
           title: "Acceso al servidor de Minecraft",
           description: "Por favor, completa el formulario de acceso para continuar.",
@@ -42,10 +45,7 @@ export const ToastTrigger = () => {
                 variant="outline"
                 size="sm"
                 className="rounded-xl border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900"
-                onClick={() => {
-                  dismiss();
-                  localStorage.setItem("toastClosed", "true");
-                }}
+                onClick={() => dismiss()}
               >
                 Ir al formulario
               </Button>
@@ -56,6 +56,10 @@ export const ToastTrigger = () => {
     };
   
     fetchSessionAndShowToast();
-}, [dismiss, supabase, toast]); // Add missing dependencies
+
+    return () => {
+      mounted = false;
+    };
+}, [dismiss, supabase, toast]);
   return null; // Este componente no renderiza nada
 };

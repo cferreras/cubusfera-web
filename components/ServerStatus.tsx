@@ -34,7 +34,7 @@ export default function ServerStatus() {
 
         return (
             <div className='text-white  py-2 text-sm text-balance sm:text-nowrap flex items-center'>
-            <span><FaUserGroup className="h-5 w-5 mr-1"/></span>
+            <span><FaUserGroup className="h-4 w-4 mr-1"/></span>
             <span className='mr-2 text-sm'>{serverStatus.players.online}</span>
             <span>jugadores en línea</span>
         </div>

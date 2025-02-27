@@ -125,34 +125,33 @@ export default function Form(props: { questions: Question[] }) {
         }
     }, [currentQuestion]);
     // Add this new state at the top with other states
-        const [formStatus, setFormStatus] = useState<'accepted' | 'pending' | 'rejected' | 'unknown'>('pending');
-    
-        // Add this function to fetch the status
-        const fetchFormStatus = async () => {
-            const supabase = createClient();
-            const userId = await getUserID();
-            
-            const { data, error } = await supabase
-                .from('forms')
-                .select('status')
-                .eq('id', userId)
-                .single();
-    
-            if (error) {
-                console.error('Error fetching form status:', error);
-                setFormStatus('unknown');
-                return;
-            }
-    
-            setFormStatus(data?.status || 'pending');
-        };
-    
-        // Add this to your existing useEffect that checks submission status
-        useEffect(() => {
-            isAlreadySubmitted();
-            fetchFormStatus(); // Add this line
-        }, [currentQuestion]);
-        
+    const [formStatus, setFormStatus] = useState<'accepted' | 'pending' | 'rejected' | 'unknown'>('pending');
+
+    // Add this function to fetch the status
+    const fetchFormStatus = async () => {
+        const supabase = createClient();
+        const userId = await getUserID();
+
+        const { data, error } = await supabase
+            .from('forms')
+            .select('status')
+            .eq('id', userId)
+            .maybeSingle();
+        if (error && error.code !== 'PGRST116') {
+            console.error('Error fetching form status:', error);
+            setFormStatus('unknown');
+            return;
+        }
+
+        setFormStatus(data?.status || 'pending');
+    };
+
+    // Add this to your existing useEffect that checks submission status
+    useEffect(() => {
+        isAlreadySubmitted();
+        fetchFormStatus(); // Add this line
+    }, [currentQuestion]);
+
     const handleNext = async (): Promise<void> => {
         if (answers[currentQuestion] === null || answers[currentQuestion] === '') {
             setError('Por favor, responde esta pregunta antes de continuar.');
@@ -162,25 +161,25 @@ export default function Form(props: { questions: Question[] }) {
         try {
             const name = props.questions[currentQuestion].apiRef;
             const value = props.questions[currentQuestion].apiRef === 'already_submitted' ? true : answers[currentQuestion];
-
+            const userId = await getUserID();
             const supabase = createClient();
 
             if (name !== '') {
-                
-            
-            const { error } = await supabase
-                .from('forms')
-                .upsert({ [name]: value, revision_date: new Date().toISOString() });
+                const { error } = await supabase
+                    .from('forms')
+                    .upsert({
+                        id: userId,
+                        [name]: value,
+                        revision_date: new Date().toISOString(),
+                        status: 'pending'  // Add default status
+                    });
 
-            
-
-            if (error) {
-                console.error('Error al enviar respuesta:', error);
-                setError(`Error al enviar ${name}: ${error.message}`);
+                if (error) {
+                    console.error('Error al enviar respuesta:', error);
+                    setError(`Error al enviar ${name}: ${error.message}`);
+                    return;
+                }
             }
-        }
-
-
         } catch (error) {
             setError(`Error al enviar ${props.questions[currentQuestion].title.toLowerCase()}: ${String(error)}`);
             return;
@@ -330,15 +329,15 @@ export default function Form(props: { questions: Question[] }) {
                                 <span className="text-sm text-gray-500">Experto</span>
                             </div>
                             <Slider
-                                value={[answers[currentQuestion] as number || 1]}
+                                defaultValue={[props.questions[currentQuestion].min || 1]}
+                                value={[answers[currentQuestion] as number || props.questions[currentQuestion].min || 1]}
                                 min={props.questions[currentQuestion].min || 1}
                                 max={props.questions[currentQuestion].max || 5}
                                 step={1}
                                 onValueChange={(value) => handleAnswerChange(value[0])}
-                                className="w-full"
                             />
                             <p className="text-sm text-gray-500 text-center">
-                                Valor seleccionado: {answers[currentQuestion] || 1}
+                                Valor seleccionado: {answers[currentQuestion] || props.questions[currentQuestion].min || 1}
                             </p>
                         </div>
                     )}
@@ -346,14 +345,14 @@ export default function Form(props: { questions: Question[] }) {
                     {error && <p className="text-red-500 text-sm">{error}</p>}
 
                     <div className="flex justify-between items-center gap-x-4">
-                        <Button 
-                            onClick={handlePrevious} 
+                        <Button
+                            onClick={handlePrevious}
                             disabled={currentQuestion === 0}
                             className="rounded-xl"
                         >
                             Anterior
                         </Button>
-                        <Progress 
+                        <Progress
                             value={currentQuestion / (props.questions.length - 1) * 100}
                             className="bg-neutral-200 dark:bg-neutral-800"
                         />
