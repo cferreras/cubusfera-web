@@ -29,7 +29,7 @@ export default function Perfil() {
             }
         };
         fetchUserAndRedirect();
-    }, []);
+    }, [supabase]);
 
     // Show loading state while redirecting
     return (

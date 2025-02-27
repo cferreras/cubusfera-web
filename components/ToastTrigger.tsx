@@ -24,7 +24,7 @@ export const ToastTrigger = () => {
       const userId = await getUserID();
 
       // First check if user exists in forms table
-      const { data: userExists, error: existsError } = await supabase
+      const { data: userExists } = await supabase
         .from("forms")
         .select("id, already_submitted")
         .eq("id", userId)

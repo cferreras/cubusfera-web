@@ -7,7 +7,6 @@ import { createClient } from '@/utils/supabase/client';
 import { User } from '@supabase/supabase-js';
 import { Trash2 } from "lucide-react";
 import { useToast } from '@/hooks/use-toast';
-import { Separator } from './ui/separator';
 
 interface Comment {
     id: string;
@@ -97,6 +96,7 @@ export default function Comentarios({ profileId, currentUser }: CommentProps) {
                 title: "Éxito",
                 description: "Comentario publicado correctamente"
             });
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (err: any) {
             console.error('Error details:', err.message);
             toast({
@@ -125,6 +125,7 @@ export default function Comentarios({ profileId, currentUser }: CommentProps) {
                 title: "Éxito",
                 description: "Comentario eliminado correctamente"
             });
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             console.error('Error deleting comment:', error);
             toast({

@@ -17,7 +17,6 @@ import { ChevronRightIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Estadisticas from "@/components/Estadisticas";
 import Comentarios from "@/components/Comentarios";
-import ProfileTitle from "@/components/ProfileTitle";
 
 interface ProfileData {
     bio: string;
@@ -36,13 +35,13 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
     const [user, setUser] = useState<User | null>(null);
     const [bio, setBio] = useState(initialData?.bio || "No se ha proporcionado una biografía.");
     const [twitter, setTwitter] = useState(initialData?.twitter_username || "");
-    const [minecraftUsername, setMinecraftUsername] = useState(initialData?.minecraft_username || "");
+    const [minecraftUsername] = useState(initialData?.minecraft_username || "");
     const [instagram, setInstagram] = useState(initialData?.instagram_username || "");
     const [discord, setDiscord] = useState(initialData?.discord_username || "");
     const [youtube, setYoutube] = useState(initialData?.youtube_channel_url || "");
     const [location, setLocation] = useState(initialData?.location || "");
     const [isOwner, setIsOwner] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(initialData?.role === 'admin');
+    const [isAdmin] = useState(initialData?.role === 'admin');
     const supabase = createClient();
 
     useEffect(() => {
