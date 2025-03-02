@@ -2,11 +2,13 @@ import ProfileClient from "@/components/ProfileClient";
 import { createClient } from "@/utils/supabase/server";
 import { Metadata } from "next";
 
-interface PageProps {
+// Update the interface to match what Next.js expects
+type PageProps = {
     params: {
         slug: string;
     };
-}
+    searchParams: { [key: string]: string | string[] | undefined };
+};
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const slug = params.slug;
