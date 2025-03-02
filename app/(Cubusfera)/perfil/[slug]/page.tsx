@@ -2,12 +2,12 @@ import ProfileClient from "@/components/ProfileClient";
 import { createClient } from "@/utils/supabase/server";
 import { Metadata } from "next";
 
-// Update the type to handle params as a Promise
+// Update the type to handle both params and searchParams as Promises
 type PageProps = {
     params: Promise<{
         slug: string;
     }>;
-    searchParams?: { [key: string]: string | string[] | undefined };
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
