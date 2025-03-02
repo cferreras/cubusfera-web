@@ -132,3 +132,30 @@ export const signOutAction = async () => {
   await supabase.auth.signOut();
   return redirect("/sign-in");
 };
+
+export const signInWithDiscord = async (next?: string) => {
+  const supabase = await createClient();
+  const origin = (await headers()).get("origin");
+  const auth_callback_url = `${origin}/auth/callback`;
+  
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "discord",
+    options: {
+      redirectTo: next ? `${auth_callback_url}?next=${encodeURIComponent(next)}` : auth_callback_url,
+    },
+  });
+
+  if (error) {
+    console.error(error.message);
+  }
+
+  if (data?.url) {
+    redirect(data.url);
+  }
+};
+
+export async function logout() {
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  redirect('/login'); // Redirige al usuario a la página de inicio de sesión después de cerrar sesión
+}

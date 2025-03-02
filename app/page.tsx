@@ -1,53 +1,135 @@
 import Container from "@/components/Container";
 import TheHeader from "@/components/TheHeader";
 import { Metadata } from "next";
+import { Card, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button"; // Ícono de Discord
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import Link from "next/link";
+import { FaPencil, FaQuoteLeft } from "react-icons/fa6";
 export const metadata: Metadata = {
   title: 'Inicio – Cubusfera',
-  description: 'Cubusfera es un servidor de Minecraft técnico y vanilla en español, ofreciendo una experiencia de juego vanilla con características técnicas para los amantes de los desafíos y las construcciones avanzadas.',
-}
+  description: 'Cubusfera es un servidor de Minecraft técnico y vanilla en español...',
+  other: {
+    'og:type': 'website',
+    'og:url': 'cubusfera.com',
+    'og:image': 'cubusfera.com/images/og-image.png',
+    'og:image:alt': 'Cubusfera',
+    'og:title': 'Inicio – Cubusfera',
+    'og:description': 'Cubusfera es un servidor de Minecraft técnico y vanilla en español, ofreciendo una experiencia de juego vanilla con características técnicas para los amantes de los desafíos y las construcciones avanzadas.',
+  },
+};
+
 export default function Home() {
   return (
     <>
-      <TheHeader />
-      <Container>
-        <article className="flex-col md:flex-row flex gap-12 m-4">
-          <div className="flex flex-col space-y-2  justify-center">
-            <h4 className="font-bold text-indigo-500  text-3xl md:text-5xl md:text-right">Técnico</h4>
-            <div className="text-lg md:text-xl text-gray-700 md:text-right">
-              Vive Minecraft de la manera que te gusta y disfruta de la mejor experiencia de Minecraft técnico.
-              Cuenta con una gran comunidad de jugadores, que comparte sus intereses y objetivos.
-              Juega con tus amigos, aprende sobre el mundo de Minecraft y crea tus propias historias.
-            </div>
-          </div>
-          <img className="order-first w-full object-cover aspect-[827/640] mt-4 md:mt-0 md:w-1/3 rounded-xl" src="/images/mob-farm.webp" />
-        </article>
-        <article className="flex-col md:flex-row flex gap-12 m-4">
-          <img className="md:order-last order-first w-full object-cover aspect-[827/640] mt-4 md:mt-0 md:w-1/3 rounded-xl" src="/images/cama.webp" />
-          <div className="flex flex-col space-y-2  justify-center">
-            <h4 className="font-bold text-indigo-500  text-3xl md:text-5xl">Vanilla</h4>
-            <div className="text-lg md:text-xl text-gray-700">
-            No añadimos ninguna modificación o plug-in que altere el juego y lo vuelva menos divertido para las personas que buscan servidores de Minecraft survival sin extras innecesarios.
-            </div>
-          </div>
-        </article>
-        <article className="flex-col md:flex-row flex gap-12 m-4">
-          <div className="flex flex-col space-y-2  justify-center">
-            <h4 className="font-bold text-indigo-500  text-3xl md:text-5xl md:text-right">Seguro</h4>
-            <div className="text-lg md:text-xl text-gray-700 md:text-right mb-4 md:mb-0">
-              Juega en un ambiente seguro. Nuestro sistema de backups y protecciones hará que tus construcciones estén seguras a lo largo del tiempo. Ademas, nuestro servidor está alojado en un servidor de alta velocidad, lo que garantiza que podras disfrutar de una experiencia de juego sin interrupciones.
-            </div>
-          </div>
-          <img className="order-first w-full object-cover aspect-[827/640] mt-4 md:mt-0 md:w-1/3 rounded-xl" src="/images/jungla.webp" />
-        </article>
-        <div className="mx-4 bg-indigo-600 h-64 rounded-xl mt-10 mb-5 text-white text-center space-y-8 p-6">
-          <h2 className="text-3xl md:text-5xl font-bold text-center pt-10">Comienza a jugar ahora</h2>
-          <a href="https://discord.com/invite/7uKEYACErc"
-            className="inline-flex items-center justify-center px-8 py-3 font-medium text-gray-900 bg-white border border-transparent rounded-md hover:bg-white/90 md:py-4 text-sm md:text-lg md:px-10">
-            <svg className="w-6 h-6 mr-2 -ml-2" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.1.1 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.1 16.1 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.17.33.26c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02M8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12m6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12" /></svg>
-            Aplica en Discord
-          </a>
+      <Navbar />
+      <main>
+        <div className="w-full h-screen absolute left-0 top-0 z-[-1] pointer-events-none" data-pattern="diamonds">
+          <div className="w-full h-full absolute left-0 bottom-0 z-10 bg-gradient-to-t from-white to-neutral-white/0 dark:from-neutral-950 dark:to-neutral-950/0 pointer-events-none"></div>
         </div>
-      </Container>
+        <TheHeader />
+        <Container className="py-9 space-y-12">
+          <Card className="bg-transparent border-none shadow-none">
+            <article className="flex flex-col md:flex-row gap-12 items-center">
+              <div className="flex flex-col space-y-4 md:w-2/3">
+                <CardTitle className="font-bold text-3xl md:text-5xl text-right">
+                  Técnico
+                </CardTitle>
+                <CardDescription className="text-lg md:text-xl dark:text-neutral-300 text-neutral-700 text-right">
+                  Vive Minecraft de la manera que te gusta y disfruta de la mejor experiencia de Minecraft técnico.
+                  Cuenta con una gran comunidad de jugadores, que comparte sus intereses y objetivos.
+                  Juega con tus amigos, aprende sobre el mundo de Minecraft y crea tus propias historias.
+                </CardDescription>
+              </div>
+              <img
+                className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-3xl"
+                src="/images/mob-farm.webp"
+                alt="Granja de mobs"
+              />
+            </article>
+          </Card>
+          <Card className="bg-transparent border-none shadow-none">
+            <article className="flex flex-col md:flex-row gap-12 items-center">
+              <img
+                className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-3xl"
+                src="/images/cama.webp"
+                alt="Cama en Minecraft"
+              />
+              <div className="flex flex-col space-y-4 md:w-2/3">
+                <CardTitle className="font-bold text-3xl md:text-5xl">
+                  Vanilla
+                </CardTitle>
+                <CardDescription className="text-lg md:text-xl dark:text-neutral-300 text-neutral-800">
+                  No añadimos ninguna modificación o plug-in que altere el juego y lo vuelva menos divertido para las personas que buscan servidores de Minecraft survival sin extras innecesarios.
+                </CardDescription>
+              </div>
+            </article>
+          </Card>
+
+          <Card className="bg-transparent border-none shadow-none">
+            <article className="flex flex-col md:flex-row gap-12 items-center">
+              <div className="flex flex-col space-y-4 md:w-2/3">
+                <CardTitle className="font-bold text-3xl md:text-5xl text-right">
+                  Seguro
+                </CardTitle>
+                <CardDescription className="text-lg md:text-xl dark:text-neutral-300 text-neutral-800 text-right">
+                  Juega en un ambiente seguro. Nuestro sistema de backups y protecciones hará que tus construcciones estén seguras a lo largo del tiempo. Además, nuestro servidor está alojado en un servidor de alta velocidad, lo que garantiza que podrás disfrutar de una experiencia de juego sin interrupciones.
+                </CardDescription>
+              </div>
+              <img
+                className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-3xl"
+                src="/images/jungla.webp"
+                alt="Bioma de jungla"
+              />
+            </article>
+          </Card>
+          
+          <Card className="bg-transparent border-none shadow-none py-12">
+            <article className="flex flex-col items-center text-center max-w-4xl mx-auto">
+              <CardTitle className="font-bold text-4xl md:text-7xl text-neutral-200 dark:text-neutral-800 mb-8">
+                <FaQuoteLeft/>
+              </CardTitle>
+              <CardDescription className="text-lg md:text-2xl dark:text-neutral-300 text-neutral-800 mb-8">
+                <span className="italic">Cubusfera ha sido una experiencia increíble. La comunidad es amigable y siempre dispuesta a ayudar. He aprendido mucho sobre redstone y construcciones técnicas gracias a los otros jugadores.</span>
+              </CardDescription>
+              <div className="flex items-center gap-4">
+                <img
+                  className="w-16 h-16 object-cover aspect-square border-2 dark:border-neutral-800 rounded-full"
+                  src="https://cdn.discordapp.com/avatars/708420077577306214/322bedf8eee913a337d8a04340598190.png"
+                  alt="Avatar de Santi"
+                />
+                <div className="text-left">
+                  <div className="font-semibold text-xl">Santi</div>
+                  <span className="text-sm text-neutral-600 dark:text-neutral-400">Moderador de Cubusfera</span>
+                </div>
+              </div>
+            </article>
+          </Card>
+          
+          <Card className="flex flex-col md:flex-row gap-4 justify-between items-center md:p-16 p-8 bg-neutral-900 dark:border-neutral-800 rounded-3xl !mt-8">
+            <div className="flex flex-col gap-4 justify-start">
+              <div className="text-3xl md:text-5xl font-bold text-white">
+                Comienza a jugar ahora
+              </div>
+              <div className="text-white opacity-75 text-xl">
+                Disfruta de una experiencia en Minecraft sin igual.
+              </div>
+            </div>
+            <Button
+              asChild
+              variant="secondary"
+              className="h-14 px-5 bg-white hover:bg-neutral-200 disabled:bg-neutral-400 text-base text-black rounded-lg enabled:cursor-pointer"
+            >
+              <Link href="/formulario" className="flex items-center gap-x-2 mr-auto md:mr-0">
+                <FaPencil className="h-5 w-5" />
+                <span>Aplica a Cubusfera</span>
+              </Link>
+            </Button>
+          </Card>
+        </Container>
+      </main>
+      <Footer />
     </>
   );
 }

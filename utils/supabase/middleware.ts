@@ -2,10 +2,21 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const updateSession = async (request: NextRequest) => {
-  // This `try/catch` block is only here for the interactive tutorial.
-  // Feel free to remove once you have Supabase connected.
   try {
-    // Create an unmodified response
+    const currentPath = request.nextUrl.pathname;
+
+    // Only process authentication for protected routes
+    const protectedPaths = ["/configuracion", "/formulario"];
+    const isProtectedRoute = protectedPaths.some(path => 
+      currentPath === path
+    );
+    const isAdminRoute = currentPath === "/formulario/admin";
+
+    // Skip middleware for non-protected routes and auth callbacks
+    if (!isProtectedRoute && !isAdminRoute || currentPath === "/login" || currentPath.startsWith("/auth/callback")) {
+      return NextResponse.next();
+    }
+
     let response = NextResponse.next({
       request: {
         headers: request.headers,
@@ -21,9 +32,11 @@ export const updateSession = async (request: NextRequest) => {
             return request.cookies.getAll();
           },
           setAll(cookiesToSet) {
+            // Actualizar las cookies en la solicitud actual
             cookiesToSet.forEach(({ name, value }) =>
               request.cookies.set(name, value),
             );
+            // Actualizar las cookies en la respuesta
             response = NextResponse.next({
               request,
             });
@@ -32,31 +45,35 @@ export const updateSession = async (request: NextRequest) => {
             );
           },
         },
-      },
+      }
     );
 
-    // This will refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/server-side/nextjs
-    const user = await supabase.auth.getUser();
+    // Obtener información del usuario actual
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
 
-    // protected routes
-    if (request.nextUrl.pathname.startsWith("/protected") && user.error) {
-      return NextResponse.redirect(new URL("/sign-in", request.url));
+    // Redirect to login if no user for protected routes
+    if (!user || userError) {
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("next", currentPath);
+      return NextResponse.redirect(loginUrl);
     }
 
-    if (request.nextUrl.pathname === "/" && !user.error) {
-      return NextResponse.redirect(new URL("/protected", request.url));
+    // Additional admin check for admin routes
+    if (isAdminRoute) {
+      const { data: profile, error: profileError } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", user.id)
+        .single();
+
+      if (profileError || profile?.role !== "admin") {
+        return NextResponse.redirect(new URL("/access-denied", request.url));
+      }
     }
 
     return response;
   } catch (e) {
-    // If you are here, a Supabase client could not be created!
-    // This is likely because you have not set up environment variables.
-    // Check out http://localhost:3000 for Next Steps.
-    return NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
+    console.error("Error in updateSession:", e);
+    return NextResponse.next();
   }
 };
