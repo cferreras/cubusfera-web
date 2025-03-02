@@ -7,6 +7,7 @@ import { createClient } from '@/utils/supabase/client';
 import { User } from '@supabase/supabase-js';
 import { Trash2 } from "lucide-react";
 import { useToast } from '@/hooks/use-toast';
+import Link from 'next/link';
 
 interface Comment {
     id: string;
@@ -173,18 +174,21 @@ export default function Comentarios({ profileId, currentUser }: CommentProps) {
                 <div className="space-y-4 mt-6">
                     {comments.map((comment) => (
                         <div key={comment.id} className="flex gap-4">
-                            <Avatar className="h-10 w-10">
-                                <AvatarImage
-                                    src={`https://mc-heads.net/avatar/${comment.minecraft_username}/64`}
-                                    alt={comment.minecraft_username}
-                                />
-                                <AvatarFallback>{comment.minecraft_username[0]}</AvatarFallback>
-                            </Avatar>
+                            <Link href={`/perfil/${comment.minecraft_username}`}>
+                                <Avatar className="h-10 w-10">
+                                    <AvatarImage
+                                        src={`https://mc-heads.net/avatar/${comment.minecraft_username}/64`}
+                                        alt={comment.minecraft_username}
+                                    />
+                                    <AvatarFallback>{comment.minecraft_username[0]}</AvatarFallback>
+                                </Avatar>
+                            </Link>
                             <div className="flex-1">
                                 <div className="flex items-center justify-between gap-2">
                                     <div className='flex flex-col'>
                                         <div className="flex items-center gap-2">
-                                            <h4 className="font-semibold">{comment.minecraft_username}</h4>
+                                            <Link href={`/perfil/${comment.minecraft_username}`}>
+                                                <h4 className="font-semibold">{comment.minecraft_username}</h4></Link>
                                             <time className="text-sm text-neutral-500">
                                                 {new Date(comment.created_at).toLocaleDateString()} {new Date(comment.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                             </time>

@@ -25,7 +25,7 @@ export async function POST(req: Request): Promise<Response> {
 
         // Realizar la solicitud POST al servidor Minecraft para remover del whitelist
         const response = await fetch(
-            `http://${process.env.MINECRAFT_SERVER_ADRESS}/unwhitelist`,
+            `http://${process.env.MINECRAFT_SERVER_WHITELIST_ADRESS}/unwhitelist`,
             {
                 method: 'POST',
                 headers: {

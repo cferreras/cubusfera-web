@@ -14,31 +14,39 @@ export const metadata: Metadata = {
 export default async function Miembros() {
     const supabase = await createClient();
 
-    const { data: members, error } = await supabase
+    const { data: members } = await supabase
         .from('profiles')
         .select('id, minecraft_username, created_at, role')
         .not('minecraft_username', 'is', null)
         .in('id', 
             (await supabase
                 .from('forms')
-                .select('id')
+                .select('id, premium_minecraft')
                 .eq('status', 'accepted'))
                 .data?.map(form => form.id) || []
         )
-        .order('created_at', { ascending: false })
-        .throwOnError();
+        .order('created_at', { ascending: false });
+    // Remove the separate premium forms query since we don't need it anymore
+    const formattedMembers = await Promise.all(members?.map(async (member: { 
+        id: string; 
+        minecraft_username: string; 
+        role: string; 
+        created_at: string | number | Date;
+    }) => {
+        const { data: formData } = await supabase
+            .from('forms')
+            .select('premium_minecraft')
+            .eq('id', member.id)
+            .single();
 
-    if (error) {
-        console.error('Error fetching members:', error);
-        return <div>Error loading members</div>;
-    }
-
-    const formattedMembers = members?.map((member: { id: string; minecraft_username: string; role: string; created_at: string | number | Date; }) => ({
-        id: member.id,
-        role: member.role,
-        displayName: member.minecraft_username,
-        registered: new Date(member.created_at).toLocaleDateString()
-    })) || [];
+        return {
+            id: member.id,
+            role: member.role,
+            displayName: member.minecraft_username,
+            registered: new Date(member.created_at).toLocaleDateString(),
+            isPremium: formData?.premium_minecraft === 'Sí'
+        };
+    }) || []);
 
     return (
         <Container className="py-20">
@@ -49,7 +57,7 @@ export default async function Miembros() {
                 </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {formattedMembers.map((member) => (
+                {formattedMembers?.map((member) => (
                     <MemberDisplay
                         key={member.id}
                         member={member}

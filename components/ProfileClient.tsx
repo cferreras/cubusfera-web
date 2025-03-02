@@ -12,7 +12,7 @@ import { FaDiscord, FaInstagram, FaLocationDot, FaXTwitter, FaYoutube } from "re
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useParams } from 'next/navigation';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import AdminBadge from "@/components/AdminBadge";
+import PremiumBadge from "@/components/PremiumBadge";
 import { ChevronRightIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Estadisticas from "@/components/Estadisticas";
@@ -28,6 +28,7 @@ interface ProfileData {
     location: string;
     id: string;
     role: string;
+    isPremium: boolean;
 }
 
 export default function ProfileClient({ initialData }: { initialData: ProfileData }) {
@@ -41,7 +42,7 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
     const [youtube, setYoutube] = useState(initialData?.youtube_channel_url || "");
     const [location, setLocation] = useState(initialData?.location || "");
     const [isOwner, setIsOwner] = useState(false);
-    const [isAdmin] = useState(initialData?.role === 'admin');
+    const [isAdmin] = useState(initialData?.isPremium);
     const supabase = createClient();
 
     useEffect(() => {
@@ -87,9 +88,9 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                             <AvatarFallback>{minecraftUsername[0] || ''}</AvatarFallback>
                         </Avatar>
                     </div>
-                   { (bio && minecraftUsername) ? <div className="flex-1 w-full text-center md:text-left h-full">
+                    {(bio && minecraftUsername) ? <div className="flex-1 w-full text-center md:text-left h-full">
                         <div className="flex flex-col md:flex-row items-center justify-between mb-2 min-h-[50px] gap-4">
-                            <h1 className="text-2xl font-semibold">{minecraftUsername || ""}{isAdmin && <AdminBadge/>}</h1>
+                            <h1 className="text-2xl font-semibold">{minecraftUsername || ""}{isAdmin && <PremiumBadge />}</h1>
                             <div className="min-w-[42px]">
                                 {isOwner && (
                                     <EditBio
@@ -158,7 +159,7 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                             </ReactMarkdown>
                         </div>
                     </div> :
-                    <Skeleton className="w-full h-[114px] rounded-2xl"/> }
+                        <Skeleton className="w-full h-[114px] rounded-2xl" />}
                 </div>
             </div>
 
@@ -180,10 +181,10 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                     </TabsList>
                     <TabsContent value="stats" className="space-y-8">
                         <div className="space-y-6">
-                            <div className="p-6 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800">
+                            <div className="p-6 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800 min-h-[222px]">
                                 <h3 className="font-semibold mb-4">Estadísticas del jugador</h3>
                                 <div className="flex items-center text-sm text-neutral-600 dark:text-neutral-400">
-                                    <Estadisticas/>
+                                    <Estadisticas name={minecraftUsername} />
                                 </div>
                             </div>
                         </div>

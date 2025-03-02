@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"; // Ícono de Discord
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { FileIcon } from "lucide-react";
+import { FaPencil, FaQuoteLeft } from "react-icons/fa6";
 export const metadata: Metadata = {
   title: 'Inicio – Cubusfera',
   description: 'Cubusfera es un servidor de Minecraft técnico y vanilla en español...',
@@ -49,7 +49,6 @@ export default function Home() {
               />
             </article>
           </Card>
-
           <Card className="bg-transparent border-none shadow-none">
             <article className="flex flex-col md:flex-row gap-12 items-center">
               <img
@@ -85,6 +84,29 @@ export default function Home() {
               />
             </article>
           </Card>
+          
+          <Card className="bg-transparent border-none shadow-none py-12">
+            <article className="flex flex-col items-center text-center max-w-4xl mx-auto">
+              <CardTitle className="font-bold text-4xl md:text-7xl text-neutral-200 dark:text-neutral-800 mb-8">
+                <FaQuoteLeft/>
+              </CardTitle>
+              <CardDescription className="text-lg md:text-2xl dark:text-neutral-300 text-neutral-800 mb-8">
+                <span className="italic">Cubusfera ha sido una experiencia increíble. La comunidad es amigable y siempre dispuesta a ayudar. He aprendido mucho sobre redstone y construcciones técnicas gracias a los otros jugadores.</span>
+              </CardDescription>
+              <div className="flex items-center gap-4">
+                <img
+                  className="w-16 h-16 object-cover aspect-square border-2 dark:border-neutral-800 rounded-full"
+                  src="https://cdn.discordapp.com/avatars/708420077577306214/322bedf8eee913a337d8a04340598190.png"
+                  alt="Avatar de Santi"
+                />
+                <div className="text-left">
+                  <div className="font-semibold text-xl">Santi</div>
+                  <span className="text-sm text-neutral-600 dark:text-neutral-400">Moderador de Cubusfera</span>
+                </div>
+              </div>
+            </article>
+          </Card>
+          
           <Card className="flex flex-col md:flex-row gap-4 justify-between items-center md:p-16 p-8 bg-neutral-900 dark:border-neutral-800 rounded-3xl !mt-8">
             <div className="flex flex-col gap-4 justify-start">
               <div className="text-3xl md:text-5xl font-bold text-white">
@@ -99,8 +121,8 @@ export default function Home() {
               variant="secondary"
               className="h-14 px-5 bg-white hover:bg-neutral-200 disabled:bg-neutral-400 text-base text-black rounded-lg enabled:cursor-pointer"
             >
-              <Link href="/formulario" className="flex items-center gap-x-2">
-                <FileIcon className="h-5 w-5" />
+              <Link href="/formulario" className="flex items-center gap-x-2 mr-auto md:mr-0">
+                <FaPencil className="h-5 w-5" />
                 <span>Aplica a Cubusfera</span>
               </Link>
             </Button>

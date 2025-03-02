@@ -1,7 +1,7 @@
 import { ShieldCheck } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
-export default function AdminBadge() {
+export default function PremiumBadge() {
     return (
         <TooltipProvider>
             <Tooltip>
@@ -10,8 +10,9 @@ export default function AdminBadge() {
                         <ShieldCheck className="w-5 h-5" />
                     </div>
                 </TooltipTrigger>
-                <TooltipContent>
-                    <p className="text-sm">Administrador</p>
+                <TooltipContent className="text-center">
+                    <p className="text-sm font-medium">Cuenta Premium</p>
+                    <p className="text-xs text-muted-foreground">(Según lo indicado por el usuario)</p>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>

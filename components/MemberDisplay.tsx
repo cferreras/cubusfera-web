@@ -1,26 +1,24 @@
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Calendar } from "lucide-react"; // Importamos los iconos
 import Link from "next/link";
-import AdminBadge from "./AdminBadge";
+import AdminBadge from "./PremiumBadge";
 
 interface Member {
     displayName?: string;
     role?: string;
     registered?: string;
+    isPremium?: boolean;
 }
 
 export default function MemberDisplay({ member }: { member: Member }) {
     const displayName = member?.displayName || 'Unknown';
-    const isAdmin = member?.role === 'admin' || false;
-    console.log(member?.role + ' ' + isAdmin)
+    const isPremium = member?.isPremium;
 
     return (
         <Link href={`/perfil/${displayName}`}>
-            <Card className="cursor-pointer dark:hover:bg-neutral-700 hover:bg-neutral-200 rounded-3xl">
+            <div className="p-6 cursor-pointer dark:hover:bg-neutral-700 hover:bg-neutral-200 rounded-3xl border bg-neutral-100 dark:bg-neutral-900 ">
                 <TooltipProvider>
-                    <CardHeader className="flex flex-row items-center gap-4">
+                    <div className="flex flex-row items-center gap-4">
                         <Tooltip>
                             <TooltipTrigger>
                                 <Avatar className="h-16 w-16">
@@ -32,21 +30,22 @@ export default function MemberDisplay({ member }: { member: Member }) {
                                 </Avatar>
                             </TooltipTrigger>
                             <TooltipContent>
-                                <div>{displayName}</div>
+                                <p className="font-semibold">{displayName}</p>
                             </TooltipContent>
                         </Tooltip>
-                        <div className="text-2xl font-medium group-hover:underline">
-                            {displayName}{isAdmin && <AdminBadge/>}
+                        <div className="flex flex-col gap-2">
+                            <div className="text-2xl font-medium group-hover:underline flex items-center gap-2">
+                                {displayName}{isPremium && <AdminBadge/>}
+                            </div>
+                            <div className="flex items-center gap-2">
+                                <span className="text-sm px-2 py-0.5 rounded-full bg-neutral-200 dark:bg-neutral-800 text-muted-foreground">
+                                    {member?.role === 'admin' ? 'Administrador' : 'Miembro'}
+                                </span>
+                            </div>
                         </div>
-                    </CardHeader>
-                    <CardContent className="space-y-2">
-                        <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400">
-                            <Calendar className="h-4 w-4" />
-                            <p>Registrado: {member?.registered || 'No disponible'}</p>
-                        </div>
-                    </CardContent>
+                    </div>
                 </TooltipProvider>
-            </Card>
-        </Link >
+            </div>
+        </Link>
     );
 }

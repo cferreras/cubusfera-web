@@ -132,7 +132,6 @@ export default function EditBio({
                 console.error("Error al cargar los datos del perfil:", error);
             }
         };
-        console.log("userId: ", userId);
 
         fetchProfileData();
     }, [userId, form]);
