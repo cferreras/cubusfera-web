@@ -1,30 +1,33 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { PickaxeIcon, SwordIcon, DoorOpenIcon, UnplugIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { FaSkull, FaPersonWalking, FaClock, FaGhost, FaWandSparkles } from "react-icons/fa6";
 
 export default function Estadisticas(props: { name: string }) {
     const [stats, setStats] = useState({
-        playTime: "11 s",
+        playTime: "0s",
         distanceTraveled: "0 km",
         totalMobsKilled: 0,
-        specificMobsKilled: {},
         totalBlocksMined: 1,
-        specificBlocksMined: {
-            Dirt: 1,
-            Stone: 0,
-        },
-        sessions: 1,
+        sessions: 0,
         experienceGained: 0,
         pvpKills: 0,
         deaths: 0
     });
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         // Lógica para actualizar las estadísticas
         fetch(`/api/stats/player?name=${props.name}`)
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => {
+                setLoading(true);
                 // Actualizar el estado con las estadísticas obtenidas
                 setStats(data);
                 setError(false);
@@ -33,11 +36,13 @@ export default function Estadisticas(props: { name: string }) {
             .catch(error => {
                 setError(true);
                 console.error('Error al obtener las estadísticas:', error);
+            }).finally(() => {
+                setLoading(false);
             });
     }, [props.name]);
 
     return (<>
-        {!error ? (<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+        {!error ? (!loading ? (<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
             <div className="flex items-start gap-3">
                 <FaClock className="w-5 h-5 mt-1 text-emerald-500" />
                 <div>
@@ -62,9 +67,9 @@ export default function Estadisticas(props: { name: string }) {
                         {stats.totalMobsKilled} totales
                         <br />
                         <span className="text-xs">
-                            {stats.specificMobsKilled && Object.entries(stats.specificMobsKilled).length > 0 ?
+                            {('specificMobsKilled' in stats) && Object.entries((stats as any).specificMobsKilled).length > 0 ?
                                 (() => {
-                                    const mostKilledMob = Object.entries(stats.specificMobsKilled)
+                                    const mostKilledMob = Object.entries((stats as any).specificMobsKilled)
                                         .reduce((max, [mob, count]) =>
                                             (count as number) > (max[1] as number) ? [mob, count] : max,
                                             ['', 0]);
@@ -84,9 +89,9 @@ export default function Estadisticas(props: { name: string }) {
                         {stats.totalBlocksMined} total
                         <br />
                         <span className="text-xs">
-                            {stats.specificBlocksMined && Object.entries(stats.specificBlocksMined).length > 0 ?
+                            {('specificBlocksMined' in stats) && Object.entries((stats as any).specificBlocksMined).length > 0 ?
                                 (() => {
-                                    const mostMinedBlock = Object.entries(stats.specificBlocksMined)
+                                    const mostMinedBlock = Object.entries((stats as any).specificBlocksMined)
                                         .reduce((max, [block, count]) =>
                                             (count as number) > (max[1] as number) ? [block, count] : max,
                                             ['', 0]);
@@ -129,10 +134,13 @@ export default function Estadisticas(props: { name: string }) {
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">{stats.deaths} muertes</p>
                 </div>
             </div>
+        </div>) : <div className="flex flex-col items-center justify-center self-center w-full h-32">
+            <div className="text-center">Cargando...</div>
+
         </div>) : <div className="flex flex-col items-center justify-center self-center w-full h-28">
- 
-                <UnplugIcon className="mb-4 mx-auto" />
-                <div className="text-center">Estadisticas no disponibles.</div>
+
+            <UnplugIcon className="mb-4 mx-auto" />
+            <div className="text-center">Estadisticas no disponibles.</div>
 
         </div>
         }

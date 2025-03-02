@@ -193,7 +193,7 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                         <div className="space-y-6">
                             <div className="p-6 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800">
                                 <h3 className="font-semibold mb-4">Comentarios</h3>
-                                <Comentarios profileId={params.slug} currentUser={user} />
+                                <Comentarios profileId={params?.slug ?? ""} currentUser={user} />
                             </div>
                         </div>
                     </TabsContent>

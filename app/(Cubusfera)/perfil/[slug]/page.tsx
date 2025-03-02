@@ -11,7 +11,8 @@ type PageProps = {
 };
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const slug = params.slug;
+    // Await the params object before accessing its properties
+    const { slug } = params;
     return {
         title: `Perfil de ${slug} - Cubusfera`,
     };
@@ -19,7 +20,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Perfil({ params }: PageProps) {
     const supabase = await createClient();
-    const slug = params.slug;
+    // Await the params object before accessing its properties
+    const { slug } = params;
     const { data: profile } = await supabase
         .from("profiles")
         .select("bio, minecraft_username, twitter_username, instagram_username, youtube_channel_url, discord_username, location, id, role")
