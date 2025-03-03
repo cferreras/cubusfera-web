@@ -24,7 +24,7 @@ export default function UserDropdownMenu({
     minecraftUsername,
 }: UserDropdownMenuProps) {
     return (
-        <div className={`w-[calc(100vw-4rem)] sm:w-96 flex flex-col gap-2 absolute right-0 -bottom-4 translate-y-full p-4 dark:bg-neutral-900 bg-neutral-50 border border-white/10 rounded-3xl shadow-xl shadow-black/25 backdrop-blur-sm transition-all duration-200 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
+        <div className={`w-[calc(100vw-4rem)] sm:w-96 flex flex-col gap-2 absolute right-0 -bottom-4 translate-y-full p-4 dark:bg-neutral-900 bg-neutral-50 border border-black/10 dark:border-white/10 rounded-3xl shadow-xl shadow-black/25 backdrop-blur-sm transition-all duration-200 ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
             {discordUser !== 'Invitado' && <div className="flex flex-col bg-neutral-100 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-2xl overflow-hidden">
                 <div className="flex flex-col items-center justify-center gap-2 px-4 py-6" data-pattern="cross">
                     <Avatar className="w-10 h-10 flex rounded-full shrink-0">
