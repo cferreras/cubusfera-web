@@ -72,7 +72,16 @@ export default function Comentarios({ profileId, currentUser }: CommentProps) {
     };
 
     const handleSubmitComment = async () => {
-        if (!newComment.trim() || !currentUser || !currentUserProfile) return;
+        if (!newComment.trim() || !currentUser) return;
+        
+        if (!currentUserProfile?.minecraft_username) {
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Debes completar tu perfil con tu nombre de Minecraft antes de poder comentar"
+            });
+            return;
+        }
 
         try {
             const { data, error } = await supabase
