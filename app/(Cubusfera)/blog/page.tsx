@@ -23,7 +23,11 @@ export default function Post() {
             try {
                 const response = await fetch('/api/posts');
                 const data = await response.json();
-                setPosts(data);
+                // Sort posts by publishedAt date in descending order (newest first)
+                const sortedPosts = [...data].sort((a, b) => 
+                    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+                );
+                setPosts(sortedPosts);
             } finally {
                 setIsLoading(false);
             }
