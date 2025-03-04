@@ -1,7 +1,21 @@
 import Container from '@/components/Container';
 import Form from '@/components/Form';
 import dotenv from "dotenv";
+import { Metadata } from 'next';
+
 dotenv.config(); // Carga las variables de entorno desde el archivo .env
+
+export const metadata: Metadata = {
+    title: 'Formulario de Inscripción | Cubusfera',
+    description: 'Completa este formulario para unirte al servidor técnico de Minecraft de Cubusfera. Forma parte de nuestra comunidad de jugadores.',
+    openGraph: {
+        title: 'Formulario de Inscripción | Cubusfera',
+        description: 'Completa este formulario para unirte al servidor técnico de Minecraft de Cubusfera. Forma parte de nuestra comunidad de jugadores.',
+        type: 'website',
+        url: '/formulario',
+    },
+};
+
 export default function Formulario() {
 
     const questions: Question[] = [
