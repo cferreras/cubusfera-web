@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   other: {
     'og:type': 'website',
     'og:url': 'cubusfera.com',
-    'og:image': 'cubusfera.com/images/og-image.png',
+    // 'og:image': 'cubusfera.com/images/og-image.png',
     'og:image:alt': 'Cubusfera',
     'og:title': 'Inicio – Cubusfera',
     'og:description': 'Cubusfera es un servidor de Minecraft técnico y vanilla en español, ofreciendo una experiencia de juego vanilla con características técnicas para los amantes de los desafíos y las construcciones avanzadas.',
