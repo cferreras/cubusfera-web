@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const response = await fetch(`${process.env.MINECRAFT_SERVER_ADDRESS}/api/stats/player?name=${name}`);
+    const response = await fetch(`http://${process.env.MINECRAFT_SERVER_STATS_ADRESS}/api/stats/player?name=${name}`);
 
     if (!response.ok) {
       throw new Error(`Server responded with status: ${response.status}`);
