@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     let data;
     try {
       // Fix common JSON issues - replace single quotes with double quotes and fix unquoted property names
-      let fixedText = responseText
+      const fixedText = responseText
         .replace(/'/g, '"')
         .replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3')
         // Fix trailing commas in objects
