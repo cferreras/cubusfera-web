@@ -51,6 +51,7 @@ export async function GET(request: NextRequest) {
           
           data = JSON.parse(cleanedJson);
         } catch (secondError) {
+          console.error('Second JSON parse attempt failed:', secondError);
           return NextResponse.json({ 
             error: 'Invalid JSON response from Minecraft server',
             details: parseError.message,
