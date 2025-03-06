@@ -18,10 +18,42 @@ export async function GET(request: NextRequest) {
       throw new Error(`Server responded with status: ${response.status}`);
     }
 
-    const data = await response.json();
+    // Get the response as text first
+    const responseText = await response.text();
+    
+    // Try to parse the JSON safely
+    let data;
+    try {
+      // Fix common JSON issues - replace single quotes with double quotes and fix unquoted property names
+      let fixedText = responseText
+        .replace(/'/g, '"')
+        .replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3')
+        // Fix trailing commas in objects
+        .replace(/,\s*}/g, '}')
+        .replace(/,\s*\]/g, ']');
+      
+      data = JSON.parse(fixedText);
+    } catch (parseError: unknown) {
+      if (parseError instanceof Error) {
+        console.error('JSON parse error:', parseError);
+        console.error('Raw response:', responseText);
+        return NextResponse.json({ 
+          error: 'Invalid JSON response from Minecraft server',
+          details: parseError.message
+        }, { status: 500 });
+      }
+      // Handle non-Error objects
+      console.error('Unknown JSON parse error');
+      console.error('Raw response:', responseText);
+      return NextResponse.json({ 
+        error: 'Invalid JSON response from Minecraft server',
+        details: 'Unknown parsing error'
+      }, { status: 500 });
+    }
+
     return NextResponse.json(data);
   } catch (error) {
     console.error('Error fetching player stats:', error);
-    return NextResponse.json({ error: 'Failed to fetch player statistics' }, { status: 500 });
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

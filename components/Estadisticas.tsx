@@ -20,14 +20,21 @@ export default function Estadisticas(props: { name: string }) {
     useEffect(() => {
         // Lógica para actualizar las estadísticas
         fetch(`/api/stats/player?name=${props.name}`)
-            .then(response => {
+            .then(async response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                return response.json();
+                // Get the raw text first to debug JSON parsing issues
+                const text = await response.text();
+                try {
+                    // Try to parse the text as JSON
+                    return JSON.parse(text);
+                } catch (e) {
+                    console.error('Raw response with parsing error:', text);
+                    throw e; // Re-throw to be caught by the catch block
+                }
             })
             .then(data => {
-                setLoading(true);
                 // Actualizar el estado con las estadísticas obtenidas
                 setStats(data);
                 setError(false);
