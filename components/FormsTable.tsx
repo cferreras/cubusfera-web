@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
 import { Button } from './ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
-import { Check, X } from "lucide-react";
+import { Check, X, Diamond, AlertCircle } from "lucide-react";
 
 interface Form {
     id: string;
@@ -16,6 +16,8 @@ interface Form {
     mic_available: boolean;
     status: 'pending' | 'accepted' | 'rejected';
     revision_date: string;
+    premium_minecraft: string;
+    discord_full_name?: string; // Added Discord full name field
 }
 
 const FormsTable = () => {
@@ -152,15 +154,20 @@ const FormsTable = () => {
                         ) : (
                             paginatedForms.map((form) => (
                                 <TableRow key={form.id} className="hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50">
-                                    <TableCell>{form.name}</TableCell>
-                                    <TableCell>{form.minecraft_username}</TableCell>
+                                    <TableCell>
+                                        <div className="flex flex-col">
+                                            <span>{form.name}</span>
+                                            <span className="text-sm text-muted-foreground">{form.discord_full_name}</span>
+                                        </div>
+                                    </TableCell>
+                                    <TableCell>{form.minecraft_username}{form.premium_minecraft === "Sí" ? <div className='text-muted-foreground'>Premium</div>:<div className='text-muted-foreground'>No premium</div>}</TableCell>
                                     <TableCell>{form.connectivity_issues ? 'Sí' : 'No'}</TableCell>
                                     <TableCell>{form.minecraft_knowledge}<span className='text-muted-foreground'>/5</span></TableCell>
                                     <TableCell>
                                         <TooltipProvider>
                                             <Tooltip>
                                                 <TooltipTrigger className="text-left">
-                                                    <span className="max-w-md truncate block">
+                                                    <span className="max-w-xs truncate block">
                                                         {form.killer_question}
                                                     </span>
                                                 </TooltipTrigger>
