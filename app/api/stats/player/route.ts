@@ -30,17 +30,33 @@ export async function GET(request: NextRequest) {
         .replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3')
         // Fix trailing commas in objects
         .replace(/,\s*}/g, '}')
-        .replace(/,\s*\]/g, ']');
+        .replace(/,\s*\]/g, ']')
+        // Fix double commas
+        .replace(/,,/g, ',');
       
       data = JSON.parse(fixedText);
     } catch (parseError: unknown) {
       if (parseError instanceof Error) {
         console.error('JSON parse error:', parseError);
         console.error('Raw response:', responseText);
-        return NextResponse.json({ 
-          error: 'Invalid JSON response from Minecraft server',
-          details: parseError.message
-        }, { status: 500 });
+        // If still failing, try a more aggressive approach
+        try {
+          // Use a more comprehensive regex to clean the JSON
+          const cleanedJson = responseText
+            .replace(/,\s*,/g, ',')           // Remove consecutive commas
+            .replace(/,\s*}/g, '}')           // Remove trailing commas before }
+            .replace(/,\s*\]/g, ']')          // Remove trailing commas before ]
+            .replace(/'/g, '"')               // Replace single quotes with double quotes
+            .replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3'); // Quote unquoted keys
+          
+          data = JSON.parse(cleanedJson);
+        } catch (secondError) {
+          return NextResponse.json({ 
+            error: 'Invalid JSON response from Minecraft server',
+            details: parseError.message,
+            rawResponse: responseText
+          }, { status: 500 });
+        }
       }
       // Handle non-Error objects
       console.error('Unknown JSON parse error');
