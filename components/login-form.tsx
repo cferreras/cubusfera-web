@@ -9,7 +9,7 @@ export function LoginForm({
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
   const searchParams = useSearchParams();
-  const next = searchParams.get('next');
+  const next = searchParams?.get('next');
   
   return (
     <div className={cn("w-full", className)} {...props}>
