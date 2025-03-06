@@ -29,7 +29,7 @@ export async function POST(req: Request): Promise<Response> {
             {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${process.env.MINECRAFT_SERVER_WHITELIST_ADRESS}`,
+                    Authorization: `Bearer ${process.env.MINECRAFT_WHITELISTING_TOKEN}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ username: minecraftUsername }),

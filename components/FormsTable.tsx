@@ -62,14 +62,21 @@ const FormsTable = () => {
                     throw new Error(errorData.error || 'Error al agregar al whitelist.');
                 }
 
-                // Actualizar la columna 'minecraft_username' en la tabla profiles
-                const { error: profileError } = await supabase
-                    .from('profiles')
-                    .update({ minecraft_username: minecraftUsername })
-                    .eq('id', id);
+                // Use a server-side API to update the profile
+                const profileResponse = await fetch('/api/update-profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        userId: id, 
+                        minecraftUsername: minecraftUsername 
+                    }),
+                });
 
-                if (profileError) {
-                    throw new Error('Error al actualizar el nombre de Minecraft en la tabla profiles.');
+                if (!profileResponse.ok) {
+                    const errorData = await profileResponse.json();
+                    throw new Error(errorData.error || 'Error al actualizar el perfil.');
                 }
             } else {
                 // Si se está rechazando, remover del whitelist
