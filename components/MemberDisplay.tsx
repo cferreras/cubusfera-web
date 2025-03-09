@@ -12,6 +12,7 @@ interface Member {
 
 export default function MemberDisplay({ member }: { member: Member }) {
     const displayName = member?.displayName || 'Unknown';
+    const truncatedName = displayName.length > 12 ? `${displayName.substring(0, 12)}...` : displayName;
     const isPremium = member?.isPremium;
 
     return (
@@ -35,7 +36,7 @@ export default function MemberDisplay({ member }: { member: Member }) {
                         </Tooltip>
                         <div className="flex flex-col gap-2">
                             <div className="text-2xl font-medium group-hover:underline flex items-center gap-2">
-                                {displayName}{isPremium && <AdminBadge/>}
+                                {truncatedName}{isPremium && <AdminBadge/>}
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="text-sm px-2 py-0.5 rounded-full bg-neutral-200 dark:bg-neutral-800 text-muted-foreground">
