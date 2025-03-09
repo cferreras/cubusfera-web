@@ -114,6 +114,28 @@ const FormsTable = () => {
         }
     };
 
+    // Función para reiniciar el estado a "pending"
+    const handleResetToNotSubmitted = async (id: string) => {
+        try {
+            // Actualizar el estado en Supabase para permitir volver a enviar el formulario
+            const { error } = await supabase
+                .from('forms')
+                .update({ 
+                    already_submitted: false,
+                    revision_date: new Date().toISOString() 
+                })
+                .eq('id', id);
+
+            if (error) throw error;
+
+            alert('Formulario habilitado para volver a enviarse.');
+            fetchForms();
+        } catch (error) {
+            console.error('Error al reiniciar el formulario:', error);
+            console.error('Error occurred:', (error as Error).message);
+        }
+    };
+
     useEffect(() => {
         fetchForms();
     }, []);
@@ -221,6 +243,15 @@ const FormsTable = () => {
                                                 className="rounded-xl px-3 py-1"
                                             >
                                                 Aprobar
+                                            </Button>
+                                        )}
+                                        {form.status !== 'pending' && (
+                                            <Button
+                                                onClick={() => handleResetToNotSubmitted(form.id)}
+                                                variant="outline"
+                                                className="rounded-xl px-3 py-1 mt-2"
+                                            >
+                                                Reiniciar
                                             </Button>
                                         )}
                                     </TableCell>
