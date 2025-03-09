@@ -25,7 +25,9 @@ export default async function Miembros({
 }: {
     searchParams: { page?: string };
 }) {
-    const currentPage = Number(searchParams.page) || 1;
+    // Convert searchParams to a regular object if it's a Promise
+    const params = searchParams instanceof Promise ? await searchParams : searchParams;
+    const currentPage = Number(params?.page) || 1;
     const membersPerPage = 15; // 3x5 grid
     const supabase = await createClient();
 

@@ -12,7 +12,7 @@ interface Member {
 
 export default function MemberDisplay({ member }: { member: Member }) {
     const displayName = member?.displayName || 'Unknown';
-    const truncatedName = displayName.length > 12 ? `${displayName.substring(0, 12)}...` : displayName;
+    const truncatedName = displayName.length > 10 ? `${displayName.substring(0, 10)}...` : displayName;
     const isPremium = member?.isPremium;
 
     return (
@@ -35,7 +35,7 @@ export default function MemberDisplay({ member }: { member: Member }) {
                             </TooltipContent>
                         </Tooltip>
                         <div className="flex flex-col gap-2">
-                            <div className="text-2xl font-medium group-hover:underline flex items-center gap-2">
+                            <div className="text-lg md:text-2xl font-medium group-hover:underline flex items-center gap-2">
                                 {truncatedName}{isPremium && <AdminBadge/>}
                             </div>
                             <div className="flex items-center gap-2">
