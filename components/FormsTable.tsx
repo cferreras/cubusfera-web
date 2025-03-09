@@ -168,7 +168,7 @@ const FormsTable = () => {
                                         </div>
                                     </TableCell>
                                     <TableCell>{form.minecraft_username}{form.premium_minecraft === "Sí" ? <div className='text-muted-foreground'>Premium</div>:<div className='text-muted-foreground'>No premium</div>}</TableCell>
-                                    <TableCell>{form.connectivity_issues ? 'Sí' : 'No'}</TableCell>
+                                    <TableCell>{form.connectivity_issues}</TableCell>
                                     <TableCell>{form.minecraft_knowledge}<span className='text-muted-foreground'>/5</span></TableCell>
                                     <TableCell>
                                         <TooltipProvider>
