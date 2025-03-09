@@ -40,7 +40,11 @@ export default function MemberDisplay({ member }: { member: Member }) {
                             </div>
                             <div className="flex items-center gap-2">
                                 <span className="text-sm px-2 py-0.5 rounded-full bg-neutral-200 dark:bg-neutral-800 text-muted-foreground">
-                                    {member?.role === 'admin' ? 'Administrador' : 'Miembro'}
+                                    {member?.role === 'admin' 
+                                        ? 'Administrador' 
+                                        : member?.role === 'mod' 
+                                            ? 'Moderador' 
+                                            : 'Miembro'}
                                 </span>
                             </div>
                         </div>
