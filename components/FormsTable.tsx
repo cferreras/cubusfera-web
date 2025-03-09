@@ -14,6 +14,7 @@ interface Form {
     minecraft_knowledge: number;
     killer_question: string;
     mic_available: boolean;
+    uses_mic: string;
     status: 'pending' | 'accepted' | 'rejected';
     revision_date: string;
     premium_minecraft: string;
@@ -184,7 +185,7 @@ const FormsTable = () => {
                                             </Tooltip>
                                         </TooltipProvider>
                                     </TableCell>
-                                    <TableCell>{form.mic_available ? 'Sí' : 'No'}</TableCell>
+                                    <TableCell>{form.mic_available} {form.uses_mic === "Sí" ? '😊' : '😔'}</TableCell>
                                     <TableCell>
                                         {form.status === 'pending' ? (
                                             <div className="flex gap-1">
