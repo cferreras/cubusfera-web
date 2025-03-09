@@ -138,7 +138,7 @@ const FormsTable = () => {
                         <TableRow className="hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50">
                             <TableHead className="font-medium">Nombre</TableHead>
                             <TableHead className="font-medium">Usuario de Minecraft</TableHead>
-                            <TableHead className="font-medium">Conexión</TableHead>
+                            <TableHead className="font-medium">Problemas conexión</TableHead>
                             <TableHead className="font-medium">Conocimiento MC</TableHead>
                             <TableHead className="font-medium">Pregunta Clave</TableHead>
                             <TableHead className="font-medium">Mic Disponible</TableHead>
