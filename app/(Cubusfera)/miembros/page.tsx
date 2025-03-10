@@ -1,6 +1,6 @@
 
-import Container from "@/components/Container";
 import { Metadata } from "next";
+import Container from "@/components/Container";
 import dotenv from "dotenv";
 import MemberDisplay from "@/components/MemberDisplay";
 import { createClient } from "@/utils/supabase/server";
@@ -20,14 +20,21 @@ export const metadata: Metadata = {
     description: 'Miembros del servidor de Minecraft Cubusfera',
 }
 
+type SearchParams = {
+    [key: string]: string | string[] | undefined;
+};
+
+type PageProps = {
+    searchParams: SearchParams;
+};
+
 export default async function Miembros({
     searchParams,
-}: {
-    searchParams: { page?: string } | Promise<{ page?: string }>;
-}) {
-    // Convert searchParams to a regular object if it's a Promise
+}: PageProps) {
+    // First await the entire searchParams object
     const params = searchParams instanceof Promise ? await searchParams : searchParams;
-    const currentPage = Number(params?.page) || 1;
+    // Then access the page property
+    const currentPage = Number(params.page) || 1;
     const membersPerPage = 15; // 3x5 grid
     const supabase = await createClient();
 
