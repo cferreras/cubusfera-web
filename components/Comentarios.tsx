@@ -25,6 +25,14 @@ interface CommentProps {
     currentUser: User | null;
 }
 
+interface CommentData {
+    content: string;
+    user_id: string;
+    minecraft_username: string;
+    profile_minecraft_username?: string;
+    post_slug?: string;
+}
+
 export default function Comentarios({ profileId, postSlug, currentUser }: CommentProps) {
     const { toast } = useToast()
     const [comments, setComments] = useState<Comment[]>([]);
@@ -102,7 +110,7 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
         }
 
         try {
-            const commentData: any = {
+            const commentData: CommentData = {
                 content: newComment,
                 user_id: currentUser.id,
                 minecraft_username: currentUserProfile.minecraft_username,
