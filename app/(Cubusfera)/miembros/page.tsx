@@ -21,20 +21,19 @@ export const metadata: Metadata = {
 }
 
 type SearchParams = {
-    [key: string]: string | string[] | undefined;
+    page?: string; // Define the expected query parameters
+    [key: string]: string | string[] | undefined; // Allow for additional query parameters
 };
 
 type PageProps = {
-    searchParams: SearchParams;
+    searchParams: Promise<SearchParams>; // Note that searchParams is now a Promise
 };
 
 export default async function Miembros({
     searchParams,
 }: PageProps) {
-    // First await the entire searchParams object
-    const params = searchParams instanceof Promise ? await searchParams : searchParams;
-    // Then access the page property
-    const currentPage = Number(params.page) || 1;
+    const resolvedSearchParams = await searchParams;
+    const currentPage = Number(resolvedSearchParams.page) || 1;
     const membersPerPage = 15; // 3x5 grid
     const supabase = await createClient();
 
