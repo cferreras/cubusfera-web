@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 export default async function Miembros({
     searchParams,
 }: {
-    searchParams: { page?: string };
+    searchParams: { page?: string } | Promise<{ page?: string }>;
 }) {
     // Convert searchParams to a regular object if it's a Promise
     const params = searchParams instanceof Promise ? await searchParams : searchParams;
