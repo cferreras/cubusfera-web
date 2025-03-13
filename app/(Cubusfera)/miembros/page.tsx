@@ -13,6 +13,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+import ServerStatsSection from "@/components/ServerStatsSection";
 
 dotenv.config();
 export const metadata: Metadata = {
@@ -34,10 +35,10 @@ export default async function Miembros({
 }: PageProps) {
     const resolvedSearchParams = await searchParams;
     const currentPage = Number(resolvedSearchParams.page) || 1;
-    const membersPerPage = 15; // 3x5 grid
+    const membersPerPage = 15;
     const supabase = await createClient();
 
-    // Get all members
+    // Get all members and calculate stats from database
     const { data: allMembers } = await supabase
         .from('profiles')
         .select('id, minecraft_username, created_at, role')
@@ -49,6 +50,24 @@ export default async function Miembros({
                 .eq('status', 'accepted'))
                 .data?.map(form => form.id) || []
         );
+
+    // Fetch server stats from API
+    // Remove these lines
+    // const statsResponse = await fetch("/api/stats");
+    // const statsData = await statsResponse.json();
+    // const totalPlaytime = statsData.totalPlaytime;
+    // const totalBlocksMined = statsData.totalBlocksMined;
+
+    // Get premium players count
+    const { count: premiumCount } = await supabase
+        .from('forms')
+        .select('*', { count: 'exact' })
+        .eq('status', 'accepted')
+        .eq('premium_minecraft', 'Sí');
+
+    // Calculate stats
+    const totalPlayers = allMembers?.length || 0;
+    const premiumPlayers = premiumCount || 0;
 
     // Format all members
     const formattedMembers = await Promise.all(allMembers?.map(async (member: {
@@ -93,6 +112,11 @@ export default async function Miembros({
                     Explora la lista de jugadores que forman parte de nuestra comunidad.
                 </p>
             </div>
+
+            <ServerStatsSection 
+                totalPlayers={totalPlayers}
+                premiumPlayers={premiumPlayers}
+            />
 
             {/* Admin Section */}
             {adminMembers.length > 0 && (

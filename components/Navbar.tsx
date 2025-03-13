@@ -1,35 +1,24 @@
 import ServerStatus from './ServerStatus';
 import NavbarMenu from './NavbarMenu';
 import AuthenticationButton from './AuthenticationButton';
-import { FaDiscord, FaEarthAfrica, FaXTwitter, FaYoutube } from 'react-icons/fa6';
+import { FaDiscord, FaXTwitter, FaYoutube } from 'react-icons/fa6';
 
 export default function Navbar() {
     return (
         <>
             {/* Barra superior */}
-            <div className="bg-indigo-600 w-full h-9">
+            <div className="bg-white dark:bg-black w-full h-9 border-b dark:border-neutral-800">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-9">
                     <div className="flex justify-between items-center h-full">
                         {/* Información del servidor */}
-                        <div className="hidden md:flex items-center text-gray-700 text-sm space-x-4">
-                            <div className="text-white py-2 text-sm text-balance sm:text-nowrap flex items-center">
-                                <span>
-                                    <FaEarthAfrica className='h-4 w-4 mr-1.5'/>
-                                </span>
-                                <div>
-                                    IP del servidor:{" "}
-                                    <span className="underline">cubusfera.com</span>
-                                </div>
-                            </div>
-                            <ServerStatus />
-                        </div>
+                        <ServerStatus />
 
                         {/* Iconos de redes sociales */}
-                        <div className="flex text-white space-x-4 items-center justify-between md:justify-end md:w-auto w-full">
+                        <div className="flex text-neutral-700 dark:text-white space-x-4 items-center justify-between md:justify-end md:w-auto w-full">
                             <div className="flex items-center space-x-4">
                                 <a
                                     href="https://discord.com/invite/7uKEYACErc"
-                                    className="flex items-center gap-x-1.5"
+                                    className="flex items-center gap-x-1.5 hover:text-indigo-500 transition-colors"
                                 >
                                     <FaDiscord className='h-5 w-5'/>
                                 </a>
