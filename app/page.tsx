@@ -1,8 +1,6 @@
 import Container from "@/components/Container";
 import TheHeader from "@/components/TheHeader";
 import { Metadata } from "next";
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
 import FeatureCard from "@/components/FeatureCard";
 import TestimonialCard from "@/components/TestimonialCard";
 import CTACard from "@/components/CTACard";
