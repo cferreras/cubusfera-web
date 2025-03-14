@@ -23,11 +23,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <Navbar />
-      <main>
-        <div className="w-full h-screen absolute left-0 top-0 z-[-1] pointer-events-none" data-pattern="diamonds">
-          <div className="w-full h-full absolute left-0 bottom-0 z-10 bg-gradient-to-t from-white to-neutral-white/0 dark:from-neutral-950 dark:to-neutral-950/0 pointer-events-none"></div>
-        </div>
+
         <TheHeader />
         <Container className="py-9 space-y-12">
           <FeatureCard
@@ -52,8 +48,6 @@ export default function Home() {
           <TestimonialCard />
           <CTACard />
         </Container>
-      </main>
-      <Footer />
     </>
   );
 }
