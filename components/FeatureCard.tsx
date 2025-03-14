@@ -21,7 +21,7 @@ export default function FeatureCard({ title, description, imageSrc, imageAlt, re
             <Card className="bg-transparent border-none shadow-none">
                 <article className="flex flex-col md:flex-row gap-12 items-center">
                     {!reversed && (
-                        <div className="flex flex-col space-y-4 md:w-2/3">
+                        <div className="flex flex-col space-y-4 md:w-2/3 order-2 md:order-1">
                             <CardTitle className="font-bold text-3xl md:text-5xl text-right">
                                 {title}
                             </CardTitle>
@@ -31,12 +31,12 @@ export default function FeatureCard({ title, description, imageSrc, imageAlt, re
                         </div>
                     )}
                     <img
-                        className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-3xl"
+                        className="w-full md:w-1/3 object-cover aspect-[827/640] border dark:border-neutral-800 rounded-3xl order-1 md:order-2"
                         src={imageSrc}
                         alt={imageAlt}
                     />
                     {reversed && (
-                        <div className="flex flex-col space-y-4 md:w-2/3">
+                        <div className="flex flex-col space-y-4 md:w-2/3 order-2 md:order-2">
                             <CardTitle className="font-bold text-3xl md:text-5xl">
                                 {title}
                             </CardTitle>
