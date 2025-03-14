@@ -2,18 +2,9 @@
 import { Metadata } from "next";
 import Container from "@/components/Container";
 import dotenv from "dotenv";
-import MemberDisplay from "@/components/MemberDisplay";
 import { createClient } from "@/utils/supabase/server";
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination";
 import ServerStatsSection from "@/components/ServerStatsSection";
+import MemberList from "@/components/MemberList";
 
 dotenv.config();
 export const metadata: Metadata = {
@@ -96,11 +87,6 @@ export default async function Miembros({
     const modMembers = formattedMembers.filter(member => member.role === 'mod');
     const regularMembers = formattedMembers.filter(member => member.role === 'user' || !member.role);
 
-    // Paginate regular members only
-    const startIndex = (currentPage - 1) * membersPerPage;
-    const endIndex = startIndex + membersPerPage;
-    const paginatedRegularMembers = regularMembers.slice(startIndex, endIndex);
-
     // Calculate total pages for regular members
     const totalPages = Math.ceil(regularMembers.length / membersPerPage);
 
@@ -118,99 +104,16 @@ export default async function Miembros({
                 premiumPlayers={premiumPlayers}
             />
 
-            {/* Admin Section */}
-            {adminMembers.length > 0 && (
-                <>
-                    <h2 className="text-xl font-semibold mb-4 mt-8">Administradores</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                        {adminMembers.map((member) => (
-                            <MemberDisplay
-                                key={member.id}
-                                member={member}
-                            />
-                        ))}
-                    </div>
-                </>
-            )}
-
-            {/* Mod Section */}
-            {modMembers.length > 0 && (
-                <>
-                    <h2 className="text-xl font-semibold mb-4 mt-8">Moderadores</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                        {modMembers.map((member) => (
-                            <MemberDisplay
-                                key={member.id}
-                                member={member}
-                            />
-                        ))}
-                    </div>
-                </>
-            )}
-
-            {/* Regular Members Section */}
-            <h2 className="text-xl font-semibold mb-4 mt-8">Miembros</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {paginatedRegularMembers.map((member) => (
-                    <MemberDisplay
-                        key={member.id}
-                        member={member}
-                    />
-                ))}
-            </div>
-
-            {/* Pagination only for regular members */}
-            {totalPages > 1 && (
-                <Pagination className="mt-8">
-                    <PaginationContent>
-                        {currentPage > 1 && (
-                            <PaginationItem>
-                                <PaginationPrevious href={`/miembros?page=${currentPage - 1}`} />
-                            </PaginationItem>
-                        )}
-
-                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
-                            // Show current page and adjacent pages
-                            if (
-                                page === 1 ||
-                                page === totalPages ||
-                                (page >= currentPage - 1 && page <= currentPage + 1)
-                            ) {
-                                return (
-                                    <PaginationItem key={page}>
-                                        <PaginationLink
-                                            href={`/miembros?page=${page}`}
-                                            isActive={page === currentPage}
-                                        >
-                                            {page}
-                                        </PaginationLink>
-                                    </PaginationItem>
-                                );
-                            }
-
-                            // Show ellipsis for gaps
-                            if (
-                                (page === 2 && currentPage > 3) ||
-                                (page === totalPages - 1 && currentPage < totalPages - 2)
-                            ) {
-                                return (
-                                    <PaginationItem key={`ellipsis-${page}`}>
-                                        <PaginationEllipsis />
-                                    </PaginationItem>
-                                );
-                            }
-
-                            return null;
-                        })}
-
-                        {currentPage < totalPages && (
-                            <PaginationItem>
-                                <PaginationNext href={`/miembros?page=${currentPage + 1}`} />
-                            </PaginationItem>
-                        )}
-                    </PaginationContent>
-                </Pagination>
-            )}
+            <MemberList members={adminMembers} title="Administradores" showPagination={false} />
+            <MemberList members={modMembers} title="Moderadores" showPagination={false} />
+            <MemberList 
+                members={regularMembers} 
+                title="Miembros" 
+                showPagination={true}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                membersPerPage={membersPerPage}
+            />
         </Container>
     );
 }
