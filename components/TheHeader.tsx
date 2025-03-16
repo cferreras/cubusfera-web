@@ -80,17 +80,8 @@ export default function TheHeader() {
                 </motion.div>
             </div>
 
-            <motion.div
-                className="absolute -z-10 w-[150%] h-48 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 blur-3xl overflow-hidden"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 1 }}
-                style={{
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%) rotate(-3deg)'
-                }}
-            />
+            {/* Removed the motion.div with the gradient flare effect */}
+            
         </header>
     );
 }
