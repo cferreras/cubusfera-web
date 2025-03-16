@@ -22,8 +22,8 @@ export default function Home() {
   return (
     <>
 
-        <TheHeader />
-        <Container className="py-16 md:py-24">
+        <Container>
+            <TheHeader />
             <div className="space-y-24 md:space-y-32">
                 <section className="space-y-24 md:space-y-32">
                     <FeatureCard
