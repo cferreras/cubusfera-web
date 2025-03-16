@@ -16,7 +16,7 @@ export default function RotatingText() {
     }, []);
 
     return (
-        <span className="inline-block w-[90px] text-left ml-1">
+        <span className="inline-block w-[90px] max-[399px]:text-center text-left">
             <AnimatePresence mode="wait">
                 <motion.span
                     key={words[index]}
