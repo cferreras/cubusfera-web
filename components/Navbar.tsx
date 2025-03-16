@@ -1,7 +1,5 @@
-import ServerStatus from './ServerStatus';
 import NavbarMenu from './NavbarMenu';
 import AuthenticationButton from './AuthenticationButton';
-import { FaDiscord, FaXTwitter, FaYoutube } from 'react-icons/fa6';
 
 export default function Navbar() {
     return (
