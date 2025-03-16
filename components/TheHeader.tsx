@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useServerStatus } from '@/hooks/useServerStatus';
+import RotatingText from './RotatingText';
 
 export default function TheHeader() {
     const serverStatus = useServerStatus();
@@ -34,12 +35,12 @@ export default function TheHeader() {
                 </motion.h1>
 
                 <motion.p 
-                    className="max-w-md sm:max-w-xl mx-auto text-neutral-600 dark:text-neutral-400 text-base sm:text-lg md:text-xl font-medium mt-12"
+                    className="max-w-md sm:max-w-xl mx-auto text-neutral-600 dark:text-neutral-400 text-base sm:text-lg md:text-xl font-medium mt-12 pl-[16px]"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6, duration: 0.7 }}
                 >
-                    Un servidor de Minecraft diferente
+                    Un servidor de Minecraft <RotatingText />
                 </motion.p>
 
                 <motion.div 
@@ -80,14 +81,14 @@ export default function TheHeader() {
             </div>
 
             <motion.div
-                className="absolute -z-10 w-[200%] h-48 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 blur-3xl"
+                className="absolute -z-10 w-[150%] h-48 bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 blur-3xl overflow-hidden"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 1 }}
                 style={{
                     top: '50%',
                     left: '50%',
-                    transform: 'translate(-50%, -50%) rotate(-5deg)'
+                    transform: 'translate(-50%, -50%) rotate(-3deg)'
                 }}
             />
         </header>
