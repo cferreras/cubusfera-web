@@ -187,7 +187,7 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
             <div className="space-y-5">
                 {currentUser ? (
                     <div className="flex gap-4">
-                        <Avatar className="h-10 w-10">
+                        <Avatar className="h-10 w-10 rounded-sm">
                             <AvatarImage
                                 src={`https://mc-heads.net/avatar/${currentUserProfile?.minecraft_username}/64`}
                                 alt={currentUserProfile?.minecraft_username || 'User'}
@@ -218,7 +218,7 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
                     {comments.map((comment) => (
                         <div key={comment.id} className="flex gap-4">
                             <Link href={`/perfil/${comment.minecraft_username}`}>
-                                <Avatar className="h-10 w-10">
+                                <Avatar className="h-10 w-10 rounded-sm">
                                     <AvatarImage
                                         src={`https://mc-heads.net/avatar/${comment.minecraft_username}/64`}
                                         alt={comment.minecraft_username}
