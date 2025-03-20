@@ -7,11 +7,25 @@ import { Toaster } from "@/components/ui/toaster";
 import { ToastTrigger } from "@/components/ToastTrigger";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
 export default function GlobalLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="es" suppressHydrationWarning>
             <head>
                 <meta name="cz-shortcut-listen" content="false" />
+                <link
+                    rel="icon"
+                    type="image/svg+xml"
+                    href="/favicon-light.svg"
+                    media="(prefers-color-scheme: light)"
+                />
+                <link
+                    rel="icon"
+                    type="image/svg+xml"
+                    href="/favicon-dark.svg"
+                    media="(prefers-color-scheme: dark)"
+                />
+                <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" /> 
             </head>
 
             <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] dark:bg-neutral-950 bg-white ${geist.className}`}>
@@ -33,6 +47,6 @@ export default function GlobalLayout({ children }: { children: ReactNode }) {
         </main>
         <Footer/>
             </body>
-        </html >
+        </html>
     )
 }
