@@ -5,7 +5,7 @@ import { Users, Clock, ShieldCheckIcon, PickaxeIcon } from "lucide-react";
 interface ServerStatsProps {
     totalPlayers: number;
     totalPlaytime: string;
-    totalBlocksMined: number;  // Changed from totalAchievements
+    totalBlocksMined: string;  // Changed from totalAchievements
     premiumPlayers: number;
 }
 
