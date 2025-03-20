@@ -24,25 +24,20 @@ export default function DarkmodeToggle() {
 
     if (!mounted) {
         return (
-            <button className="flex items-center gap-4 px-4 py-5 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-2xl outline-none">
+            <button className="hidden md:flex rounded-xl border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900">
                 <div className="relative w-[1.2rem] h-[1.2rem]"></div>
-                <div></div>
+
                 <span className="sr-only">Cambiar tema</span>
             </button>
         )
     }
 
     return (
-        <button onClick={() => cycleTheme()} className="flex items-center gap-4 px-4 py-5 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-2xl outline-none">
-            <div className="relative w-[1.2rem] h-[1.2rem]">
+        <button onClick={() => cycleTheme()} className="flex h-12 items-center border dark:border-neutral-700 backdrop-blur-sm hover:bg-white/5 rounded-xl z-[1] w-12">
+            <div className="relative w-[1rem] h-[1rem] mx-auto">
                 {theme === 'dark' && <MoonIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
                 {theme === 'light' && <SunIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
                 {theme === 'system' && <ComputerIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
-            </div>
-            <div>
-                {theme === 'dark' && 'Oscuro'}
-                {theme === 'light' && 'Claro'}
-                {theme === 'system' && 'Sistema'}
             </div>
             <span className="sr-only">Cambiar tema</span>
         </button>

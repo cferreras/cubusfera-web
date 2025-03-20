@@ -1,5 +1,6 @@
 import NavbarMenu from './NavbarMenu';
 import AuthenticationButton from './AuthenticationButton';
+import DarkmodeToggle from './DarkmodeToggle';
 
 export default function Navbar() {
     return (
@@ -7,6 +8,7 @@ export default function Navbar() {
             <div className="flex justify-between container mx-auto max-w-7xl h-16">
                 <NavbarMenu />
                 <div className="flex items-center py-3 gap-x-1">
+                    <DarkmodeToggle/>
                     <AuthenticationButton />
                 </div>
             </div>

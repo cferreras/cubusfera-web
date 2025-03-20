@@ -1,9 +1,8 @@
 "use client"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { User2, LogOutIcon, HomeIcon, MapIcon, NotebookIcon, ScaleIcon, UsersIcon } from "lucide-react";
+import { LogOutIcon, HomeIcon, MapIcon, NotebookIcon, ScaleIcon, UsersIcon, UserIcon } from "lucide-react";
 import Link from "next/link";
 import { logout, signInWithDiscord } from "@/app/actions";
-import DarkmodeToggle from "./DarkmodeToggle";
 
 interface UserDropdownMenuProps {
     discordUser: string;
@@ -41,21 +40,22 @@ export default function UserDropdownMenu({
                 </div>
             </div>}
 
-            <div className="flex gap-0 md:hidden">
-                <Link href="/" onClick={onClose} className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-l-2xl outline-none">
+            <div className="flex gap-0 lg:hidden">
+                <Link href="/" onClick={onClose} className="w-1/4 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-l-2xl outline-none">
                     <HomeIcon className="mx-auto w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
+                    <div className="text-xs text-center">Inicio</div>
                 </Link>
-                <Link href="/mapa" onClick={onClose} className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
-                    <MapIcon className="mx-auto w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
+                <Link href="/mapa" onClick={onClose} className="w-1/4 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
+                    <MapIcon className="mx-auto w-4 h-4 flex items-center justify-center text-xs dark:text-neutral-300 text-neutral-700" />
+                    <div className="text-xs text-center">Mapa</div>
                 </Link>
-                <Link href="/blog" onClick={onClose} className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
-                    <NotebookIcon className="mx-auto w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
+                <Link href="/blog" onClick={onClose} className="w-1/4 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-r-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
+                    <NotebookIcon className="mx-auto w-4 h-4 flex items-center justify-center text-xs dark:text-neutral-300 text-neutral-700" />
+                    <div className="text-xs text-center">Blog</div>
                 </Link>
-                <Link href="/normas" onClick={onClose} className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-0 outline-none">
-                    <ScaleIcon className="mx-auto w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
-                </Link>
-                <Link href="/miembros" onClick={onClose} className="w-1/5 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 border-l-0 dark:border-neutral-700 dark:bg-neutral-800 rounded-r-2xl outline-none">
-                    <UsersIcon className="mx-auto w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
+                <Link href="/normas" onClick={onClose} className="w-1/4 py-4 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-r-2xl outline-none">
+                    <ScaleIcon className="mx-auto w-4 h-4 flex items-center justify-center text-xs dark:text-neutral-300 text-neutral-700" />
+                    <div className="text-xs text-center">Normas</div>
                 </Link>
             </div>
 
@@ -64,10 +64,18 @@ export default function UserDropdownMenu({
                 onClick={onClose}
                 className="flex items-center gap-4 px-4 py-5 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-2xl outline-none cursor-pointer"
             >
-                <User2 className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
+                <UserIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
                 Perfil
             </Link>}
-            <DarkmodeToggle />
+            
+            <Link
+                href={`/miembros`}
+                onClick={onClose}
+                className="flex lg:hidden items-center gap-4 px-4 py-5 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-2xl outline-none cursor-pointer"
+            >
+                <UsersIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
+                Miembros
+            </Link>
 
             {discordUser !== 'Invitado' ? (<form action={logout} className="rounded-2xl py-0 px-0 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 outline-none">
                 <button
