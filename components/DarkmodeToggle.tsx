@@ -33,7 +33,7 @@ export default function DarkmodeToggle() {
     }
 
     return (
-        <button onClick={() => cycleTheme()} className="flex h-12 items-center border dark:border-neutral-700 backdrop-blur-sm hover:bg-white/5 rounded-xl z-[1] w-12">
+        <button onClick={() => cycleTheme()} className="flex h-12 items-center border hover:bg-black/5 dark:hover:bg-white/10 dark:border-neutral-700 backdrop-blur-sm rounded-xl z-[1] w-12">
             <div className="relative w-[1rem] h-[1rem] mx-auto">
                 {theme === 'dark' && <MoonIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
                 {theme === 'light' && <SunIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
