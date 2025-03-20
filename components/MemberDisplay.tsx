@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import OnlineStatus from "./OnlineStatus";
 import PremiumBadge from "./PremiumBadge";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 export interface Member {
     id: string;
@@ -19,11 +20,15 @@ export default function MemberDisplay({ member, isOnline }: { member: Member, is
                 <CardContent className="flex items-center justify-between p-6">
                     <div className="flex items-center gap-4">
                         <div className="relative">
-                            <img
-                                src={`https://mc-heads.net/avatar/${member.displayName}`}
-                                alt={member.displayName}
-                                className="w-12 h-12 rounded"
-                            />
+                            <Avatar className="rounded-sm w-12 h-12">
+                                <AvatarImage
+                                    src={`https://mc-heads.net/avatar/${member.displayName}`}
+                                    alt={member.displayName}
+                                />
+                                <AvatarFallback className="rounded-sm w-12 h-12">
+                                    {member.displayName.substring(0, 2).toUpperCase()}
+                                </AvatarFallback>
+                            </Avatar>
                             <OnlineStatus isOnline={isOnline} />
                         </div>
                         <div>
