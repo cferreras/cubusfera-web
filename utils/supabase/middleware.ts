@@ -66,7 +66,7 @@ export const updateSession = async (request: NextRequest) => {
         .eq("id", user.id)
         .single();
 
-      if (profileError || profile?.role !== "admin" || profile?.role!== "mod") {
+      if (profileError || (profile?.role !== "admin" && profile?.role !== "mod")) {
         return NextResponse.redirect(new URL("/access-denied", request.url));
       }
     }
