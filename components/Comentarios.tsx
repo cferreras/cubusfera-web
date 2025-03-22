@@ -15,15 +15,25 @@ interface Comment {
     created_at: string;
     user_id: string;
     minecraft_username: string;
-    profile_minecraft_username: string;
+    profile_minecraft_username?: string;
+    post_slug?: string;
 }
 
 interface CommentProps {
-    profileId: string;
+    profileId?: string;
+    postSlug?: string;
     currentUser: User | null;
 }
 
-export default function Comentarios({ profileId, currentUser }: CommentProps) {
+interface CommentData {
+    content: string;
+    user_id: string;
+    minecraft_username: string;
+    profile_minecraft_username?: string;
+    post_slug?: string;
+}
+
+export default function Comentarios({ profileId, postSlug, currentUser }: CommentProps) {
     const { toast } = useToast()
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState('');
@@ -32,7 +42,7 @@ export default function Comentarios({ profileId, currentUser }: CommentProps) {
 
     useEffect(() => {
         fetchComments();
-    }, [profileId]);
+    }, [profileId, postSlug]);
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -56,33 +66,66 @@ export default function Comentarios({ profileId, currentUser }: CommentProps) {
     }, [currentUser]);
 
     const fetchComments = async () => {
-        console.log('Fetching comments for profile:', profileId);
-        const { data, error } = await supabase
-            .from('comments')
-            .select('*')
-            .eq('profile_minecraft_username', profileId)
-            .order('created_at', { ascending: false });
+        if (profileId) {
+            console.log('Fetching comments for profile:', profileId);
+            const { data, error } = await supabase
+                .from('comments')
+                .select('*')
+                .eq('profile_minecraft_username', profileId)
+                .order('created_at', { ascending: false });
 
-        if (error) {
-            console.error('Error fetching comments:', error);
-            return;
+            if (error) {
+                console.error('Error fetching comments:', error);
+                return;
+            }
+
+            setComments(data || []);
+        } else if (postSlug) {
+            console.log('Fetching comments for blog post:', postSlug);
+            const { data, error } = await supabase
+                .from('comments')
+                .select('*')
+                .eq('post_slug', postSlug)
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                console.error('Error fetching comments:', error);
+                return;
+            }
+
+            setComments(data || []);
         }
-
-        setComments(data || []);
     };
 
     const handleSubmitComment = async () => {
-        if (!newComment.trim() || !currentUser || !currentUserProfile) return;
+        if (!newComment.trim() || !currentUser) return;
+        
+        if (!currentUserProfile?.minecraft_username) {
+            toast({
+                variant: "destructive",
+                title: "Error",
+                description: "Debes completar tu perfil con tu nombre de Minecraft antes de poder comentar"
+            });
+            return;
+        }
 
         try {
+            const commentData: CommentData = {
+                content: newComment,
+                user_id: currentUser.id,
+                minecraft_username: currentUserProfile.minecraft_username,
+            };
+            
+            // Add the appropriate identifier based on context
+            if (profileId) {
+                commentData.profile_minecraft_username = profileId;
+            } else if (postSlug) {
+                commentData.post_slug = postSlug;
+            }
+
             const { data, error } = await supabase
                 .from('comments')
-                .insert({
-                    content: newComment,
-                    user_id: currentUser.id,
-                    minecraft_username: currentUserProfile.minecraft_username,
-                    profile_minecraft_username: profileId
-                })
+                .insert(commentData)
                 .select()
                 .single();
 
@@ -144,7 +187,7 @@ export default function Comentarios({ profileId, currentUser }: CommentProps) {
             <div className="space-y-5">
                 {currentUser ? (
                     <div className="flex gap-4">
-                        <Avatar className="h-10 w-10">
+                        <Avatar className="h-10 w-10 rounded-sm">
                             <AvatarImage
                                 src={`https://mc-heads.net/avatar/${currentUserProfile?.minecraft_username}/64`}
                                 alt={currentUserProfile?.minecraft_username || 'User'}
@@ -175,7 +218,7 @@ export default function Comentarios({ profileId, currentUser }: CommentProps) {
                     {comments.map((comment) => (
                         <div key={comment.id} className="flex gap-4">
                             <Link href={`/perfil/${comment.minecraft_username}`}>
-                                <Avatar className="h-10 w-10">
+                                <Avatar className="h-10 w-10 rounded-sm">
                                     <AvatarImage
                                         src={`https://mc-heads.net/avatar/${comment.minecraft_username}/64`}
                                         alt={comment.minecraft_username}

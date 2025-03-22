@@ -28,7 +28,7 @@ export async function POST(req: Request): Promise<Response> {
 
         // Realizar la solicitud POST al servidor Minecraft
         const response = await fetch(
-            `http://${process.env.MINECRAFT_SERVER_ADDRESS}/whitelist`,
+            `${process.env.MINECRAFT_SERVER_WHITELIST_ADRESS}/whitelist`,
             {
                 method: 'POST',
                 headers: {

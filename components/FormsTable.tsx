@@ -14,8 +14,11 @@ interface Form {
     minecraft_knowledge: number;
     killer_question: string;
     mic_available: boolean;
+    uses_mic: string;
     status: 'pending' | 'accepted' | 'rejected';
     revision_date: string;
+    premium_minecraft: string;
+    discord_full_name?: string; // Added Discord full name field
 }
 
 const FormsTable = () => {
@@ -60,14 +63,21 @@ const FormsTable = () => {
                     throw new Error(errorData.error || 'Error al agregar al whitelist.');
                 }
 
-                // Actualizar la columna 'minecraft_username' en la tabla profiles
-                const { error: profileError } = await supabase
-                    .from('profiles')
-                    .update({ minecraft_username: minecraftUsername })
-                    .eq('id', id);
+                // Use a server-side API to update the profile
+                const profileResponse = await fetch('/api/update-profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        userId: id, 
+                        minecraftUsername: minecraftUsername 
+                    }),
+                });
 
-                if (profileError) {
-                    throw new Error('Error al actualizar el nombre de Minecraft en la tabla profiles.');
+                if (!profileResponse.ok) {
+                    const errorData = await profileResponse.json();
+                    throw new Error(errorData.error || 'Error al actualizar el perfil.');
                 }
             } else {
                 // Si se está rechazando, remover del whitelist
@@ -104,6 +114,28 @@ const FormsTable = () => {
         }
     };
 
+    // Función para reiniciar el estado a "pending"
+    const handleResetToNotSubmitted = async (id: string) => {
+        try {
+            // Actualizar el estado en Supabase para permitir volver a enviar el formulario
+            const { error } = await supabase
+                .from('forms')
+                .update({ 
+                    already_submitted: false,
+                    revision_date: new Date().toISOString() 
+                })
+                .eq('id', id);
+
+            if (error) throw error;
+
+            alert('Formulario habilitado para volver a enviarse.');
+            fetchForms();
+        } catch (error) {
+            console.error('Error al reiniciar el formulario:', error);
+            console.error('Error occurred:', (error as Error).message);
+        }
+    };
+
     useEffect(() => {
         fetchForms();
     }, []);
@@ -129,7 +161,7 @@ const FormsTable = () => {
                         <TableRow className="hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50">
                             <TableHead className="font-medium">Nombre</TableHead>
                             <TableHead className="font-medium">Usuario de Minecraft</TableHead>
-                            <TableHead className="font-medium">Conexión</TableHead>
+                            <TableHead className="font-medium">Problemas conexión</TableHead>
                             <TableHead className="font-medium">Conocimiento MC</TableHead>
                             <TableHead className="font-medium">Pregunta Clave</TableHead>
                             <TableHead className="font-medium">Mic Disponible</TableHead>
@@ -152,15 +184,20 @@ const FormsTable = () => {
                         ) : (
                             paginatedForms.map((form) => (
                                 <TableRow key={form.id} className="hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50">
-                                    <TableCell>{form.name}</TableCell>
-                                    <TableCell>{form.minecraft_username}</TableCell>
-                                    <TableCell>{form.connectivity_issues ? 'Sí' : 'No'}</TableCell>
+                                    <TableCell>
+                                        <div className="flex flex-col">
+                                            <span>{form.name}</span>
+                                            <span className="text-sm text-muted-foreground">{form.discord_full_name}</span>
+                                        </div>
+                                    </TableCell>
+                                    <TableCell>{form.minecraft_username}{form.premium_minecraft === "Sí" ? <div className='text-muted-foreground'>Premium</div>:<div className='text-muted-foreground'>No premium</div>}</TableCell>
+                                    <TableCell>{form.connectivity_issues}</TableCell>
                                     <TableCell>{form.minecraft_knowledge}<span className='text-muted-foreground'>/5</span></TableCell>
                                     <TableCell>
                                         <TooltipProvider>
                                             <Tooltip>
                                                 <TooltipTrigger className="text-left">
-                                                    <span className="max-w-md truncate block">
+                                                    <span className="max-w-xs truncate block">
                                                         {form.killer_question}
                                                     </span>
                                                 </TooltipTrigger>
@@ -170,7 +207,7 @@ const FormsTable = () => {
                                             </Tooltip>
                                         </TooltipProvider>
                                     </TableCell>
-                                    <TableCell>{form.mic_available ? 'Sí' : 'No'}</TableCell>
+                                    <TableCell>{form.mic_available} {form.uses_mic === "Sí" ? '😊' : '😔'}</TableCell>
                                     <TableCell>
                                         {form.status === 'pending' ? (
                                             <div className="flex gap-1">
@@ -206,6 +243,15 @@ const FormsTable = () => {
                                                 className="rounded-xl px-3 py-1"
                                             >
                                                 Aprobar
+                                            </Button>
+                                        )}
+                                        {form.status !== 'pending' && (
+                                            <Button
+                                                onClick={() => handleResetToNotSubmitted(form.id)}
+                                                variant="outline"
+                                                className="rounded-xl px-3 py-1 mt-2"
+                                            >
+                                                Reiniciar
                                             </Button>
                                         )}
                                     </TableCell>

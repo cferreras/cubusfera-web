@@ -30,6 +30,7 @@ export default function Form(props: { questions: Question[] }) {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [answers, setAnswers] = useState<(string | number | boolean | boolean[] | null)[]>(Array(11).fill(null));
     const [error, setError] = useState('');
+    const [discordFullName, setDiscordFullName] = useState('')
     const inputRef = useRef<HTMLInputElement | null>(null);
     const textareaRef = useRef<HTMLTextAreaElement | null>(null);
 
@@ -37,6 +38,7 @@ export default function Form(props: { questions: Question[] }) {
     useEffect(() => {
         getDiscordUser()
             .then((user) => {
+                setDiscordFullName(user);
                 const newAnswers = [...answers];
                 newAnswers[0] = user;
                 setAnswers(newAnswers);
@@ -170,6 +172,7 @@ export default function Form(props: { questions: Question[] }) {
                     .upsert({
                         id: userId,
                         [name]: value,
+                        discord_full_name: discordFullName,
                         revision_date: new Date().toISOString(),
                         status: 'pending'  // Add default status
                     });

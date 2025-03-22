@@ -58,7 +58,7 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
             }
         };
         fetchUser();
-    }, [initialData.id]);
+    }, [initialData.id, supabase.auth]);
 
     return (
         <Container className="py-20">
@@ -81,7 +81,7 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-6 min-h-[114px]">
                     <div className="flex justify-center">
                         <Avatar className="h-32 w-32 md:h-24 md:w-24">
-                            <AvatarImage className="rounded-full"
+                            <AvatarImage className="rounded-sm"
                                 src={`https://mc-heads.net/avatar/${minecraftUsername}/64`}
                                 alt={`Avatar de ${minecraftUsername}`}
                             />
@@ -142,7 +142,7 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                                 </a>
                             )}
                         </div>
-                        <div className="mt-4 text-sm text-neutral-600 dark:text-neutral-400 prose dark:prose-invert max-w-none">
+                        <div className="bg-neutral-100 dark:bg-neutral-900 border p-2 rounded-xl mt-4 text-sm text-neutral-600 dark:text-neutral-400 prose dark:prose-invert max-w-none">
                             <ReactMarkdown
                                 components={{
                                     h1: 'p',
@@ -193,7 +193,7 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                         <div className="space-y-6">
                             <div className="p-6 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800">
                                 <h3 className="font-semibold mb-4">Comentarios</h3>
-                                <Comentarios profileId={params.slug} currentUser={user} />
+                                <Comentarios profileId={params?.slug ?? ""} currentUser={user} />
                             </div>
                         </div>
                     </TabsContent>

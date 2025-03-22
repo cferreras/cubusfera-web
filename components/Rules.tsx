@@ -38,6 +38,11 @@ export default function Rules() {
         },
         {
             "id": 8,
+            "title": "Juega en comunidad",
+            "body": "Todos jugamos por un bien común, y es necesario apoyarnos para poder conseguirlo. No explotes ítems de alto valor perjudicando su obtención a los demás, ni te adueñes de ellos. Las ventas o intercambios están prohibidos, si puedes colaborar, plantéate hacerlo, es un servidor comunitario."
+        },
+        {
+            "id": 9,
             "title": "Practica el sentido común",
             "body": "Por favor, intenta mantener la comunidad sana, no podemos (y no deberíamos) explicar todo punto por punto."
         }

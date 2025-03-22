@@ -6,6 +6,8 @@ import type { Metadata } from 'next'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import Link from 'next/link';
 import { ChevronRightIcon } from 'lucide-react';
+import { createClient } from '@/utils/supabase/server';
+import Comentarios from '@/components/Comentarios';
 
 type Props = {
     params: Promise<{ slug: string }>
@@ -35,6 +37,11 @@ export async function generateMetadata(
 export default async function Post({ params }: Props) {
     const slug = (await params).slug
     const postData = await getPostData(slug);
+    
+    // Get current user for comments
+    const supabase = createClient();
+    const { data: { user } } = await (await supabase).auth.getUser()
+    
     return (
         <Container className="py-20">
             <div>
@@ -63,6 +70,12 @@ export default async function Post({ params }: Props) {
                         dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
                     />
                 </article>
+                
+                {/* Comments section */}
+                <div className="mt-16 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+                    <h2 className="text-xl font-semibold mb-6">Comentarios</h2>
+                    <Comentarios postSlug={slug} currentUser={user} />
+                </div>
             </div>
         </Container>
     );

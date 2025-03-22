@@ -2,26 +2,31 @@ import ProfileClient from "@/components/ProfileClient";
 import { createClient } from "@/utils/supabase/server";
 import { Metadata } from "next";
 
-interface PageProps {
-    params: {
+// Update the type to handle both params and searchParams as Promises
+type PageProps = {
+    params: Promise<{
         slug: string;
-    };
-}
+    }>;
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const {slug} = await params;
+    // Await the params Promise before accessing its properties
+    const resolvedParams = await params;
     return {
-        title: `Perfil de ${slug} - Cubusfera`,
+        title: `Perfil de ${resolvedParams.slug} - Cubusfera`,
     };
 }
 
 export default async function Perfil({ params }: PageProps) {
     const supabase = await createClient();
-    const {slug} = await params;
+    // Await the params Promise before accessing its properties
+    const resolvedParams = await params;
+    
     const { data: profile } = await supabase
         .from("profiles")
         .select("bio, minecraft_username, twitter_username, instagram_username, youtube_channel_url, discord_username, location, id, role")
-        .eq("minecraft_username", slug)
+        .eq("minecraft_username", resolvedParams.slug)
         .single();
 
     if (!profile) {
