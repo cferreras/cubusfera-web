@@ -17,6 +17,7 @@ import { ChevronRightIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Estadisticas from "@/components/Estadisticas";
 import Comentarios from "@/components/Comentarios";
+import AchievementBadge from "@/components/AchievementBadge";
 
 interface ProfileData {
     bio: string;
@@ -29,6 +30,11 @@ interface ProfileData {
     id: string;
     role: string;
     isPremium: boolean;
+    achievements?: {
+        category: string;
+        month: string;
+        value: string;
+    }[];
 }
 
 export default function ProfileClient({ initialData }: { initialData: ProfileData }) {
@@ -165,16 +171,22 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
 
             <div className="space-y-8">
                 <Tabs defaultValue="stats" className="w-full">
-                    <TabsList className="flex gap-2 p-1 mb-8 bg-neutral-100 dark:bg-neutral-900 rounded-2xl h-16">
-                        <TabsTrigger
-                            value="stats"
-                            className="text-lg h-full flex-1 rounded-2xl data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-800 data-[state=active]:shadow-sm"
+                    <TabsList className="h-auto flex flex-col sm:flex-row gap-2 p-1 mb-8 bg-neutral-100 dark:bg-neutral-900 rounded-2xl">
+                        <TabsTrigger 
+                            value="stats" 
+                            className="text-base sm:text-lg h-14 sm:h-12 flex-1 rounded-2xl data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-800 data-[state=active]:shadow-sm"
                         >
                             Estadísticas
                         </TabsTrigger>
-                        <TabsTrigger
-                            value="comments"
-                            className="text-lg h-full flex-1 rounded-2xl data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-800 data-[state=active]:shadow-sm"
+                        <TabsTrigger 
+                            value="achievements" 
+                            className="text-base sm:text-lg h-14 sm:h-12 flex-1 rounded-2xl data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-800 data-[state=active]:shadow-sm"
+                        >
+                            Logros
+                        </TabsTrigger>
+                        <TabsTrigger 
+                            value="comments" 
+                            className="text-base sm:text-lg h-14 sm:h-12 flex-1 rounded-2xl data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-800 data-[state=active]:shadow-sm"
                         >
                             Comentarios
                         </TabsTrigger>
@@ -185,6 +197,23 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                                 <h3 className="font-semibold mb-4">Estadísticas del jugador</h3>
                                 <div className="flex items-center text-sm text-neutral-600 dark:text-neutral-400">
                                     <Estadisticas name={minecraftUsername} />
+                                </div>
+                            </div>
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="achievements" className="space-y-8">
+                        <div className="space-y-6">
+                            <div className="p-6 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800">
+                                <h3 className="font-semibold mb-4">Logros Mensuales</h3>
+                                <div className="flex flex-wrap gap-4">
+                                    {initialData.achievements?.map((achievement, index) => (
+                                        <AchievementBadge
+                                            key={index}
+                                            category={achievement.category}
+                                            month={achievement.month}
+                                            value={achievement.value}
+                                        />
+                                    ))}
                                 </div>
                             </div>
                         </div>
