@@ -14,6 +14,11 @@ jobs:
         env:
           UPDATE_URL: ${{ secrets.ACHIEVEMENT_UPDATE_URL }}
           CRON_TOKEN: ${{ secrets.CRON_SECRET }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: |
-          curl -X GET "${UPDATE_URL}" \
-          -H "Authorization: Bearer ${CRON_TOKEN}"
+          echo "Sending request to: ${UPDATE_URL}"
+          curl -v -X GET "${UPDATE_URL}" \
+          -H "Authorization: Bearer ${CRON_TOKEN}" \
+          -H "X-Supabase-URL: ${NEXT_PUBLIC_SUPABASE_URL}" \
+          -H "X-Supabase-Key: ${SUPABASE_SERVICE_ROLE_KEY}"
