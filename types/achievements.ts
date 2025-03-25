@@ -1,9 +1,9 @@
 export interface MonthlyAchievement {
     category: string;
     winner: string;
-    value: number;
+    value: string;
     icon: string;
-    suffix: string;
+    // suffix: string;
     profileUrl?: string;
     avatarUrl?: string;
 }
