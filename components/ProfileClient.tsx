@@ -17,7 +17,6 @@ import { ChevronRightIcon } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Estadisticas from "@/components/Estadisticas";
 import Comentarios from "@/components/Comentarios";
-import AchievementBadge from "@/components/AchievementBadge";
 
 interface ProfileData {
     bio: string;
