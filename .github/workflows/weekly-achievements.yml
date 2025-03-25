@@ -2,7 +2,7 @@ name: Weekly Achievements Update
 
 on:
   schedule:
-    - cron: '0 0 * * 1'  # Runs at 00:00 on Monday
+    - cron: '0 4 * * 0'  # Runs at 04:00 on Sunday
   workflow_dispatch:      # Allows manual trigger
 
 jobs:
