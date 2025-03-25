@@ -8,8 +8,12 @@ on:
 jobs:
   update-achievements:
     runs-on: ubuntu-latest
+    environment: Production
     steps:
       - name: Trigger Achievement Update
+        env:
+          UPDATE_URL: ${{ secrets.ACHIEVEMENT_UPDATE_URL }}
+          CRON_TOKEN: ${{ secrets.CRON_SECRET }}
         run: |
-          curl -X GET ${{ secrets.ACHIEVEMENT_UPDATE_URL }} \
-          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
+          curl -X GET "${UPDATE_URL}" \
+          -H "Authorization: Bearer ${CRON_TOKEN}"
