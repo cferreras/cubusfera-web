@@ -15,6 +15,5 @@ jobs:
           UPDATE_URL: ${{ secrets.ACHIEVEMENT_UPDATE_URL }}
           CRON_TOKEN: ${{ secrets.CRON_SECRET }}
         run: |
-          echo "Sending request to: ${UPDATE_URL}"
-          curl -v -X GET "${UPDATE_URL}" \
-          -H "Authorization: Bearer ${CRON_TOKEN}" \
+          curl -X GET "${UPDATE_URL}" \
+          -H "X-Authorization: Bearer ${CRON_TOKEN}"
