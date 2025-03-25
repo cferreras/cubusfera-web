@@ -13,16 +13,6 @@ const iconMap = {
     Map: Map,
 };
 
-interface AchievementCardProps {
-    achievement: {
-        category: string;
-        winner: string;
-        value: number | string;
-        icon: LucideIcon;
-        suffix: string;
-    };
-}
-
 export default function AchievementCard({ achievement }: { achievement: MonthlyAchievement }) {
     const IconComponent = iconMap[achievement.icon as keyof typeof iconMap];
 

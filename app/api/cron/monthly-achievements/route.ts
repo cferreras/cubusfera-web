@@ -41,7 +41,7 @@ export async function GET(request: Request) {
         console.log('Attempting to delete records for month:', monthString);
 
         // Check existing records first
-        const { data: existingRecords, error: checkError } = await supabase
+        const { data: existingRecords } = await supabase
             .from('monthly_achievements')
             .select('id')
             .eq('month_year', monthString);
