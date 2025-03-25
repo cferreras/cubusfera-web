@@ -1,7 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import { Clock, Sword, Skull, Star, Map, PickaxeIcon } from "lucide-react";
 import { MonthlyAchievement } from "@/types/achievements";
-import { LucideIcon } from 'lucide-react';
 import Link from "next/link";
 
 const iconMap = {
