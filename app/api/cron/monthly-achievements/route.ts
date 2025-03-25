@@ -67,46 +67,21 @@ export async function GET(request: Request) {
                 const statsResponse = await fetch(
                     `${process.env.MINECRAFT_SERVER_STATS_ADRESS}/api/stats/player?name=${profile.minecraft_username}`
                 );
-                const rawResponse = await statsResponse.text();
+                const stats = await statsResponse.json();
                 
-                let stats;
-                try {
-                    const cleanedJSON = rawResponse
-                        .replace(/,\s*([}\]])/g, '$1')
-                        .replace(/,,/g, ',')
-                        .replace(/,\s*}/g, '}')
-                        .replace(/(\d+)"/g, '$1,"')
-                        .replace(/}([^,}])/g, '},$1')
-                        .replace(/,+/g, ',')
-                        .replace(/""+/g, '"');
-                    
-                    stats = JSON.parse(cleanedJSON);
-                } catch (parseError) {
-                    console.error('JSON Parse Error for player:', profile.minecraft_username, parseError);
-                    return {
-                        profile_id: profile.id,
-                        minecraft_username: profile.minecraft_username,
-                        blocks_mined: 0,
-                        playtime_hours: 0,
-                        mobs_killed: 0,
-                        deaths: 0,
-                        experience_level: 0,
-                        distance_traveled: 0
-                    };
-                }
-                const playTimeMatch = stats.playTime?.match(/(\d+)\s*d\s*(\d+)\s*h/);
+                const playTimeMatch = stats.monthlyStats?.playTime?.match(/(\d+)\s*d\s*(\d+)\s*h/);
                 const playTimeHours = playTimeMatch ? 
                     (parseInt(playTimeMatch[1]) * 24) + parseInt(playTimeMatch[2]) : 0;
 
                 return {
                     profile_id: profile.id,
                     minecraft_username: profile.minecraft_username,
-                    blocks_mined: stats.totalBlocksMined || 0,
+                    blocks_mined: stats.monthlyStats?.blocksMined || 0,
                     playtime_hours: playTimeHours,
-                    mobs_killed: stats.totalMobsKilled || 0,
-                    deaths: stats.deaths || 0,
+                    mobs_killed: stats.monthlyStats?.mobsKilled || 0,
+                    deaths: stats.monthlyStats?.deaths || 0,
                     experience_level: stats.experienceGained || 0,
-                    distance_traveled: parseInt(stats.distanceTraveled) || 0
+                    distance_traveled: parseInt(stats.monthlyStats?.distanceTraveled) || 0
                 };
             } catch (error) {
                 console.error('Error fetching stats for player:', profile.minecraft_username, error);

@@ -1,0 +1,15 @@
+name: Weekly Achievements Update
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Runs at 00:00 on Monday
+  workflow_dispatch:      # Allows manual trigger
+
+jobs:
+  update-achievements:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Achievement Update
+        run: |
+          curl -X GET ${{ secrets.ACHIEVEMENT_UPDATE_URL }} \
+          -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
