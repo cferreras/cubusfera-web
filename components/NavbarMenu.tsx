@@ -43,8 +43,8 @@ export default function NavbarMenu() {
                         </Link>
                     </Button>
                     <Button asChild variant="ghost">
-                        <Link href="/logros" className="flex items-center gap-x-1">
-                            <Trophy className="h-4 w-4" /> Logros
+                        <Link href="/ranking" className="flex items-center gap-x-1">
+                            <Trophy className="h-4 w-4" /> Ranking
                         </Link>
                     </Button>
                 </div>
