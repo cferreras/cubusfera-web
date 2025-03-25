@@ -10,7 +10,7 @@ export async function GET(request: Request) {
         const headers = Object.fromEntries(request.headers.entries());
         console.log('All received headers:', headers);
         
-        const authHeader = request.headers.get('x-authorization');
+        const authHeader = request.headers.get('authorization');
         console.log('Auth header specifically:', authHeader);
         
         if (!authHeader) {
