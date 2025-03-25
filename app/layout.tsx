@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { ToastTrigger } from "@/components/ToastTrigger";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Script from "next/script";
 
 export default function GlobalLayout({ children }: { children: ReactNode }) {
     return (
@@ -25,7 +26,7 @@ export default function GlobalLayout({ children }: { children: ReactNode }) {
                     href="/favicon-dark.svg"
                     media="(prefers-color-scheme: dark)"
                 />
-                <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" /> 
+                <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
             </head>
 
             <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] dark:bg-neutral-950 bg-white ${geist.className}`}>
@@ -44,8 +45,9 @@ export default function GlobalLayout({ children }: { children: ReactNode }) {
                     </ThemeProvider>
                     <Toaster />
                     <ToastTrigger />
-        </main>
-        <Footer/>
+                </main>
+                <Footer />
+                <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
             </body>
         </html>
     )
