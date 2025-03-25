@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import CubusferaIconDark from "@/components/icon/cubusfera-icon-dark"
 import CubusferaIconLight from "@/components/icon/cubusfera-icon-light"
-import { HomeIcon, MapIcon, NotebookIcon, ScaleIcon, UsersIcon } from "lucide-react";
+import { HomeIcon, MapIcon, NotebookIcon, ScaleIcon, Trophy, UsersIcon } from "lucide-react";
 
 export default function NavbarMenu() {
     return (
@@ -40,6 +40,11 @@ export default function NavbarMenu() {
                     <Button asChild variant="ghost">
                         <Link href="/miembros" className="flex items-center gap-x-1">
                             <UsersIcon className="h-4 w-4" /> Miembros
+                        </Link>
+                    </Button>
+                    <Button asChild variant="ghost">
+                        <Link href="/ranking" className="flex items-center gap-x-1">
+                            <Trophy className="h-4 w-4" /> Ranking
                         </Link>
                     </Button>
                 </div>

@@ -20,7 +20,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function Perfil({ params }: PageProps) {
     const supabase = await createClient();
-    // Await the params Promise before accessing its properties
     const resolvedParams = await params;
     
     const { data: profile } = await supabase
@@ -40,8 +39,43 @@ export default async function Perfil({ params }: PageProps) {
         .eq("status", "accepted")
         .single();
 
+    // Mock achievements - replace with real data later
+    const mockAchievements = [
+        {
+            category: "Tiempo de Juego",
+            month: "Enero 2024",
+            value: "126 horas"
+        },
+        {
+            category: "Bloques Minados",
+            month: "Enero 2024",
+            value: "45,892 bloques"
+        },
+        {
+            category: "Mobs Eliminados",
+            month: "Enero 2024",
+            value: "1,234 mobs"
+        },
+        {
+            category: "Muertes",
+            month: "Enero 2024",
+            value: "89 muertes"
+        },
+        {
+            category: "Nivel de Experiencia",
+            month: "Enero 2024",
+            value: "Nivel 156"
+        },
+        {
+            category: "Distancia Recorrida",
+            month: "Enero 2024",
+            value: "789 km"
+        }
+    ];
+
     return <ProfileClient initialData={{
         ...profile,
-        isPremium: formData?.premium_minecraft === 'Sí'
+        isPremium: formData?.premium_minecraft === 'Sí',
+        achievements: mockAchievements
     }} />;
 }

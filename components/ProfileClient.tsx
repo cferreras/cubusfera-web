@@ -29,6 +29,11 @@ interface ProfileData {
     id: string;
     role: string;
     isPremium: boolean;
+    achievements?: {
+        category: string;
+        month: string;
+        value: string;
+    }[];
 }
 
 export default function ProfileClient({ initialData }: { initialData: ProfileData }) {
@@ -85,11 +90,11 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                                 src={`https://mc-heads.net/avatar/${minecraftUsername}/64`}
                                 alt={`Avatar de ${minecraftUsername}`}
                             />
-                            <AvatarFallback>{minecraftUsername[0] || ''}</AvatarFallback>
+                            <AvatarFallback className="rounded-sm">{minecraftUsername[0] || ''}</AvatarFallback>
                         </Avatar>
                     </div>
                     {(bio && minecraftUsername) ? <div className="flex-1 w-full text-center md:text-left h-full">
-                        <div className="flex flex-col md:flex-row items-center justify-between mb-2 min-h-[50px] gap-4">
+                        <div className="flex flex-col md:flex-row justify-between mb-2 gap-4">
                             <h1 className="text-2xl font-semibold">{minecraftUsername || ""}{isAdmin && <PremiumBadge />}</h1>
                             <div className="min-w-[42px]">
                                 {isOwner && (
@@ -165,16 +170,22 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
 
             <div className="space-y-8">
                 <Tabs defaultValue="stats" className="w-full">
-                    <TabsList className="flex gap-2 p-1 mb-8 bg-neutral-100 dark:bg-neutral-900 rounded-2xl h-16">
+                    <TabsList className="h-auto flex flex-col sm:flex-row gap-2 p-1 mb-8 bg-neutral-100 dark:bg-neutral-900 rounded-2xl">
                         <TabsTrigger
                             value="stats"
-                            className="text-lg h-full flex-1 rounded-2xl data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-800 data-[state=active]:shadow-sm"
+                            className="text-base sm:text-lg h-14 sm:h-12 flex-1 rounded-2xl data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-800 data-[state=active]:shadow-sm"
                         >
                             Estadísticas
                         </TabsTrigger>
                         <TabsTrigger
+                            value="achievements"
+                            className="text-base sm:text-lg h-14 sm:h-12 flex-1 rounded-2xl data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-800 data-[state=active]:shadow-sm"
+                        >
+                            Insignias
+                        </TabsTrigger>
+                        <TabsTrigger
                             value="comments"
-                            className="text-lg h-full flex-1 rounded-2xl data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-800 data-[state=active]:shadow-sm"
+                            className="text-base sm:text-lg h-14 sm:h-12 flex-1 rounded-2xl data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-800 data-[state=active]:shadow-sm"
                         >
                             Comentarios
                         </TabsTrigger>
@@ -186,6 +197,27 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                                 <div className="flex items-center text-sm text-neutral-600 dark:text-neutral-400">
                                     <Estadisticas name={minecraftUsername} />
                                 </div>
+                            </div>
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="achievements" className="space-y-8">
+                        <div className="space-y-6">
+                            <div className="p-6 bg-neutral-100 dark:bg-neutral-900 rounded-3xl border border-neutral-200 dark:border-neutral-800">
+                                <h3 className="font-semibold mb-4">Insignias</h3>
+                                <div className="flex flex-col items-center justify-center self-center w-full h-32">
+                                    <div className="text-center text-sm text-neutral-600 dark:text-neutral-400">Próximamente...</div>
+
+                                </div>
+                                {/* <div className="flex flex-wrap gap-4">
+                                    {initialData.achievements?.map((achievement, index) => (
+                                        <AchievementBadge
+                                            key={index}
+                                            category={achievement.category}
+                                            month={achievement.month}
+                                            value={achievement.value}
+                                        />
+                                    ))}
+                                </div> */}
                             </div>
                         </div>
                     </TabsContent>
