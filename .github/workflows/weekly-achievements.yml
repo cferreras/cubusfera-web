@@ -16,4 +16,4 @@ jobs:
           CRON_TOKEN: ${{ secrets.CRON_SECRET }}
         run: |
           curl -X GET "${UPDATE_URL}" \
-          -H "X-Authorization: Bearer ${CRON_TOKEN}"
+          -H "Authorization: Bearer ${CRON_TOKEN}"
