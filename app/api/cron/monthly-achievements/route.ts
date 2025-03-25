@@ -6,12 +6,15 @@ export const revalidate = 0;
 
 export async function GET(request: Request) {
     try {
-        // Verify the request is from Vercel Cron
+        // Debug all headers
+        const headers = Object.fromEntries(request.headers.entries());
+        console.log('All received headers:', headers);
+        
         const authHeader = request.headers.get('authorization');
-        console.log('Received auth header:', authHeader);
-        console.log('Expected auth:', `Bearer ${process.env.CRON_SECRET}`);
+        console.log('Auth header specifically:', authHeader);
         
         if (!authHeader) {
+            console.log('CRON_SECRET value:', process.env.CRON_SECRET);
             return NextResponse.json({ error: 'No authorization header' }, { status: 401 });
         }
 
