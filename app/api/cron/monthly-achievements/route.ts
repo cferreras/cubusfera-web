@@ -8,8 +8,15 @@ export async function GET(request: Request) {
     try {
         // Verify the request is from Vercel Cron
         const authHeader = request.headers.get('authorization');
-        if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        console.log('Received auth header:', authHeader);
+        console.log('Expected auth:', `Bearer ${process.env.CRON_SECRET}`);
+        
+        if (!authHeader) {
+            return NextResponse.json({ error: 'No authorization header' }, { status: 401 });
+        }
+
+        if (authHeader.trim() !== `Bearer ${process.env.CRON_SECRET}`.trim()) {
+            return NextResponse.json({ error: 'Invalid authorization token' }, { status: 401 });
         }
 
         const supabase = createServerClient(
