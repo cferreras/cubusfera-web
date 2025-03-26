@@ -47,7 +47,7 @@ export default function Post() {
         <>
             <Container className='py-20'>
                 <div className="flex flex-col gap-1 mb-12">
-                    <div className="text-lg font-bold">Blog</div>
+                    <div className="text-lg">Blog</div>
                     <p className="text-base text-muted-foreground">Descubre las ultimas novedades del servidor aquí.</p>
                 </div>
 

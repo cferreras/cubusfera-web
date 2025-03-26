@@ -72,7 +72,7 @@ export default async function Achievements() {
     return (
         <Container className="py-20">
             <div className="flex flex-col gap-1 mb-12">
-                <h1 className="text-lg font-bold">Ranking Mensual</h1>
+                <h1 className="text-lg">Ranking Mensual</h1>
                 <p className="text-base text-muted-foreground">
                     Top jugadores para {currentMonth}
                 </p>

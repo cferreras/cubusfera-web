@@ -21,7 +21,7 @@ export default function Mapa() {
         <>
             <Container className="py-20">
                 <div className="flex flex-col gap-1 mb-12">
-                    <h1 className="text-lg font-bold">Mapa</h1>
+                    <h1 className="text-lg">Mapa</h1>
                     <p className="text-base text-muted-foreground">
                         Mapa interactivo del mundo de Cubusfera.
                     </p>

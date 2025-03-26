@@ -93,7 +93,7 @@ export default function Formulario() {
     return (
         <Container className='py-20'>
             <div className="flex flex-col gap-1 mb-12">
-                <h1 className="text-lg font-bold">Formulario</h1>
+                <h1 className="text-lg">Formulario</h1>
                 <p className="text-base text-muted-foreground">
                     Formulario de inscripción al servidor de Minecraft.
                 </p>
