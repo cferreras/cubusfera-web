@@ -22,7 +22,7 @@ export default function AchievementCard({ achievement }: { achievement: MonthlyA
                 <IconComponent className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold">{achievement.value}</div>
+                <div className="text-2xl font-bold">{achievement.value} {achievement.suffix}</div>
                 <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
                     <span>Ganador:</span>
                     <div className="flex items-center gap-2">

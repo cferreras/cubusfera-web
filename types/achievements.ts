@@ -1,4 +1,5 @@
 export interface MonthlyAchievement {
+    suffix: string;
     category: string;
     winner: string;
     value: string;
