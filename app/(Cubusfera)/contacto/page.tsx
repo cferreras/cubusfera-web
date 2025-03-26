@@ -1,5 +1,4 @@
 import Container from '@/components/Container'
-import { FaDiscord } from 'react-icons/fa'
 
 export default function ContactPage() {
   return (

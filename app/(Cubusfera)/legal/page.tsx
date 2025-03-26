@@ -1,5 +1,4 @@
 import Container from "@/components/Container";
-import Rules from "@/components/Rules";
 import { Metadata } from "next";
 import Link from "next/link";
 

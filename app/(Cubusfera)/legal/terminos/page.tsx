@@ -30,7 +30,7 @@ export default function Terminos() {
                 </Breadcrumb>
 
                 <div className="text-gray-300">
-                    <p className="mb-2">Al acceder o utilizar el sitio web de Cubusfera (<Link href="https://cubusfera.com" className="text-blue-400 hover:text-blue-300">cubusfera.com</Link>) ("Sitio"), aceptas los siguientes términos y condiciones ("Términos"). Si no estás de acuerdo con estos Términos, no debes usar el Sitio.</p>
+                    <p className="mb-2">Al acceder o utilizar el sitio web de Cubusfera (<Link href="https://cubusfera.com" className="text-blue-400 hover:text-blue-300">cubusfera.com</Link>) (&quot;Sitio&quot;), aceptas los siguientes términos y condiciones (&quot;Términos&quot;). Si no estás de acuerdo con estos Términos, no debes usar el Sitio.</p>
 
                     <h2 className="text-md font-semibold text-white mt-8 mb-2">Uso del Sitio</h2>
                     <p className="mb-2">El Sitio se proporciona como una plataforma para la comunidad de Minecraft de Cubusfera. El uso del Sitio está sujeto a las siguientes reglas:</p>
@@ -44,7 +44,7 @@ export default function Terminos() {
                     <p className="mb-2">El Sitio utiliza Discord para la autenticación. Al usar este servicio, aceptas sus términos y políticas de privacidad. El mal uso de tu cuenta (por ejemplo, compartirla o usar scripts) puede resultar en acceso restringido o terminación de tu participación.</p>
 
                     <h2 className="text-md font-semibold text-white mt-8 mb-2">Sin Garantía de Funcionalidad</h2>
-                    <p className="mb-2">El Sitio se ofrece "tal cual" y "según disponibilidad". No garantizamos que el Sitio funcionará sin interrupciones, retrasos, errores o fallos. El Sitio puede quedar fuera de línea o experimentar problemas sin previo aviso, y no se asumirá ninguna compensación o responsabilidad por tales ocurrencias.</p>
+                    <p className="mb-2">El Sitio se ofrece &quot;tal cual&quot; y &quot;según disponibilidad&quot;. No garantizamos que el Sitio funcionará sin interrupciones, retrasos, errores o fallos. El Sitio puede quedar fuera de línea o experimentar problemas sin previo aviso, y no se asumirá ninguna compensación o responsabilidad por tales ocurrencias.</p>
 
                     <h2 className="text-md font-semibold text-white mt-8 mb-2">Terminación del Servicio</h2>
                     <p className="mb-2">Nos reservamos el derecho de restringir o terminar el acceso al Sitio para cualquier usuario a nuestra discreción, incluyendo pero no limitado a usuarios que participen en comportamientos abusivos o maliciosos.</p>

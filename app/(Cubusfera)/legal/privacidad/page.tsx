@@ -31,7 +31,7 @@ export default function Privacidad() {
 
                 <div className="text-gray-300">
 
-                    <p className="mb-2">Esta Política de Privacidad ("Política") se aplica al sitio web de Cubusfera (<Link href="https://cubusfera.com" className="text-blue-400 hover:text-blue-300">cubusfera.com</Link>) y rige la recopilación y el uso de datos.</p>
+                    <p className="mb-2">Esta Política de Privacidad (&quot;Política&quot;) se aplica al sitio web de Cubusfera (<Link href="https://cubusfera.com" className="text-blue-400 hover:text-blue-300">cubusfera.com</Link>) y rige la recopilación y el uso de datos.</p>
 
                     <h2 className="text-md font-semibold text-white mb-2">Recopilación de su Información</h2>
                     <p className="mb-2">Utilizamos proveedores de inicio de sesión social (Discord) para autenticar usuarios. Cuando inicia sesión, solo recopilamos la información necesaria para proporcionar las funciones del sitio, como su nombre de usuario de Discord y dirección de correo electrónico.</p>
