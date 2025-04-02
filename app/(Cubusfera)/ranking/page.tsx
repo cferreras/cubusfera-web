@@ -1,7 +1,22 @@
+import { Metadata } from "next";
 import AchievementCard from "@/components/AchievementCard";
 import Container from "@/components/Container";
 import { createClient } from "@/utils/supabase/server";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+
+export const metadata: Metadata = {
+    title: 'Ranking Mensual – Cubusfera',
+    description: 'Ranking mensual de jugadores del servidor de Minecraft Cubusfera',
+}
+
+type SearchParams = {
+    page?: string;
+    [key: string]: string | string[] | undefined;
+};
+
+type PageProps = {
+    searchParams: Promise<SearchParams>;
+};
 
 async function getMonthlyAchievements(page = 1) {
     const supabase = await createClient();
@@ -37,14 +52,11 @@ async function getMonthlyAchievements(page = 1) {
     };
 }
 
-// Use the standard Next.js page component signature
 export default async function Achievements({
     searchParams,
-}: {
-    params: {};
-    searchParams: { [key: string]: string | string[] | undefined };
-}) {
-    const currentPage = Number(searchParams.page) || 1;
+}: PageProps) {
+    const resolvedSearchParams = await searchParams;
+    const currentPage = Number(resolvedSearchParams.page) || 1;
     const { achievements, hasMore, currentMonth } = await getMonthlyAchievements(currentPage);
     
     const snapshotDate = achievements[0]?.created_at
