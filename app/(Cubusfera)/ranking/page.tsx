@@ -37,7 +37,12 @@ async function getMonthlyAchievements(page = 1) {
     };
 }
 
-export default async function Achievements({ searchParams }: { searchParams: { page?: string } }) {
+type PageProps = {
+    params: { slug: string };
+    searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default async function Achievements({ searchParams }: PageProps) {
     const currentPage = Number(searchParams.page) || 1;
     const { achievements, hasMore, currentMonth } = await getMonthlyAchievements(currentPage);
     
