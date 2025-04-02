@@ -1,12 +1,22 @@
 import AchievementCard from "@/components/AchievementCard";
 import Container from "@/components/Container";
 import { createClient } from "@/utils/supabase/server";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
-async function getMonthlyAchievements() {
+async function getMonthlyAchievements(page = 1) {
     const supabase = await createClient();
-    const currentMonth = new Date();
-    const monthString = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}`;
+    
+    // Get unique months first
+    const { data: uniqueMonths } = await supabase
+        .from('monthly_achievements')
+        .select('month_year')
+        .order('month_year', { ascending: false });
 
+    const uniqueMonthsSet = new Set(uniqueMonths?.map(m => m.month_year));
+    const totalMonths = uniqueMonthsSet.size;
+    const selectedMonth = Array.from(uniqueMonthsSet)[page - 1];
+
+    // Get achievements for the selected month
     const { data: achievements } = await supabase
         .from('monthly_achievements')
         .select(`
@@ -15,21 +25,31 @@ async function getMonthlyAchievements() {
                 minecraft_username
             )
         `)
-        .eq('month_year', monthString)
+        .eq('month_year', selectedMonth)
         .order('rank')
         .lte('rank', 5);
 
-    return achievements || [];
+    return { 
+        achievements: achievements || [], 
+        hasMore: page < totalMonths,
+        currentMonth: selectedMonth,
+        totalPages: totalMonths
+    };
 }
 
-export default async function Achievements() {
-    const achievements = await getMonthlyAchievements();
+export default async function Achievements({ searchParams }: { searchParams: { page?: string } }) {
+    const currentPage = Number(searchParams.page) || 1;
+    const { achievements, hasMore, currentMonth, totalPages } = await getMonthlyAchievements(currentPage);
+    
     const snapshotDate = achievements[0]?.created_at
         ? new Date(achievements[0].created_at).toLocaleString('es-ES', {
             dateStyle: 'full',
             timeStyle: 'short'
         })
         : 'No disponible';
+    
+    // Format the selected month for display
+    const displayMonth = new Date(currentMonth).toLocaleString('es-ES', { month: 'long', year: 'numeric' });
 
     // Group achievements by category
     const categories = {
@@ -48,7 +68,7 @@ export default async function Achievements() {
 
         return {
             category,
-            Icon,  // Pass the actual icon component
+            Icon,
             topPlayer: categoryAchievements[0]?.profiles?.minecraft_username || 'N/A',
             value: categoryAchievements[0]?.value || 0,
             suffix,
@@ -67,14 +87,12 @@ export default async function Achievements() {
             }))
     }));
 
-    const currentMonth = new Date().toLocaleString('es-ES', { month: 'long', year: 'numeric' });
-
     return (
         <Container className="py-20">
             <div className="flex flex-col gap-1 mb-12">
                 <h1 className="text-lg">Ranking Mensual</h1>
                 <p className="text-base text-muted-foreground">
-                    Top jugadores para {currentMonth}
+                    Top jugadores para {displayMonth}
                 </p>
                 <p className="text-sm text-muted-foreground">
                     Última actualización: {snapshotDate} UTC
@@ -131,6 +149,43 @@ export default async function Achievements() {
                         </div>
                     ))}
                 </div>
+            </div>
+            <div className="mt-8">
+                <Pagination>
+                    <PaginationContent>
+                        <PaginationItem>
+                            <PaginationPrevious 
+                                href={`/ranking?page=${currentPage - 1}`}
+                                aria-disabled={currentPage === 1}
+                                className={currentPage === 1 ? 'pointer-events-none opacity-50' : ''}
+                            />
+                        </PaginationItem>
+                        {currentPage > 1 && (
+                            <PaginationItem>
+                                <PaginationLink href={`/ranking?page=${currentPage - 1}`}>
+                                    {currentPage - 1}
+                                </PaginationLink>
+                            </PaginationItem>
+                        )}
+                        <PaginationItem>
+                            <PaginationLink isActive>{currentPage}</PaginationLink>
+                        </PaginationItem>
+                        {hasMore && (
+                            <PaginationItem>
+                                <PaginationLink href={`/ranking?page=${currentPage + 1}`}>
+                                    {currentPage + 1}
+                                </PaginationLink>
+                            </PaginationItem>
+                        )}
+                        <PaginationItem>
+                            <PaginationNext 
+                                href={`/ranking?page=${currentPage + 1}`}
+                                aria-disabled={!hasMore}
+                                className={!hasMore ? 'pointer-events-none opacity-50' : ''}
+                            />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
             </div>
         </Container>
     );
