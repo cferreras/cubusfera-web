@@ -37,11 +37,12 @@ async function getMonthlyAchievements(page = 1) {
     };
 }
 
-// Remove the custom PageProps type and use the correct props type
+// Use the standard Next.js page component signature
 export default async function Achievements({
     searchParams,
 }: {
-    searchParams: { [key: string]: string | string[] | undefined }
+    params: {};
+    searchParams: { [key: string]: string | string[] | undefined };
 }) {
     const currentPage = Number(searchParams.page) || 1;
     const { achievements, hasMore, currentMonth } = await getMonthlyAchievements(currentPage);
