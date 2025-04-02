@@ -39,7 +39,7 @@ async function getMonthlyAchievements(page = 1) {
 
 export default async function Achievements({ searchParams }: { searchParams: { page?: string } }) {
     const currentPage = Number(searchParams.page) || 1;
-    const { achievements, hasMore, currentMonth, totalPages } = await getMonthlyAchievements(currentPage);
+    const { achievements, hasMore, currentMonth } = await getMonthlyAchievements(currentPage);
     
     const snapshotDate = achievements[0]?.created_at
         ? new Date(achievements[0].created_at).toLocaleString('es-ES', {
