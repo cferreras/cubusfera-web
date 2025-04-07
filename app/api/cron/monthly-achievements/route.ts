@@ -79,9 +79,18 @@ export async function GET(request: Request) {
                 );
                 const stats = await statsResponse.json();
                 
-                const playTimeMatch = stats.monthlyStats?.playTime?.match(/(\d+)\s*d\s*(\d+)\s*h/);
-                const playTimeHours = playTimeMatch ? 
-                    (parseInt(playTimeMatch[1]) * 24) + parseInt(playTimeMatch[2]) : 0;
+                // Fix the regex pattern to properly capture days, hours, minutes, and seconds
+                const playTimeStr = stats.monthlyStats?.playTime || "0 d 0 h 0 min 0 s";
+                const playTimeRegex = /(?:(\d+)\s*d)?\s*(?:(\d+)\s*h)?\s*(?:(\d+)\s*min)?\s*(?:(\d+)\s*s)?/;
+                const playTimeMatch = playTimeStr.match(playTimeRegex);
+                
+                // Calculate total hours including days, hours, and partial hours from minutes
+                const days = playTimeMatch && playTimeMatch[1] ? parseInt(playTimeMatch[1]) : 0;
+                const hours = playTimeMatch && playTimeMatch[2] ? parseInt(playTimeMatch[2]) : 0;
+                const minutes = playTimeMatch && playTimeMatch[3] ? parseInt(playTimeMatch[3]) : 0;
+                
+                // Convert to total hours (days * 24 + hours + minutes/60) and round to whole number
+                const playTimeHours = Math.round((days * 24) + hours + (minutes / 60));
 
                 return {
                     profile_id: profile.id,
