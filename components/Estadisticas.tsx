@@ -54,7 +54,9 @@ export default function Estadisticas(props: { name: string }) {
                 <FaClock className="w-5 h-5 mt-1 text-emerald-500" />
                 <div>
                     <h4 className="font-medium mb-1">Tiempo de juego</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">{stats.playTime}</p>
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        {stats.playTime.replace(/(\d+)\s*([dhms]|min)/g, '$1$2')}
+                    </p>
                 </div>
             </div>
 
