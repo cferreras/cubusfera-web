@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { createClient } from "@/utils/supabase/server";
 import ServerStatsSection from "@/components/ServerStatsSection";
 import MemberList from "@/components/MemberList";
+import { is } from "date-fns/locale";
 
 dotenv.config();
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export default async function Miembros({
     // Get all members and calculate stats from database
     const { data: allMembers } = await supabase
         .from('profiles')
-        .select('id, minecraft_username, created_at, role')
+        .select('id, minecraft_username, created_at, role, is_vip, vip_theme, custom_banner_url')
         .not('minecraft_username', 'is', null)
         .in('id',
             (await supabase
@@ -41,13 +42,6 @@ export default async function Miembros({
                 .eq('status', 'accepted'))
                 .data?.map(form => form.id) || []
         );
-
-    // Fetch server stats from API
-    // Remove these lines
-    // const statsResponse = await fetch("/api/stats");
-    // const statsData = await statsResponse.json();
-    // const totalPlaytime = statsData.totalPlaytime;
-    // const totalBlocksMined = statsData.totalBlocksMined;
 
     // Get premium players count
     const { count: premiumCount } = await supabase
@@ -65,6 +59,9 @@ export default async function Miembros({
         id: string;
         minecraft_username: string;
         role: string;
+        is_vip: boolean;
+        vip_theme: string;
+        custom_banner_url: string;
         created_at: string | number | Date;
     }) => {
         const { data: formData } = await supabase
@@ -78,7 +75,10 @@ export default async function Miembros({
             role: member.role || 'miembro', // Default to 'miembro' if role is null
             displayName: member.minecraft_username,
             registered: new Date(member.created_at).toLocaleDateString(),
-            isPremium: formData?.premium_minecraft === 'Sí'
+            isPremium: formData?.premium_minecraft === 'Sí',
+            is_vip: member.is_vip,
+            vip_theme: member.vip_theme,
+            custom_banner_url: member.custom_banner_url
         };
     }) || []);
 
@@ -113,6 +113,7 @@ export default async function Miembros({
                 currentPage={currentPage}
                 totalPages={totalPages}
                 membersPerPage={membersPerPage}
+
             />
         </Container>
     );

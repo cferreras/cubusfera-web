@@ -76,6 +76,23 @@ const config: Config = {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
 			},
+			extend: {
+				keyframes: {
+					shimmer: {
+                        '0%, 100%': {
+                            opacity: '1',
+                            filter: 'brightness(1) drop-shadow(0 0 0.5rem currentColor)'
+                        },
+                        '50%': {
+                            opacity: '0.7',
+                            filter: 'brightness(1.3) drop-shadow(0 0 0.75rem currentColor)'
+                        }
+                    }
+                },
+                animation: {
+                    'shimmer': 'shimmer 3s ease-in-out infinite',
+                }
+            }
 		},
 	},
 	plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"), require('tailwind-scrollbar'),],

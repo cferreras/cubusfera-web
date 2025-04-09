@@ -24,7 +24,7 @@ export default async function Perfil({ params }: PageProps) {
     
     const { data: profile } = await supabase
         .from("profiles")
-        .select("bio, minecraft_username, twitter_username, instagram_username, youtube_channel_url, discord_username, location, id, role")
+        .select("bio, minecraft_username, twitter_username, instagram_username, youtube_channel_url, discord_username, location, id, role, is_vip, vip_theme, custom_banner_url")
         .eq("minecraft_username", resolvedParams.slug)
         .single();
 
@@ -76,6 +76,6 @@ export default async function Perfil({ params }: PageProps) {
     return <ProfileClient initialData={{
         ...profile,
         isPremium: formData?.premium_minecraft === 'Sí',
-        achievements: mockAchievements
+        achievements: mockAchievements,
     }} />;
 }
