@@ -5,7 +5,6 @@ import dotenv from "dotenv";
 import { createClient } from "@/utils/supabase/server";
 import ServerStatsSection from "@/components/ServerStatsSection";
 import MemberList from "@/components/MemberList";
-import { is } from "date-fns/locale";
 
 dotenv.config();
 export const metadata: Metadata = {

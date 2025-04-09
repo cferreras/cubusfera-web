@@ -8,7 +8,7 @@ import Link from "next/link";
 import { Avatar } from "@radix-ui/react-avatar";
 import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ReactMarkdown from 'react-markdown';
-import { FaDiscord, FaInstagram, FaLocationDot, FaStar, FaXTwitter, FaYoutube } from "react-icons/fa6";
+import { FaDiscord, FaInstagram, FaLocationDot, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useParams } from 'next/navigation';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
