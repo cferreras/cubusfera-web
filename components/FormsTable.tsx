@@ -1,6 +1,6 @@
 "use client";
 import { createClient } from '@/utils/supabase/client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react'; // Add useCallback import
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
 import { Button } from './ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
@@ -28,8 +28,8 @@ const FormsTable = () => {
     const [page, setPage] = useState(1);
     const itemsPerPage = 10;
 
-    // Función para obtener los datos de la tabla forms
-    const fetchForms = async () => {
+    // Wrap fetchForms in useCallback to prevent recreation on every render
+    const fetchForms = useCallback(async () => {
         try {
             const { data, error } = await supabase
                 .from('forms')
@@ -42,10 +42,11 @@ const FormsTable = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [supabase]); // Add supabase as a dependency
 
     // Función para alternar el estado de "approved" y añadir al whitelist
     // Modificar la función handleToggleApproval
+    // Modify the handleStatusChange function to avoid potential loops
     const handleStatusChange = async (id: string, newStatus: 'accepted' | 'rejected', minecraftUsername: string) => {
         try {
             // Si se está admitiendo al jugador
@@ -57,12 +58,12 @@ const FormsTable = () => {
                     },
                     body: JSON.stringify({ minecraftUsername }),
                 });
-
+    
                 if (!whitelistResponse.ok) {
                     const errorData = await whitelistResponse.json();
                     throw new Error(errorData.error || 'Error al agregar al whitelist.');
                 }
-
+    
                 // Use a server-side API to update the profile
                 const profileResponse = await fetch('/api/update-profile', {
                     method: 'POST',
@@ -74,7 +75,7 @@ const FormsTable = () => {
                         minecraftUsername: minecraftUsername 
                     }),
                 });
-
+    
                 if (!profileResponse.ok) {
                     const errorData = await profileResponse.json();
                     throw new Error(errorData.error || 'Error al actualizar el perfil.');
@@ -88,13 +89,13 @@ const FormsTable = () => {
                     },
                     body: JSON.stringify({ minecraftUsername }),
                 });
-
+    
                 if (!unwhitelistResponse.ok) {
                     const errorData = await unwhitelistResponse.json();
                     throw new Error(errorData.error || 'Error al remover del whitelist.');
                 }
             }
-
+    
             // Actualizar el estado en Supabase
             const { error } = await supabase
                 .from('forms')
@@ -103,20 +104,33 @@ const FormsTable = () => {
                     revision_date: new Date().toISOString() 
                 })
                 .eq('id', id);
-
+    
             if (error) throw error;
-
+    
             alert(newStatus === 'accepted' ? 'Jugador admitido exitosamente.' : 'Jugador rechazado.');
-            fetchForms();
+            
+            // Update the local state directly instead of calling fetchForms again
+            setForms(prevForms => 
+                prevForms.map(form => 
+                    form.id === id 
+                        ? {...form, status: newStatus, revision_date: new Date().toISOString()} 
+                        : form
+                )
+            );
         } catch (error) {
             console.error('Error al cambiar el estado del jugador:', error);
             console.error('Error occurred:', (error as Error).message);
+            alert(`Error: ${(error as Error).message}`);
+        } finally {
+            setLoading(false);
         }
     };
 
-    // Función para reiniciar el estado a "pending"
+    // Similarly update the handleResetToNotSubmitted function
     const handleResetToNotSubmitted = async (id: string) => {
         try {
+            setLoading(true);
+            
             // Actualizar el estado en Supabase para permitir volver a enviar el formulario
             const { error } = await supabase
                 .from('forms')
@@ -125,20 +139,31 @@ const FormsTable = () => {
                     revision_date: new Date().toISOString() 
                 })
                 .eq('id', id);
-
+    
             if (error) throw error;
-
+    
             alert('Formulario habilitado para volver a enviarse.');
-            fetchForms();
+            
+            // Update local state directly
+            setForms(prevForms => 
+                prevForms.map(form => 
+                    form.id === id 
+                        ? {...form, already_submitted: false, revision_date: new Date().toISOString()} 
+                        : form
+                )
+            );
         } catch (error) {
             console.error('Error al reiniciar el formulario:', error);
             console.error('Error occurred:', (error as Error).message);
+            alert(`Error: ${(error as Error).message}`);
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         fetchForms();
-    });
+    }, [fetchForms]); // This is now correct since fetchForms is stable
 
     // Paginación
     const totalPages = Math.ceil(forms.length / itemsPerPage);
