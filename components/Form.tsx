@@ -46,7 +46,7 @@ export default function Form(props: { questions: Question[] }) {
             .catch((error) => {
                 console.error("Error al obtener el usuario de Discord:", error);
             });
-    }, []);
+    }, [answers]);
 
     // Hacer focus en el input
     useEffect(() => {
@@ -55,7 +55,7 @@ export default function Form(props: { questions: Question[] }) {
         } else if (props.questions[currentQuestion].type === 'textarea' && textareaRef.current) {
             textareaRef.current?.focus();
         }
-    }, [currentQuestion]);
+    }, [currentQuestion, props.questions]);
 
     // Función para cargar la respuesta desde la API
     const fetchFieldData = async (fieldName: string) => {
@@ -90,7 +90,7 @@ export default function Form(props: { questions: Question[] }) {
         if (fieldName) {
             fetchFieldData(fieldName); // Carga el valor del campo correspondiente
         }
-    }, [currentQuestion]);
+    },);
 
 
     // Verificar si el usuario ya ha respondido
@@ -125,7 +125,7 @@ export default function Form(props: { questions: Question[] }) {
         } else if (props.questions[currentQuestion].type === 'textarea' && textareaRef.current) {
             textareaRef.current?.focus();
         }
-    }, [currentQuestion]);
+    }, [currentQuestion, props.questions]);
     // Add this new state at the top with other states
     const [formStatus, setFormStatus] = useState<'accepted' | 'pending' | 'rejected' | 'unknown'>('pending');
 

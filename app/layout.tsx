@@ -8,27 +8,12 @@ import { ToastTrigger } from "@/components/ToastTrigger";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Script from "next/script";
+import type { Metadata } from 'next'
 
 export default function GlobalLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="es" suppressHydrationWarning>
-            <head>
-                <meta name="cz-shortcut-listen" content="false" />
-                <link
-                    rel="icon"
-                    type="image/svg+xml"
-                    href="/favicon-light.svg"
-                    media="(prefers-color-scheme: light)"
-                />
-                <link
-                    rel="icon"
-                    type="image/svg+xml"
-                    href="/favicon-dark.svg"
-                    media="(prefers-color-scheme: dark)"
-                />
-                <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
-            </head>
-
+            <head />
             <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] dark:bg-neutral-950 bg-white ${geist.className}`}>
                 <main>
                     <div className="w-full h-screen absolute left-0 top-0 z-[-1] pointer-events-none" data-pattern="diamonds">
@@ -51,4 +36,55 @@ export default function GlobalLayout({ children }: { children: ReactNode }) {
             </body>
         </html>
     )
+}
+
+export const metadata: Metadata = {
+    metadataBase: new URL('https://cubusfera.com'),
+    title: {
+        default: 'Cubusfera - Servidor de Minecraft Técnico',
+        template: '%s | Cubusfera'
+    },
+    description: 'Comunidad hispanohablante de Minecraft técnico con enfoque en granjas eficientes, redstone y mecanismos avanzados.',
+    keywords: ['minecraft', 'servidor', 'técnico', 'vanilla', 'granjas', 'redstone', 'comunidad', 'hispanohablante'],
+    authors: [{ name: 'Equipo Cubusfera' }],
+    creator: 'Cubusfera',
+    publisher: 'Cubusfera',
+    openGraph: {
+        type: 'website',
+        locale: 'es_ES',
+        siteName: 'Cubusfera',
+        title: {
+            default: 'Cubusfera - Servidor de Minecraft Técnico',
+            template: '%s | Cubusfera'
+        },
+        description: 'Comunidad hispanohablante de Minecraft técnico con enfoque en granjas eficientes, redstone y mecanismos avanzados.',
+        images: [
+            {
+                url: 'https://cubusfera.com/images/default-og.jpg',
+                width: 1200,
+                height: 630,
+                alt: 'Cubusfera - Servidor de Minecraft Técnico',
+            }
+        ],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: {
+            default: 'Cubusfera - Servidor de Minecraft Técnico',
+            template: '%s | Cubusfera'
+        },
+        description: 'Comunidad hispanohablante de Minecraft técnico con enfoque en granjas eficientes, redstone y mecanismos avanzados.',
+        images: ['https://cubusfera.com/images/default-og.jpg'],
+        creator: '@cubusfera',
+    },
+    icons: {
+        icon: '/favicon.ico',
+        shortcut: '/favicon-16x16.png',
+        apple: '/apple-touch-icon.png',
+    },
+    manifest: '/site.webmanifest',
+    robots: {
+        index: true,
+        follow: true,
+    },
 }

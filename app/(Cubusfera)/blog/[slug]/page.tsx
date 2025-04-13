@@ -27,10 +27,37 @@ export async function generateMetadata(
     // read route params
     const slug = (await params).slug
     const postData = await getPostData(slug);
+    
+    // Create absolute URL for the image
+    const imageUrl = postData.coverImage 
+        ? (postData.coverImage.startsWith('http') ? postData.coverImage : `https://cubusfera.com${postData.coverImage}`)
+        : 'https://cubusfera.com/images/default-og.jpg';
+    
     return {
-        // guion largo de
         title: postData.title + " – " + "Cubusfera",
         description: postData.description,
+        openGraph: {
+            title: postData.title,
+            description: postData.description,
+            type: 'article',
+            publishedTime: postData.publishedAt,
+            url: `https://cubusfera.com/blog/${slug}`,
+            images: [
+                {
+                    url: imageUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: postData.title,
+                }
+            ],
+            siteName: 'Cubusfera',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: postData.title,
+            description: postData.description,
+            images: [imageUrl],
+        },
     };
 }
 

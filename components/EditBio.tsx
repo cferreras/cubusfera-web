@@ -134,7 +134,7 @@ export default function EditBio({
         };
 
         fetchProfileData();
-    }, [userId, form]);
+    }, [userId, form, supabase]);
 
     const handleSave = async (values: z.infer<typeof profileSchema>) => {
         try {

@@ -4,12 +4,12 @@ subtitle: '¡Descubre los secretos detrás de nuestro proceso de selección!'
 description: 'Descubre 15 datos fascinantes sobre el proceso de selección de Cubusfera, el servidor de Minecraft técnico. Estadísticas, curiosidades y secretos de nuestra comunidad.'
 publishedAt: '04/09/2025'
 author: 'cferreras'
-image: '/images/datos-curiosos-formulario-ingreso-cubusfera.webp'
+coverImage: ''
 ---
 
 *Por el Equipo de Administración de Cubusfera*
 
-![Datos curiosos formulario de ingreso a Cubusfera](/images/datos-curiosos-formulario-ingreso-cubusfera.webp)
+![Datos curiosos formulario de ingreso a Cubusfera](/images/default-og.jpg)
 
 ## ¿Quieres unirte a nuestra comunidad? Primero conoce estos datos fascinantes
 

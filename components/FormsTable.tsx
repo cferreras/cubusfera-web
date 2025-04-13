@@ -138,7 +138,7 @@ const FormsTable = () => {
 
     useEffect(() => {
         fetchForms();
-    }, []);
+    });
 
     // Paginación
     const totalPages = Math.ceil(forms.length / itemsPerPage);

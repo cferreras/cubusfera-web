@@ -44,6 +44,6 @@ export async function getPostData(slug: string) {
     return {
         slug,
         contentHtml,
-        ...(matterResult.data as { publishedAt: string; title: string; description: string; author: string }),
+        ...(matterResult.data as { publishedAt: string; title: string; description: string; author: string; coverImage: string; }),
     };
 }

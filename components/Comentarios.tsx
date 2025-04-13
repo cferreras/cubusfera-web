@@ -42,7 +42,7 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
 
     useEffect(() => {
         fetchComments();
-    }, [profileId, postSlug]);
+    });
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -63,7 +63,7 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
         };
 
         fetchUserProfile();
-    }, [currentUser]);
+    }, [currentUser, supabase]);
 
     const fetchComments = async () => {
         if (profileId) {
