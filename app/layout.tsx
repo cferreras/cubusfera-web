@@ -41,50 +41,26 @@ export default function GlobalLayout({ children }: { children: ReactNode }) {
 export const metadata: Metadata = {
     metadataBase: new URL('https://cubusfera.com'),
     title: {
-        default: 'Cubusfera - Servidor de Minecraft Técnico',
-        template: '%s | Cubusfera'
+        default: 'Cubusfera - Servidor Técnico de Minecraft | Comunidad Española',
+        template: '%s | Cubusfera - Servidor Técnico de Minecraft'
     },
-    description: 'Comunidad hispanohablante de Minecraft técnico con enfoque en granjas eficientes, redstone y mecanismos avanzados.',
-    keywords: ['minecraft', 'servidor', 'técnico', 'vanilla', 'granjas', 'redstone', 'comunidad', 'hispanohablante'],
-    authors: [{ name: 'Equipo Cubusfera' }],
-    creator: 'Cubusfera',
-    publisher: 'Cubusfera',
+    description: 'Únete a Cubusfera, la comunidad técnica de Minecraft en español. Servidor vanilla con enfoque en redstone, granjas y proyectos técnicos. Descubre tutoriales, eventos y más.',
+    keywords: ['minecraft', 'servidor técnico', 'redstone', 'granjas minecraft', 'comunidad minecraft', 'minecraft español', 'servidor vanilla'],
     openGraph: {
         type: 'website',
         locale: 'es_ES',
+        url: 'https://cubusfera.com',
+        title: 'Cubusfera - Servidor Técnico de Minecraft | Comunidad Española',
+        description: 'Únete a Cubusfera, la comunidad técnica de Minecraft en español. Servidor vanilla con enfoque en redstone, granjas y proyectos técnicos.',
         siteName: 'Cubusfera',
-        title: {
-            default: 'Cubusfera - Servidor de Minecraft Técnico',
-            template: '%s | Cubusfera'
-        },
-        description: 'Comunidad hispanohablante de Minecraft técnico con enfoque en granjas eficientes, redstone y mecanismos avanzados.',
-        images: [
-            {
-                url: 'https://cubusfera.com/images/default-og.jpg',
-                width: 1200,
-                height: 630,
-                alt: 'Cubusfera - Servidor de Minecraft Técnico',
-            }
-        ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: {
-            default: 'Cubusfera - Servidor de Minecraft Técnico',
-            template: '%s | Cubusfera'
-        },
-        description: 'Comunidad hispanohablante de Minecraft técnico con enfoque en granjas eficientes, redstone y mecanismos avanzados.',
-        images: ['https://cubusfera.com/images/default-og.jpg'],
-        creator: '@cubusfera',
+        title: 'Cubusfera - Servidor Técnico de Minecraft',
+        description: 'Comunidad técnica de Minecraft en español. Redstone, granjas y proyectos técnicos.',
     },
-    icons: {
-        icon: '/favicon.ico',
-        shortcut: '/favicon-16x16.png',
-        apple: '/apple-touch-icon.png',
-    },
-    manifest: '/site.webmanifest',
     robots: {
         index: true,
         follow: true,
-    },
+    }
 }

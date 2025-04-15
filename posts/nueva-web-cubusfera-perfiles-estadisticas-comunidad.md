@@ -5,6 +5,7 @@ description: 'Descubre la nueva web de Cubusfera con perfiles personalizados, es
 publishedAt: '03/03/2025'
 author: 'cferreras'
 image: ''
+category: 'noticias'
 ---
 
 La nueva página web de **Cubusfera** marca un antes y un después en nuestra comunidad. Este avance no solo mejora la experiencia de juego en nuestro servidor técnico de Minecraft, sino que también abre nuevas formas de interacción, personalización y crecimiento dentro de nuestra comunidad.

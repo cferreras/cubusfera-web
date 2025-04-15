@@ -5,6 +5,7 @@ description: '¡Cubusfera, el servidor Vanilla de Minecraft, está de vuelta con
 publishedAt: '01/02/2023'
 author: 'cferreras'
 image: 'https://cubusfera.com/img/1-16-5-header.jpg'
+category: 'noticias'
 ---
 
 Nos complace anunciar la **reapertura de Cubusfera** para la versión 1.16.5 de Minecraft. Este servidor es el lugar perfecto para aquellos amantes de Minecraft que buscan una experiencia de juego pura y sin modificaciones ni rangos abusivos.

@@ -5,6 +5,7 @@ description: '¿Quieres mejorar tu experiencia de juego en Minecraft? Descubre l
 publishedAt: '05/17/2023'
 author: 'cferreras'
 image: ''
+category: 'mods'
 ---
 
 Hola, amigos y amigas. Hoy les voy a hablar de algunos de **los mejores mods del lado de cliente para Minecraft fabric**. Estos mods son compatibles con la última versión de Minecraft y te permiten personalizar tu experiencia de juego con diferentes opciones y mejoras. Algunos de los mods que les recomiendo son:

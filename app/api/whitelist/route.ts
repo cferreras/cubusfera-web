@@ -3,6 +3,7 @@ import env from 'dotenv';
 env.config();
 interface RequestBody {
     minecraftUsername: string;
+    discordUsername: string;
 }
 
 interface ErrorResponse {
@@ -17,10 +18,17 @@ interface SuccessResponse {
 export async function POST(req: Request): Promise<Response> {
     try {
         // Extraer los datos del cuerpo de la solicitud
-        const { minecraftUsername }: RequestBody = await req.json();
+        const { minecraftUsername, discordUsername }: RequestBody = await req.json();
 
         if (!minecraftUsername) {
             const errorResponse: ErrorResponse = { error: 'Se requiere un nombre de usuario de Minecraft.' };
+            return new Response(JSON.stringify(errorResponse), {
+                status: 400,
+            });
+        }
+
+        if (!discordUsername) {
+            const errorResponse: ErrorResponse = { error: 'Se requiere un nombre de usuario de Discord.' };
             return new Response(JSON.stringify(errorResponse), {
                 status: 400,
             });
@@ -32,10 +40,13 @@ export async function POST(req: Request): Promise<Response> {
             {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${process.env.MINECRAFT_WHITELISTING_TOKEN}`,
+                    'X-Cubusfera-Auth': `${process.env.MINECRAFT_WHITELISTING_TOKEN}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username: minecraftUsername }), // Asegúrate de usar este formato
+                body: JSON.stringify({ 
+                    username: minecraftUsername,
+                    discord: discordUsername
+                }),
             }
         );
 

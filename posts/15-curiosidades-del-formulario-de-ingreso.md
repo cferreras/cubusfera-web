@@ -5,6 +5,7 @@ description: 'Descubre 15 datos fascinantes sobre el proceso de selección de Cu
 publishedAt: '04/09/2025'
 author: 'cferreras'
 coverImage: ''
+category: 'artículos'
 ---
 
 *Por el Equipo de Administración de Cubusfera*

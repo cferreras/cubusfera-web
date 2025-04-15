@@ -5,6 +5,7 @@ description: 'El fin de una era en nuestro servidor de Minecraft: el mapa 2023 l
 publishedAt: '10/11/2023'
 author: 'cferreras'
 image: ''
+category: 'noticias'
 ---
 
 El mundo de Minecraft es un lugar en constante evolución, donde la creatividad y la exploración se combinan para crear experiencias únicas. En nuestro servidor, no somos ajenos a esta dinámica, y es por eso que nos complace anunciar el emocionante fin del mapa 2023 y la inminente llegada de una nueva temporada. En este artículo, te contaremos todo lo que necesitas saber sobre este emocionante cambio y lo que puedes esperar en la próxima etapa de nuestro servidor.

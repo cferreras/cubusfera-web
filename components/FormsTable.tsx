@@ -47,8 +47,15 @@ const FormsTable = () => {
     // Función para alternar el estado de "approved" y añadir al whitelist
     // Modificar la función handleToggleApproval
     // Modify the handleStatusChange function to avoid potential loops
+    // Modify the handleStatusChange function to include Discord username
     const handleStatusChange = async (id: string, newStatus: 'accepted' | 'rejected', minecraftUsername: string) => {
         try {
+            setLoading(true);
+            
+            // Find the form to get the Discord username
+            const form = forms.find(f => f.id === id);
+            const discordUsername = form?.discord_full_name || 'Unknown';
+            
             // Si se está admitiendo al jugador
             if (newStatus === 'accepted') {
                 const whitelistResponse = await fetch('/api/whitelist', {
@@ -56,7 +63,10 @@ const FormsTable = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ minecraftUsername }),
+                    body: JSON.stringify({ 
+                        minecraftUsername,
+                        discordUsername 
+                    }),
                 });
     
                 if (!whitelistResponse.ok) {
@@ -87,7 +97,10 @@ const FormsTable = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ minecraftUsername }),
+                    body: JSON.stringify({ 
+                        minecraftUsername,
+                        discordUsername 
+                    }),
                 });
     
                 if (!unwhitelistResponse.ok) {

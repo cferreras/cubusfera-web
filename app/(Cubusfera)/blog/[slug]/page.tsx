@@ -70,8 +70,42 @@ export default async function Post({ params }: Props) {
     const supabase = createClient();
     const { data: { user } } = await (await supabase).auth.getUser()
     
+    // Create JSON-LD schema for better SEO
+    const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        'headline': postData.title,
+        'description': postData.description,
+        'author': {
+            '@type': 'Person',
+            'name': postData.author || 'Cubusfera'
+        },
+        'datePublished': postData.publishedAt,
+        'image': postData.coverImage 
+            ? (postData.coverImage.startsWith('http') ? postData.coverImage : `https://cubusfera.com${postData.coverImage}`)
+            : 'https://cubusfera.com/images/default-og.jpg',
+        'publisher': {
+            '@type': 'Organization',
+            'name': 'Cubusfera',
+            'logo': {
+                '@type': 'ImageObject',
+                'url': 'https://cubusfera.com/cubusfera-logo.png'
+            }
+        },
+        'mainEntityOfPage': {
+            '@type': 'WebPage',
+            '@id': `https://cubusfera.com/blog/${slug}`
+        }
+    };
+    
     return (
         <Container className="py-20">
+            {/* Add JSON-LD script */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
+            
             <div className="flex flex-col lg:flex-row gap-12">
                 <div className="lg:w-3/4">
                     <Breadcrumb className="mb-8">
