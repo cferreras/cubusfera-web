@@ -34,7 +34,7 @@ export async function generateMetadata(
         : 'https://cubusfera.com/images/default-og.jpg';
     
     return {
-        title: postData.title + " – " + "Cubusfera",
+        title: postData.title + " | " + "Cubusfera - Servidor Técnico de Minecraft",
         description: postData.description,
         openGraph: {
             title: postData.title,

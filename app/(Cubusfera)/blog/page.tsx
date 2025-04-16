@@ -81,17 +81,6 @@ function BlogContent() {
         }
     };
 
-    // Generate page title based on category
-    const pageTitle = categoryFilter && categoryFilter !== 'Todos' 
-        ? `Blog de Minecraft Técnico - ${categoryFilter}` 
-        : 'Blog de Minecraft Técnico - Cubusfera';
-
-    // Use the pageTitle in the document head
-    useEffect(() => {
-        // Update document title
-        document.title = pageTitle;
-    }, [pageTitle]);
-
     return (
         <>
             <div className="flex flex-col gap-1 mb-8">

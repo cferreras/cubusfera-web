@@ -1,14 +1,16 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Blog de Minecraft Técnico – Cubusfera',
-    description: 'Tutoriales, guías y noticias sobre Minecraft técnico: redstone, granjas eficientes, comandos avanzados y más. Todo sobre el servidor Cubusfera.',
-    keywords: ['blog minecraft', 'minecraft técnico', 'tutoriales minecraft', 'redstone', 'granjas minecraft', 'cubusfera'],
+    title: 'Blog de Minecraft Técnico',
+    description: 'Tutoriales, guías y noticias sobre redstone, granjas y técnicas avanzadas en Minecraft. Aprende a mejorar tus construcciones.',
     openGraph: {
-        title: 'Blog de Minecraft Técnico – Cubusfera',
-        description: 'Tutoriales, guías y noticias sobre Minecraft técnico: redstone, granjas eficientes, comandos avanzados y más.',
+        title: 'Blog de Minecraft Técnico',
+        description: 'Tutoriales, guías y noticias sobre redstone, granjas y técnicas avanzadas en Minecraft.',
+        url: 'https://cubusfera.com/blog',
+        siteName: 'Cubusfera',
+        locale: 'es_ES',
         type: 'website',
-    }
+    },
 }
 
 export default function BlogLayout({
@@ -17,8 +19,8 @@ export default function BlogLayout({
     children: React.ReactNode
 }) {
     return (
-        <article className="blog-content">
+        <>
             {children}
-        </article>
+        </>
     )
 }
