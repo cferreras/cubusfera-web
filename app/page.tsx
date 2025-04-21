@@ -58,7 +58,7 @@ export default function Home() {
                         </motion.div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <motion.div 
-                                className="bg-card rounded-xl p-6 text-center"
+                                className="rounded-xl p-6 text-center"
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.1 }}
@@ -68,7 +68,7 @@ export default function Home() {
                                 <p className="text-muted-foreground">Jugadores activos</p>
                             </motion.div>
                             <motion.div 
-                                className="bg-card rounded-xl p-6 text-center"
+                                className="rounded-xl p-6 text-center"
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -78,7 +78,7 @@ export default function Home() {
                                 <p className="text-muted-foreground">Proyectos técnicos</p>
                             </motion.div>
                             <motion.div 
-                                className="bg-card rounded-xl p-6 text-center"
+                                className="rounded-xl p-6 text-center"
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -128,7 +128,7 @@ export default function Home() {
                         </motion.div>
                         <div className="max-w-3xl mx-auto space-y-6">
                             <motion.div 
-                                className="bg-card rounded-xl p-6"
+                                className="rounded-xl p-6"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.1 }}
@@ -141,7 +141,7 @@ export default function Home() {
                                 </p>
                             </motion.div>
                             <motion.div 
-                                className="bg-card rounded-xl p-6"
+                                className="rounded-xl p-6"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.2 }}
@@ -154,7 +154,7 @@ export default function Home() {
                                 </p>
                             </motion.div>
                             <motion.div 
-                                className="bg-card rounded-xl p-6"
+                                className="rounded-xl p-6"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5, delay: 0.3 }}

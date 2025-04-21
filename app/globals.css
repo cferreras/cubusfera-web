@@ -124,5 +124,23 @@
   }
   body {
     @apply bg-background text-foreground;
+    position: relative;
+    z-index: 0;
   }
+  
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+    background-image: url('/pattern.webp');
+    background-size: 700px 700px; /* Increased size for a larger pattern */
+    background-repeat: repeat;
+    opacity: 0.05; /* Adjust for subtlety */
+    background-blend-mode: multiply;
+  }
+  
 }
