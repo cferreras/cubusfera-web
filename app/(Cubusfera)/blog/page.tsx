@@ -84,7 +84,7 @@ function BlogContent() {
     return (
         <>
             <div className="flex flex-col gap-1 mb-8">
-                <h1 className="text-3xl font-bold">Blog de Minecraft Técnico</h1>
+                <h1 className="text-lg">Blog de Minecraft Técnico</h1>
                 <p className="text-base text-muted-foreground">
                     Tutoriales, guías y noticias sobre redstone, granjas y técnicas avanzadas en Minecraft.
                     Descubre los secretos del juego y mejora tus construcciones con nuestros artículos especializados.
