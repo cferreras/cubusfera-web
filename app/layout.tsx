@@ -14,7 +14,7 @@ export default function GlobalLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="es" suppressHydrationWarning>
             <head />
-            <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] dark:bg-black bg-white ${rubik.className}`}>
+            <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] dark:bg-neutral-950 bg-white ${rubik.className}`}>
                 <main>
                     <ThemeProvider
                         attribute="class"
