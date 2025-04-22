@@ -1,10 +1,23 @@
 "use client";
 import { createClient } from '@/utils/supabase/client';
-import { useState, useEffect, useCallback } from 'react'; // Add useCallback import
+import { useState, useEffect, useCallback } from 'react';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
 import { Button } from './ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
-import { Check, X } from "lucide-react";
+import { Check, X, ChevronDown, ChevronUp, Eye } from "lucide-react";
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface Form {
     id: string;
@@ -18,7 +31,14 @@ interface Form {
     status: 'pending' | 'accepted' | 'rejected';
     revision_date: string;
     premium_minecraft: string;
-    discord_full_name?: string; // Added Discord full name field
+    discord_full_name?: string;
+    // Nuevos campos
+    minecraft_skills: boolean[];
+    farm_experience: boolean[];
+    technical_question_1: string;
+    technical_question_2: string;
+    update_suppression_knowledge: string;
+    iron_farm_knowledge: string;
 }
 
 const FormsTable = () => {
@@ -26,6 +46,7 @@ const FormsTable = () => {
     const [forms, setForms] = useState<Form[]>([]);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
+    const [expandedRow, setExpandedRow] = useState<string | null>(null);
     const itemsPerPage = 10;
 
     // Wrap fetchForms in useCallback to prevent recreation on every render
@@ -42,20 +63,16 @@ const FormsTable = () => {
         } finally {
             setLoading(false);
         }
-    }, [supabase]); // Add supabase as a dependency
+    }, [supabase]);
 
-    // Función para alternar el estado de "approved" y añadir al whitelist
-    // Modificar la función handleToggleApproval
-    // Modify the handleStatusChange function to avoid potential loops
-    // Modify the handleStatusChange function to include Discord username
     const handleStatusChange = async (id: string, newStatus: 'accepted' | 'rejected', minecraftUsername: string) => {
         try {
             setLoading(true);
-            
+
             // Find the form to get the Discord username
             const form = forms.find(f => f.id === id);
             const discordUsername = form?.discord_full_name || 'Unknown';
-            
+
             // Si se está admitiendo al jugador
             if (newStatus === 'accepted') {
                 const whitelistResponse = await fetch('/api/whitelist', {
@@ -63,29 +80,29 @@ const FormsTable = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         minecraftUsername,
-                        discordUsername 
+                        discordUsername
                     }),
                 });
-    
+
                 if (!whitelistResponse.ok) {
                     const errorData = await whitelistResponse.json();
                     throw new Error(errorData.error || 'Error al agregar al whitelist.');
                 }
-    
+
                 // Use a server-side API to update the profile
                 const profileResponse = await fetch('/api/update-profile', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ 
-                        userId: id, 
-                        minecraftUsername: minecraftUsername 
+                    body: JSON.stringify({
+                        userId: id,
+                        minecraftUsername: minecraftUsername
                     }),
                 });
-    
+
                 if (!profileResponse.ok) {
                     const errorData = await profileResponse.json();
                     throw new Error(errorData.error || 'Error al actualizar el perfil.');
@@ -97,36 +114,36 @@ const FormsTable = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         minecraftUsername,
-                        discordUsername 
+                        discordUsername
                     }),
                 });
-    
+
                 if (!unwhitelistResponse.ok) {
                     const errorData = await unwhitelistResponse.json();
                     throw new Error(errorData.error || 'Error al remover del whitelist.');
                 }
             }
-    
+
             // Actualizar el estado en Supabase
             const { error } = await supabase
                 .from('forms')
-                .update({ 
+                .update({
                     status: newStatus,
-                    revision_date: new Date().toISOString() 
+                    revision_date: new Date().toISOString()
                 })
                 .eq('id', id);
-    
+
             if (error) throw error;
-    
+
             alert(newStatus === 'accepted' ? 'Jugador admitido exitosamente.' : 'Jugador rechazado.');
-            
+
             // Update the local state directly instead of calling fetchForms again
-            setForms(prevForms => 
-                prevForms.map(form => 
-                    form.id === id 
-                        ? {...form, status: newStatus, revision_date: new Date().toISOString()} 
+            setForms(prevForms =>
+                prevForms.map(form =>
+                    form.id === id
+                        ? { ...form, status: newStatus, revision_date: new Date().toISOString() }
                         : form
                 )
             );
@@ -139,29 +156,28 @@ const FormsTable = () => {
         }
     };
 
-    // Similarly update the handleResetToNotSubmitted function
     const handleResetToNotSubmitted = async (id: string) => {
         try {
             setLoading(true);
-            
+
             // Actualizar el estado en Supabase para permitir volver a enviar el formulario
             const { error } = await supabase
                 .from('forms')
-                .update({ 
+                .update({
                     already_submitted: false,
-                    revision_date: new Date().toISOString() 
+                    revision_date: new Date().toISOString()
                 })
                 .eq('id', id);
-    
+
             if (error) throw error;
-    
+
             alert('Formulario habilitado para volver a enviarse.');
-            
+
             // Update local state directly
-            setForms(prevForms => 
-                prevForms.map(form => 
-                    form.id === id 
-                        ? {...form, already_submitted: false, revision_date: new Date().toISOString()} 
+            setForms(prevForms =>
+                prevForms.map(form =>
+                    form.id === id
+                        ? { ...form, already_submitted: false, revision_date: new Date().toISOString() }
                         : form
                 )
             );
@@ -174,13 +190,56 @@ const FormsTable = () => {
         }
     };
 
+    // Función para renderizar los conocimientos de Minecraft
+    const renderMinecraftSkills = (skills: boolean[] | null | undefined, options: string[]) => {
+        if (!skills) return <span className="text-muted-foreground">No especificado</span>;
+
+        const selectedSkills = skills
+            .map((selected, index) => selected ? options[index] : null)
+            .filter(Boolean);
+
+        if (selectedSkills.length === 0) return <span className="text-muted-foreground">Ninguno seleccionado</span>;
+
+        return (
+            <ul className="list-disc pl-5">
+                {selectedSkills.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                ))}
+            </ul>
+        );
+    };
+
+    // Toggle expanded row
+    const toggleExpandRow = (id: string) => {
+        setExpandedRow(expandedRow === id ? null : id);
+    };
+
     useEffect(() => {
         fetchForms();
-    }, [fetchForms]); // This is now correct since fetchForms is stable
+    }, [fetchForms]);
 
     // Paginación
     const totalPages = Math.ceil(forms.length / itemsPerPage);
     const paginatedForms = forms.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+
+    // Opciones para los checkboxes
+    const minecraftSkillsOptions = [
+        "Redstone básica (puertas lógicas, circuitos simples)",
+        "Redstone avanzada (sistemas de memoria, contadores)",
+        "Granjas automáticas",
+        "Sistemas de clasificación de items",
+        "Comandos y funciones",
+        "Datapacks",
+    ];
+
+    const farmExperienceOptions = [
+        "Granjas de mobs hostiles",
+        "Granjas de hierro",
+        "Granjas de XP",
+        "Granjas de cultivos",
+        "Granjas de recursos del Nether/End",
+        "Granjas técnicas complejas (TNT duping, etc.)",
+    ];
 
     return (
         <div className="space-y-8">
@@ -199,10 +258,9 @@ const FormsTable = () => {
                         <TableRow className="hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50">
                             <TableHead className="font-medium">Nombre</TableHead>
                             <TableHead className="font-medium">Usuario de Minecraft</TableHead>
-                            <TableHead className="font-medium">Problemas conexión</TableHead>
                             <TableHead className="font-medium">Conocimiento MC</TableHead>
-                            <TableHead className="font-medium">Pregunta Clave</TableHead>
-                            <TableHead className="font-medium">Mic Disponible</TableHead>
+                            <TableHead className="font-medium">Micrófono</TableHead>
+                            <TableHead className="font-medium">Detalles</TableHead>
                             <TableHead className="font-medium">Acciones</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -221,79 +279,236 @@ const FormsTable = () => {
                             </TableRow>
                         ) : (
                             paginatedForms.map((form) => (
-                                <TableRow key={form.id} className="hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50">
-                                    <TableCell>
-                                        <div className="flex flex-col">
-                                            <span>{form.name}</span>
-                                            <span className="text-sm text-muted-foreground">{form.discord_full_name}</span>
-                                        </div>
-                                    </TableCell>
-                                    <TableCell>{form.minecraft_username}{form.premium_minecraft === "Sí" ? <div className='text-muted-foreground'>Premium</div>:<div className='text-muted-foreground'>No premium</div>}</TableCell>
-                                    <TableCell>{form.connectivity_issues}</TableCell>
-                                    <TableCell>{form.minecraft_knowledge}<span className='text-muted-foreground'>/5</span></TableCell>
-                                    <TableCell>
-                                        <TooltipProvider>
-                                            <Tooltip>
-                                                <TooltipTrigger className="text-left">
-                                                    <span className="max-w-xs truncate block">
-                                                        {form.killer_question}
-                                                    </span>
-                                                </TooltipTrigger>
-                                                <TooltipContent className="max-w-lg">
-                                                    <p className="text-sm">{form.killer_question}</p>
-                                                </TooltipContent>
-                                            </Tooltip>
-                                        </TooltipProvider>
-                                    </TableCell>
-                                    <TableCell>{form.mic_available} {form.uses_mic === "Sí" ? '😊' : '😔'}</TableCell>
-                                    <TableCell>
-                                        {form.status === 'pending' ? (
-                                            <div className="flex gap-1">
+                                <>
+                                    <TableRow
+                                        key={form.id}
+                                        className={`hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 ${expandedRow === form.id ? 'bg-neutral-200/30 dark:bg-neutral-800/30' : ''}`}
+                                    >
+                                        <TableCell>
+                                            <div className="flex flex-col">
+                                                <span>{form.name}</span>
+                                                <span className="text-sm text-muted-foreground">{form.discord_full_name}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            {form.minecraft_username}
+                                            {form.premium_minecraft === "Sí" ?
+                                                <div className='text-muted-foreground'>Premium</div> :
+                                                <div className='text-muted-foreground'>No premium</div>
+                                            }
+                                        </TableCell>
+                                        <TableCell>
+                                            {form.minecraft_knowledge}<span className='text-muted-foreground'>/5</span>
+                                        </TableCell>
+                                        <TableCell>
+                                            {form.mic_available ? 'Sí' : 'No'}
+                                            {form.uses_mic === "Sí" ? ' 😊' : ' 😔'}
+                                        </TableCell>
+                                        <TableCell>
+                                            <div className="flex gap-2">
                                                 <Button
-                                                    onClick={() => handleStatusChange(form.id, 'accepted', form.minecraft_username)}
-                                                    variant="default"
+                                                    onClick={() => toggleExpandRow(form.id)}
+                                                    variant="outline"
                                                     size="icon"
                                                     className="rounded-xl h-8 w-8"
                                                 >
-                                                    <Check className="h-4 w-4" />
+                                                    {expandedRow === form.id ?
+                                                        <ChevronUp className="h-4 w-4" /> :
+                                                        <ChevronDown className="h-4 w-4" />
+                                                    }
                                                 </Button>
+                                                <Dialog>
+                                                    <DialogTrigger asChild>
+                                                        <Button
+                                                            variant="outline"
+                                                            size="icon"
+                                                            className="rounded-xl h-8 w-8"
+                                                        >
+                                                            <Eye className="h-4 w-4" />
+                                                        </Button>
+                                                    </DialogTrigger>
+                                                    <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+                                                        <DialogHeader>
+                                                            <DialogTitle>Detalles del formulario de {form.name}</DialogTitle>
+                                                        </DialogHeader>
+                                                        <div className="space-y-4 mt-4">
+                                                            <Accordion type="single" collapsible className="w-full">
+                                                                <AccordionItem value="info-personal">
+                                                                    <AccordionTrigger>Información Personal</AccordionTrigger>
+                                                                    <AccordionContent>
+                                                                        <div className="grid grid-cols-2 gap-4">
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Nombre</h3>
+                                                                                <p>{form.name}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Discord</h3>
+                                                                                <p>{form.discord_full_name}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Usuario de Minecraft</h3>
+                                                                                <p>{form.minecraft_username}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Minecraft Premium</h3>
+                                                                                <p>{form.premium_minecraft}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </AccordionContent>
+                                                                </AccordionItem>
+                                                                <AccordionItem value="tech-info">
+                                                                    <AccordionTrigger>Información Técnica</AccordionTrigger>
+                                                                    <AccordionContent>
+                                                                        <div className="grid grid-cols-2 gap-4">
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Micrófono disponible</h3>
+                                                                                <p>{form.mic_available ? 'Sí' : 'No'}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Usa micrófono</h3>
+                                                                                <p>{form.uses_mic}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Problemas de conexión</h3>
+                                                                                <p>{form.connectivity_issues ? 'Sí' : 'No'}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Conocimiento de Minecraft</h3>
+                                                                                <p>{form.minecraft_knowledge}/5</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </AccordionContent>
+                                                                </AccordionItem>
+                                                                <AccordionItem value="minecraft-skills">
+                                                                    <AccordionTrigger>Habilidades de Minecraft</AccordionTrigger>
+                                                                    <AccordionContent>
+                                                                        <div className="space-y-4">
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Conocimientos de Minecraft</h3>
+                                                                                {renderMinecraftSkills(form.minecraft_skills, minecraftSkillsOptions)}
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Experiencia con granjas</h3>
+                                                                                {renderMinecraftSkills(form.farm_experience, farmExperienceOptions)}
+                                                                            </div>
+                                                                        </div>
+                                                                    </AccordionContent>
+                                                                </AccordionItem>
+                                                                <AccordionItem value="technical-questions">
+                                                                    <AccordionTrigger>Preguntas Técnicas</AccordionTrigger>
+                                                                    <AccordionContent>
+                                                                        <div className="space-y-4">
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Los aldeanos necesitan acceso a sus estaciones de trabajo para reabastecerse</h3>
+                                                                                <p>{form.technical_question_1 || 'No respondido'}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Un pistón puede empujar hasta 12 bloques</h3>
+                                                                                <p>{form.technical_question_2 || 'No respondido'}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">¿Qué es el 'update suppression' en Minecraft?</h3>
+                                                                                <p className="whitespace-pre-wrap">{form.update_suppression_knowledge || 'No respondido'}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Explica brevemente cómo funciona una granja de hierro</h3>
+                                                                                <p className="whitespace-pre-wrap">{form.iron_farm_knowledge || 'No respondido'}</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </AccordionContent>
+                                                                </AccordionItem>
+                                                                <AccordionItem value="motivation">
+                                                                    <AccordionTrigger>Motivación</AccordionTrigger>
+                                                                    <AccordionContent>
+                                                                        <div>
+                                                                            <h3 className="font-semibold">Motivación para unirse al servidor</h3>
+                                                                            <p className="whitespace-pre-wrap">{form.killer_question}</p>
+                                                                        </div>
+                                                                    </AccordionContent>
+                                                                </AccordionItem>
+                                                            </Accordion>
+                                                        </div>
+                                                    </DialogContent>
+                                                </Dialog>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            {form.status === 'pending' ? (
+                                                <div className="flex gap-1">
+                                                    <Button
+                                                        onClick={() => handleStatusChange(form.id, 'accepted', form.minecraft_username)}
+                                                        variant="default"
+                                                        size="icon"
+                                                        className="rounded-xl h-8 w-8"
+                                                    >
+                                                        <Check className="h-4 w-4" />
+                                                    </Button>
+                                                    <Button
+                                                        onClick={() => handleStatusChange(form.id, 'rejected', form.minecraft_username)}
+                                                        variant="destructive"
+                                                        size="icon"
+                                                        className="rounded-xl h-8 w-8"
+                                                    >
+                                                        <X className="h-4 w-4" />
+                                                    </Button>
+                                                </div>
+                                            ) : form.status === 'accepted' ? (
                                                 <Button
                                                     onClick={() => handleStatusChange(form.id, 'rejected', form.minecraft_username)}
                                                     variant="destructive"
-                                                    size="icon"
-                                                    className="rounded-xl h-8 w-8"
+                                                    className="rounded-xl w-full h-9 px-3 py-1"
                                                 >
-                                                    <X className="h-4 w-4" />
+                                                    Rechazar
                                                 </Button>
-                                            </div>
-                                        ) : form.status === 'accepted' ? (
-                                            <Button
-                                                onClick={() => handleStatusChange(form.id, 'rejected', form.minecraft_username)}
-                                                variant="destructive"
-                                                className="rounded-xl px-3 py-1"
-                                            >
-                                                Rechazar
-                                            </Button>
-                                        ) : (
-                                            <Button
-                                                onClick={() => handleStatusChange(form.id, 'accepted', form.minecraft_username)}
-                                                variant="default"
-                                                className="rounded-xl px-3 py-1"
-                                            >
-                                                Aprobar
-                                            </Button>
-                                        )}
-                                        {form.status !== 'pending' && (
-                                            <Button
-                                                onClick={() => handleResetToNotSubmitted(form.id)}
-                                                variant="outline"
-                                                className="rounded-xl px-3 py-1 mt-2"
-                                            >
-                                                Reiniciar
-                                            </Button>
-                                        )}
-                                    </TableCell>
-                                </TableRow>
+                                            ) : (
+                                                <Button
+                                                    onClick={() => handleStatusChange(form.id, 'accepted', form.minecraft_username)}
+                                                    variant="default"
+                                                    className="rounded-xl w-full h-9 px-3 py-1"
+                                                >
+                                                    Aprobar
+                                                </Button>
+                                            )}
+                                            {form.status !== 'pending' && (
+                                                <Button
+                                                    onClick={() => handleResetToNotSubmitted(form.id)}
+                                                    variant="outline"
+                                                    className="rounded-xl w-full h-9 px-3 py-1 mt-2"
+                                                >
+                                                    Reiniciar
+                                                </Button>
+                                            )}
+                                        </TableCell>
+                                    </TableRow>
+                                    {expandedRow === form.id && (
+                                        <TableRow className="bg-neutral-200/30 dark:bg-neutral-800/30">
+                                            <TableCell colSpan={6} className="p-4">
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    <div>
+                                                        <h3 className="font-semibold">Problemas de conexión</h3>
+                                                        <p>{form.connectivity_issues ? 'Sí' : 'No'}</p>
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="font-semibold">Motivación</h3>
+                                                        <p className="truncate max-w-xs">{form.killer_question}</p>
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="font-semibold">Conocimientos técnicos</h3>
+                                                        <div className="text-sm">
+                                                            <p>Aldeanos: {form.technical_question_1 || 'No respondido'}</p>
+                                                            <p>Pistones: {form.technical_question_2 || 'No respondido'}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h3 className="font-semibold">Habilidades</h3>
+                                                        <p className="text-sm">{form.minecraft_skills ? `${form.minecraft_skills.filter(Boolean).length} habilidades` : 'No especificado'}</p>
+                                                        <p className="text-sm">{form.farm_experience ? `${form.farm_experience.filter(Boolean).length} tipos de granjas` : 'No especificado'}</p>
+                                                    </div>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    )}
+                                </>
                             ))
                         )}
                     </TableBody>
