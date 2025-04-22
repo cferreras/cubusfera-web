@@ -136,7 +136,7 @@ export default async function Achievements({
                 <h2 className="text-lg font-bold mb-8">Tabla de Clasificación</h2>
                 <div className="grid gap-8 md:grid-cols-2">
                     {leaderboards.map((leaderboard, index) => (
-                        <div key={index} className="bg-card rounded-lg p-6">
+                        <div key={index} className="bg-card border rounded-3xl p-6">
                             <h3 className="font-semibold mb-4">{leaderboard.category}</h3>
                             <div className="space-y-2">
                                 {leaderboard.entries.map((entry, i) => (
