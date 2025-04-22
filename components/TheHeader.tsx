@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useServerStatus } from '@/hooks/useServerStatus';
 import RotatingText from './RotatingText';
+import { MINECRAFT_VERSION } from "@/constants";
 
 export default function TheHeader() {
     const serverStatus = useServerStatus();
@@ -67,7 +68,7 @@ export default function TheHeader() {
                         </div>
                         <div className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 rounded-full shadow-sm">
                             <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Versión:</span>
-                            <code className="text-sm font-mono text-neutral-900 dark:text-neutral-100">1.21.4</code>
+                            <code className="text-sm font-mono text-neutral-900 dark:text-neutral-100">{MINECRAFT_VERSION}</code>
                         </div>
                     </motion.div>
 

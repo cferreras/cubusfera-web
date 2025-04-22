@@ -7,6 +7,7 @@ import TestimonialCard from "@/components/TestimonialCard";
 import CTACard from "@/components/CTACard";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { MINECRAFT_VERSION } from "@/constants";
 
 export default function Home() {
     return (
@@ -149,7 +150,7 @@ export default function Home() {
                             >
                                 <h3 className="text-xl font-semibold mb-2">¿Qué versión de Minecraft necesito?</h3>
                                 <p className="text-muted-foreground">
-                                    Actualmente el servidor funciona en la versión Java 1.21.4. Recomendamos usar la versión más reciente para
+                                    Actualmente el servidor funciona en la versión Java {MINECRAFT_VERSION}. Recomendamos usar la versión más reciente para
                                     disfrutar de todas las características.
                                 </p>
                             </motion.div>
