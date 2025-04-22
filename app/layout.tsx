@@ -13,7 +13,26 @@ import type { Metadata } from 'next'
 export default function GlobalLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="es" suppressHydrationWarning>
-            <head />
+            <head>
+                <link 
+                    rel="icon" 
+                    href="/favicon-light.svg" 
+                    type="image/svg+xml"
+                    media="(prefers-color-scheme: light)" 
+                />
+                <link 
+                    rel="icon" 
+                    href="/favicon-dark.svg" 
+                    type="image/svg+xml"
+                    media="(prefers-color-scheme: dark)" 
+                />
+                {/* Fallback for browsers that don't support media queries or SVG favicons */}
+                <link 
+                    rel="alternate icon" 
+                    href="/favicon.ico" 
+                    type="image/x-icon"
+                />
+            </head>
             <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] dark:bg-neutral-950 bg-white ${rubik.className}`}>
                 <main>
                     <ThemeProvider
