@@ -22,6 +22,7 @@ type Question = {
     min?: number;
     max?: number;
     checkboxes?: string[];
+    requireAll?: boolean;
     apiRef: string;
 };
 
@@ -369,6 +370,7 @@ export default function Form(props: { questions: Question[] }) {
                             value={currentQuestion / (props.questions.length - 1) * 100}
                             className="bg-neutral-200 dark:bg-neutral-800"
                         />
+                    
                         <Button
                             onClick={handleNext}
                             disabled={
@@ -376,7 +378,8 @@ export default function Form(props: { questions: Question[] }) {
                                 answers[currentQuestion] === null ||
                                 answers[currentQuestion] === '' ||
                                 (props.questions[currentQuestion].type === 'checkbox' &&
-                                    !areAllChecked(answers[currentQuestion] as boolean[]))
+                                    props.questions[currentQuestion].requireAll &&
+                                    !areAllChecked(answers[currentQuestion] as boolean[] | null | undefined))
                             }
                             className="rounded-xl"
                         >
