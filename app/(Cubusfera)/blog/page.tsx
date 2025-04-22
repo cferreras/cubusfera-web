@@ -124,13 +124,13 @@ function BlogContent() {
                             href={`/blog/${post?.slug}`}
                             key={post?.slug}
                         >
-                            <article className="group relative overflow-hidden rounded-3xl dark:bg-neutral-900 bg-neutral-100 p-8 dark:hover:bg-neutral-800 hover:bg-neutral-200 transition-colors">
+                            <article className="group relative overflow-hidden rounded-3xl bg-card border p-8 dark:hover:bg-neutral-800 hover:bg-neutral-200 transition-colors">
                                 <div className="relative z-10 flex h-full flex-col">
                                     <div className="flex-1">
                                         <div className="flex justify-between items-start mb-3">
                                             <h3 className="text-2xl font-semibold">{post?.title}</h3>
                                             {post.category && (
-                                                <Badge variant="secondary" className="ml-2">
+                                                <Badge variant="default" className="ml-2">
                                                     {post.category}
                                                 </Badge>
                                             )}
