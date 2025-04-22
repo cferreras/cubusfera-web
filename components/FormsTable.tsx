@@ -3,7 +3,6 @@ import { createClient } from '@/utils/supabase/client';
 import { useState, useEffect, useCallback } from 'react';
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@/components/ui/table';
 import { Button } from './ui/button';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 import { Check, X, ChevronDown, ChevronUp, Eye } from "lucide-react";
 import {
     Dialog,
@@ -407,7 +406,7 @@ const FormsTable = () => {
                                                                                 <p>{form.technical_question_2 || 'No respondido'}</p>
                                                                             </div>
                                                                             <div>
-                                                                                <h3 className="font-semibold">¿Qué es el 'update suppression' en Minecraft?</h3>
+                                                                                <h3 className="font-semibold">¿Qué es el &apos;update suppression&apos; en Minecraft?</h3>
                                                                                 <p className="whitespace-pre-wrap">{form.update_suppression_knowledge || 'No respondido'}</p>
                                                                             </div>
                                                                             <div>
