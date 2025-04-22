@@ -38,7 +38,6 @@ export default function Estadisticas(props: { name: string }) {
                 // Actualizar el estado con las estadísticas obtenidas
                 setStats(data);
                 setError(false);
-                console.log('Estadísticas del jugador:', data);
             })
             .catch(error => {
                 setError(true);
