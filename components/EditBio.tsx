@@ -196,7 +196,7 @@ export default function EditBio({
                     Editar Perfil
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px] max-h-[90vh] bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800">
+            <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800">
                 <DialogHeader>
                     <DialogTitle className="text-xl font-semibold">Editar Perfil</DialogTitle>
                 </DialogHeader>
