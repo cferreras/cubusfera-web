@@ -167,6 +167,20 @@ export default function Home() {
                                     complejos sistemas de redstone. Fomentamos la creatividad y la colaboración entre jugadores.
                                 </p>
                             </motion.div>
+                            <motion.div 
+                                className="rounded-xl p-6"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4 }}
+                                viewport={{ once: true }}
+                            >
+                                <h3 className="text-xl font-semibold mb-2">¿Es obligatorio unirse al servidor de Discord?</h3>
+                                <p className="text-muted-foreground">
+                                    Sí, es necesario unirse a nuestro servidor de Discord para formar parte de Cubusfera. Discord es nuestra principal vía de comunicación, 
+                                    donde compartimos anuncios importantes, coordinamos proyectos y creamos una comunidad activa. 
+                                    Puedes unirte a través de <Link href="https://discord.com/invite/7uKEYACErc" className="text-primary hover:underline">este enlace</Link>.
+                                </p>
+                            </motion.div>
                         </div>
                     </section>
 
