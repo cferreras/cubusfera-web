@@ -432,51 +432,53 @@ const FormsTable = () => {
                                             </div>
                                         </TableCell>
                                         <TableCell>
-                                            {form.status === 'pending' ? (
-                                                <div className="flex gap-1">
-                                                    <Button
-                                                        onClick={() => handleStatusChange(form.id, 'accepted', form.minecraft_username)}
-                                                        variant="default"
-                                                        size="icon"
-                                                        className="rounded-xl h-8 w-8"
-                                                    >
-                                                        <Check className="h-4 w-4" />
-                                                    </Button>
-                                                    <Button
-                                                        onClick={() => handleStatusChange(form.id, 'rejected', form.minecraft_username)}
-                                                        variant="destructive"
-                                                        size="icon"
-                                                        className="rounded-xl h-8 w-8"
-                                                    >
-                                                        <X className="h-4 w-4" />
-                                                    </Button>
-                                                </div>
-                                            ) : form.status === 'accepted' ? (
-                                                <Button
-                                                    onClick={() => handleStatusChange(form.id, 'rejected', form.minecraft_username)}
-                                                    variant="destructive"
-                                                    className="rounded-xl w-full h-9 px-3 py-1"
-                                                >
-                                                    Rechazar
-                                                </Button>
-                                            ) : (
-                                                <Button
-                                                    onClick={() => handleStatusChange(form.id, 'accepted', form.minecraft_username)}
-                                                    variant="default"
-                                                    className="rounded-xl w-full h-9 px-3 py-1"
-                                                >
-                                                    Aprobar
-                                                </Button>
-                                            )}
-                                            {form.status !== 'pending' && (
-                                                <Button
-                                                    onClick={() => handleResetToNotSubmitted(form.id)}
-                                                    variant="outline"
-                                                    className="rounded-xl w-full h-9 px-3 py-1 mt-2"
-                                                >
-                                                    Reiniciar
-                                                </Button>
-                                            )}
+                                            <div className="flex gap-2">
+                                                {form.status === 'pending' ? (
+                                                    <>
+                                                        <Button
+                                                            onClick={() => handleStatusChange(form.id, 'accepted', form.minecraft_username)}
+                                                            variant="outline"
+                                                            className="rounded-xl h-8"
+                                                        >
+                                                            <Check className="h-4 w-4 mr-1" /> Aprobar
+                                                        </Button>
+                                                        <Button
+                                                            onClick={() => handleStatusChange(form.id, 'rejected', form.minecraft_username)}
+                                                            variant="outline"
+                                                            className="rounded-xl h-8"
+                                                        >
+                                                            <X className="h-4 w-4 mr-1" /> Rechazar
+                                                        </Button>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        {form.status === 'accepted' ? (
+                                                            <Button
+                                                                onClick={() => handleStatusChange(form.id, 'rejected', form.minecraft_username)}
+                                                                variant="outline"
+                                                                className="rounded-xl h-8"
+                                                            >
+                                                                <X className="h-4 w-4 mr-1" /> Cambiar a rechazado
+                                                            </Button>
+                                                        ) : (
+                                                            <Button
+                                                                onClick={() => handleStatusChange(form.id, 'accepted', form.minecraft_username)}
+                                                                variant="outline"
+                                                                className="rounded-xl h-8"
+                                                            >
+                                                                <Check className="h-4 w-4 mr-1" /> Cambiar a aprobado
+                                                            </Button>
+                                                        )}
+                                                        <Button
+                                                            onClick={() => handleResetToNotSubmitted(form.id)}
+                                                            variant="outline"
+                                                            className="rounded-xl h-8"
+                                                        >
+                                                            Reiniciar
+                                                        </Button>
+                                                    </>
+                                                )}
+                                            </div>
                                         </TableCell>
                                     </TableRow>
                                     {expandedRow === form.id && (
