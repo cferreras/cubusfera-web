@@ -33,7 +33,7 @@ export default function GlobalLayout({ children }: { children: ReactNode }) {
                     type="image/x-icon"
                 />
             </head>
-            <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] dark:bg-neutral-950 bg-white ${rubik.className}`}>
+            <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] dark:bg-neutral-900 bg-white ${rubik.className}`}>
                 <main>
                     <ThemeProvider
                         attribute="class"

@@ -5,7 +5,7 @@ import { FaDiscord, FaYoutube, FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
     return (
-        <footer className="w-full relative z-10 px-4 py-12 border-t dark:border-neutral-800 border-neutral-200" data-pattern="diamonds">
+        <footer className="w-full relative z-10 px-4 py-12 border-t dark:border-neutral-800 border-neutral-200 dark:bg-black/20 bg-white/20">
             <div className="w-full flex flex-col items-center justify-center gap-12 relative z-20">
                 <Link href="/" className="h-12 flex items-center shrink-0 gap-3 px-4 text-2xl">
                     <CubusferaIconDark className="hidden h-11 w-auto dark:block" />

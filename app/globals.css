@@ -137,7 +137,7 @@
     pointer-events: none;
     z-index: -1;
     background-image: url('/pattern.webp');
-    background-size: 1024px 1024px; /* Increased size for a larger pattern */
+    background-size: 700px 700px; /* Increased size for a larger pattern */
     background-repeat: repeat;
     opacity: 0.05; /* Adjust for subtlety */
     background-blend-mode: multiply;
