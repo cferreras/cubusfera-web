@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import env from 'dotenv';
+env.config();
 interface RequestBody {
     minecraftUsername: string;
+    discordUsername: string;
 }
 
 interface ErrorResponse {
@@ -15,40 +18,51 @@ interface SuccessResponse {
 export async function POST(req: Request): Promise<Response> {
     try {
         // Extraer los datos del cuerpo de la solicitud
-        const { minecraftUsername }: RequestBody = await req.json();
+        const { minecraftUsername, discordUsername }: RequestBody = await req.json();
 
         if (!minecraftUsername) {
-            return new Response(JSON.stringify({ error: 'Se requiere un nombre de usuario de Minecraft.' } as ErrorResponse), {
+            const errorResponse: ErrorResponse = { error: 'Se requiere un nombre de usuario de Minecraft.' };
+            return new Response(JSON.stringify(errorResponse), {
                 status: 400,
             });
         }
 
-        // Realizar la solicitud POST al servidor Minecraft para remover del whitelist
+        if (!discordUsername) {
+            const errorResponse: ErrorResponse = { error: 'Se requiere un nombre de usuario de Discord.' };
+            return new Response(JSON.stringify(errorResponse), {
+                status: 400,
+            });
+        }
+
+        // Realizar la solicitud POST al servidor Minecraft
         const response = await fetch(
             `${process.env.MINECRAFT_SERVER_WHITELIST_ADRESS}/unwhitelist`,
             {
                 method: 'POST',
                 headers: {
-                    Authorization: `Bearer ${process.env.MINECRAFT_WHITELISTING_TOKEN}`,
+                    'X-Cubusfera-Auth': `${process.env.MINECRAFT_WHITELISTING_TOKEN}`,
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ username: minecraftUsername }),
+                body: JSON.stringify({ 
+                    username: minecraftUsername,
+                    discord: discordUsername
+                }),
             }
         );
 
         if (!response.ok) {
             const errorData = await response.json();
             console.error('Error al remover del whitelist:', errorData);
-            return new Response(
-                JSON.stringify({ error: errorData.message || 'Error desconocido' } as ErrorResponse),
-                { status: response.status }
-            );
+            const errorResponse: ErrorResponse = { error: errorData.message || 'Error desconocido' };
+            return new Response(JSON.stringify(errorResponse), { status: response.status });
         }
 
         const data = await response.text();
-        return new Response(JSON.stringify({ success: true, data } as SuccessResponse), { status: 200 });
+        const successResponse: SuccessResponse = { success: true, data };
+        return new Response(JSON.stringify(successResponse), { status: 200 });
     } catch (error) {
         console.error('Error interno:', error);
-        return new Response(JSON.stringify({ error: 'Error interno del servidor' } as ErrorResponse), { status: 500 });
+        const errorResponse: ErrorResponse = { error: 'Error interno del servidor' };
+        return new Response(JSON.stringify(errorResponse), { status: 500 });
     }
 }

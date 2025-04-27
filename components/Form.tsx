@@ -8,7 +8,7 @@ import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { logout } from '@/app/actions';
 import { Progress } from '@/components/ui/progress';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { getDiscordUser, getUserID } from '@/utils/supabaseUtils';
 import { areAllChecked } from '@/utils/validationUtils';
 import PostulationStatus from './PostulationStatus';
@@ -22,6 +22,7 @@ type Question = {
     min?: number;
     max?: number;
     checkboxes?: string[];
+    requireAll?: boolean;
     apiRef: string;
 };
 
@@ -36,17 +37,24 @@ export default function Form(props: { questions: Question[] }) {
 
     // Obtener nombre de usuario de Discord
     useEffect(() => {
-        getDiscordUser()
-            .then((user) => {
+        const fetchDiscordUser = async () => {
+            try {
+                const user = await getDiscordUser();
                 setDiscordFullName(user);
-                const newAnswers = [...answers];
-                newAnswers[0] = user;
-                setAnswers(newAnswers);
-            })
-            .catch((error) => {
+                // Use functional update to avoid dependency on answers
+                setAnswers(prevAnswers => {
+                    const newAnswers = [...prevAnswers];
+                    newAnswers[0] = user;
+                    return newAnswers;
+                });
+            } catch (error) {
                 console.error("Error al obtener el usuario de Discord:", error);
-            });
-    }, []);
+            }
+        };
+        
+        fetchDiscordUser();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Intentionally omitting answers to prevent infinite loop
 
     // Hacer focus en el input
     useEffect(() => {
@@ -55,13 +63,14 @@ export default function Form(props: { questions: Question[] }) {
         } else if (props.questions[currentQuestion].type === 'textarea' && textareaRef.current) {
             textareaRef.current?.focus();
         }
-    }, [currentQuestion]);
+    }, [currentQuestion, props.questions]);
 
     // Función para cargar la respuesta desde la API
-    const fetchFieldData = async (fieldName: string) => {
+    // Wrap fetchFieldData in useCallback
+    const fetchFieldData = useCallback(async (fieldName: string) => {
         const supabase = createClient();
         const userId = await getUserID();
-
+    
         if (fieldName === 'already_submitted') {
             return;
         }
@@ -69,28 +78,30 @@ export default function Form(props: { questions: Question[] }) {
             .from('forms')
             .select(fieldName)
             .eq('id', userId);
-
+    
         if (error) {
             console.error('Error al obtener el valor del campo:', error);
             return;
         }
-
+    
         if (data && data.length > 0) {
             const fieldValue = data[0][fieldName as keyof typeof data[0]] as string | number | boolean | boolean[] | null;
-            const newAnswers = [...answers];
-            newAnswers[currentQuestion] = fieldValue;
-            setAnswers(newAnswers);
+            setAnswers(prevAnswers => {
+                const newAnswers = [...prevAnswers];
+                newAnswers[currentQuestion] = fieldValue;
+                return newAnswers;
+            });
         }
-    };
+    }, [currentQuestion]); // Add currentQuestion as dependency
 
     // Cargar la respuesta al cambiar de pregunta
     useEffect(() => {
         const fieldName = props.questions[currentQuestion]?.apiRef;
-
+    
         if (fieldName) {
             fetchFieldData(fieldName); // Carga el valor del campo correspondiente
         }
-    }, [currentQuestion]);
+    }, [currentQuestion, props.questions, fetchFieldData]); // Add proper dependencies
 
 
     // Verificar si el usuario ya ha respondido
@@ -125,7 +136,7 @@ export default function Form(props: { questions: Question[] }) {
         } else if (props.questions[currentQuestion].type === 'textarea' && textareaRef.current) {
             textareaRef.current?.focus();
         }
-    }, [currentQuestion]);
+    }, [currentQuestion, props.questions]);
     // Add this new state at the top with other states
     const [formStatus, setFormStatus] = useState<'accepted' | 'pending' | 'rejected' | 'unknown'>('pending');
 
@@ -359,6 +370,7 @@ export default function Form(props: { questions: Question[] }) {
                             value={currentQuestion / (props.questions.length - 1) * 100}
                             className="bg-neutral-200 dark:bg-neutral-800"
                         />
+                    
                         <Button
                             onClick={handleNext}
                             disabled={
@@ -366,7 +378,8 @@ export default function Form(props: { questions: Question[] }) {
                                 answers[currentQuestion] === null ||
                                 answers[currentQuestion] === '' ||
                                 (props.questions[currentQuestion].type === 'checkbox' &&
-                                    !areAllChecked(answers[currentQuestion] as boolean[]))
+                                    props.questions[currentQuestion].requireAll &&
+                                    !areAllChecked(answers[currentQuestion] as boolean[] | null | undefined))
                             }
                             className="rounded-xl"
                         >

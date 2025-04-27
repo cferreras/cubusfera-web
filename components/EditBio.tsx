@@ -89,6 +89,7 @@ export default function EditBio({
     onUpdateLocation
 }: EditBioProps) {
     const [isOpen, setIsOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState("bio"); // Estado para controlar la pestaña activa
     const supabase = createClient();
 
     const form = useForm<z.infer<typeof profileSchema>>({
@@ -134,7 +135,7 @@ export default function EditBio({
         };
 
         fetchProfileData();
-    }, [userId, form]);
+    }, [userId, form, supabase]);
 
     const handleSave = async (values: z.infer<typeof profileSchema>) => {
         try {
@@ -195,142 +196,171 @@ export default function EditBio({
                     Editar Perfil
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px] max-h-[90vh] bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800">
+            <DialogContent className="sm:max-w-[500px] max-h-[90vh] overflow-y-auto bg-white dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800">
                 <DialogHeader>
                     <DialogTitle className="text-xl font-semibold">Editar Perfil</DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(handleSave)} 
-                        className="px-1 space-y-6 overflow-y-auto max-h-[calc(90vh-120px)]
-                        scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-700 
-                        scrollbar-track-neutral-100 dark:scrollbar-track-neutral-800 
-                        hover:scrollbar-thumb-neutral-400 dark:hover:scrollbar-thumb-neutral-600
-                        pr-4">
-                        <FormField
-                            control={form.control}
-                            name="bio"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel className="text-neutral-900 dark:text-neutral-100">Biografía</FormLabel>
-                                    <FormControl>
-                                        <Textarea
-                                            {...field}
-                                            value={field.value || ""}
-                                            placeholder="Escribe tu biografía aquí..."
-                                            className="min-h-[100px] border-neutral-200 dark:border-neutral-800 resize-none"
-                                        />
-                                    </FormControl>
-                                    <FormDescription className="text-neutral-600 dark:text-neutral-400">
-                                        Compatible con formato Markdown.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="twitterUsername"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Usuario de Twitter (X)</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="text"
-                                            {...field}
-                                            value={field.value || ""}
-                                            placeholder="Ejemplo: john_doe"
-                                        />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Ingresa tu nombre de usuario de Twitter/X sin el &#34;@&#34;.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="instagramUsername"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Usuario de Instagram</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            {...field}
-                                            value={field.value || ""}
-                                            placeholder="Ejemplo: john_doe"
-                                        />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Ingresa tu nombre de usuario de Instagram sin el &#34;@&#34;.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="youtubeChannelUrl"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Canal de YouTube</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="url"
-                                            {...field}
-                                            value={field.value || ""}
-                                            placeholder="Ejemplo: https://www.youtube.com/@johndoe"
-                                        />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Ingresa el enlace directo a tu canal de YouTube.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="discordUsername"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Usuario de Discord</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="text"
-                                            {...field}
-                                            value={field.value || ""}
-                                            placeholder="Ejemplo: john_doe"
-                                        />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Ingresa tu nombre de usuario de Discord.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="location"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Ubicación</FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            type="text"
-                                            {...field}
-                                            value={field.value || ""}
-                                            placeholder="Ejemplo: Ciudad, País"
-                                        />
-                                    </FormControl>
-                                    <FormDescription>
-                                        Ingresa tu ubicación actual.
-                                    </FormDescription>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                    <form onSubmit={form.handleSubmit(handleSave)} className="px-1 space-y-6">
+                        {/* Tabs Navigation */}
+                        <div className="flex space-x-2 border-b border-neutral-200 dark:border-neutral-800">
+                            <button
+                                type="button"
+                                className={`py-2 px-4 font-medium rounded-t-lg transition-colors duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${activeTab === "bio" 
+                                    ? "bg-neutral-100 dark:bg-neutral-800 border-b-2 border-primary text-primary" 
+                                    : "text-neutral-600 dark:text-neutral-400"}`}
+                                onClick={() => setActiveTab("bio")}
+                            >
+                                Biografía
+                            </button>
+                            <button
+                                type="button"
+                                className={`py-2 px-4 font-medium rounded-t-lg transition-colors duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 ${activeTab === "social" 
+                                    ? "bg-neutral-100 dark:bg-neutral-800 border-b-2 border-primary text-primary" 
+                                    : "text-neutral-600 dark:text-neutral-400"}`}
+                                onClick={() => setActiveTab("social")}
+                            >
+                                Social
+                            </button>
+                        </div>
+
+                        {/* Bio Tab Content */}
+                        {activeTab === "bio" && (
+                            <div className="space-y-6">
+                                <FormField
+                                    control={form.control}
+                                    name="bio"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className="text-neutral-900 dark:text-neutral-100">Biografía</FormLabel>
+                                            <FormControl>
+                                                <Textarea
+                                                    {...field}
+                                                    value={field.value || ""}
+                                                    placeholder="Escribe tu biografía aquí..."
+                                                    className="min-h-[200px] border-neutral-200 dark:border-neutral-800 resize-none"
+                                                />
+                                            </FormControl>
+                                            <FormDescription className="text-neutral-600 dark:text-neutral-400">
+                                                Compatible con formato Markdown.
+                                            </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="location"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Ubicación</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="text"
+                                                    {...field}
+                                                    value={field.value || ""}
+                                                    placeholder="Ejemplo: Ciudad, País"
+                                                />
+                                            </FormControl>
+                                            <FormDescription>
+                                                Ingresa tu ubicación actual.
+                                            </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                        )}
+
+                        {/* Social Tab Content */}
+                        {activeTab === "social" && (
+                            <div className="space-y-6">
+                                <FormField
+                                    control={form.control}
+                                    name="discordUsername"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Usuario de Discord</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="text"
+                                                    {...field}
+                                                    value={field.value || ""}
+                                                    placeholder="Ejemplo: john_doe"
+                                                />
+                                            </FormControl>
+                                            <FormDescription>
+                                                Ingresa tu nombre de usuario de Discord.
+                                            </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="twitterUsername"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Usuario de Twitter (X)</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="text"
+                                                    {...field}
+                                                    value={field.value || ""}
+                                                    placeholder="Ejemplo: john_doe"
+                                                />
+                                            </FormControl>
+                                            <FormDescription>
+                                                Ingresa tu nombre de usuario de Twitter/X sin el &#34;@&#34;.
+                                            </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="instagramUsername"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Usuario de Instagram</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    {...field}
+                                                    value={field.value || ""}
+                                                    placeholder="Ejemplo: john_doe"
+                                                />
+                                            </FormControl>
+                                            <FormDescription>
+                                                Ingresa tu nombre de usuario de Instagram sin el &#34;@&#34;.
+                                            </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="youtubeChannelUrl"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Canal de YouTube</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    type="url"
+                                                    {...field}
+                                                    value={field.value || ""}
+                                                    placeholder="Ejemplo: https://www.youtube.com/@johndoe"
+                                                />
+                                            </FormControl>
+                                            <FormDescription>
+                                                Ingresa el enlace directo a tu canal de YouTube.
+                                            </FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+                        )}
+
                         <Button 
                             type="submit" 
                             className="w-full bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 hover:bg-neutral-800 dark:hover:bg-neutral-200"

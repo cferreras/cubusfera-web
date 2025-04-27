@@ -44,7 +44,7 @@ export default function Comentarios({ profileId, postSlug, currentUser, isVip, v
 
     useEffect(() => {
         fetchComments();
-    }, [profileId, postSlug]);
+    });
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -65,7 +65,7 @@ export default function Comentarios({ profileId, postSlug, currentUser, isVip, v
         };
 
         fetchUserProfile();
-    }, [currentUser]);
+    }, [currentUser, supabase]);
 
     const fetchComments = async () => {
         if (profileId) {

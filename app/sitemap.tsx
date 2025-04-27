@@ -1,76 +1,39 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { MetadataRoute } from 'next'
-import fs from 'fs'
-import path from 'path'
+import { MetadataRoute } from 'next';
 
-const baseUrl = 'https://cubusfera.com'
-
-function getPathsFromDir(dir: string): string[] {
-    let paths: string[] = []
-    const files = fs.readdirSync(dir)
-
-    files.forEach(file => {
-        const filePath = path.join(dir, file)
-        const stat = fs.statSync(filePath)
-
-        if (stat.isDirectory()) {
-            paths = paths.concat(getPathsFromDir(filePath))
-        } else if (file === 'page.tsx' || file === 'page.js') {
-            let routePath = dir.replace(path.join(process.cwd(), 'app'), '')
-            routePath = routePath.replace(/\\/g, '/')
-            if (routePath === '') {
-                paths.push('/')
-            } else if (!routePath.includes('[') && !routePath.includes(']')) {
-                // Excluir rutas dinámicas
-                paths.push(routePath)
-            }
-        }
-    })
-
-    return paths
+// Define an interface for the post structure
+interface Post {
+    slug: string;
+    publishedAt: string;
 }
 
-function getBlogPaths(): string[] {
-    const postsDirectory = path.join(process.cwd(), 'posts')
-    const fileNames = fs.readdirSync(postsDirectory)
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    // Obtén todos los posts para el sitemap
+    const response = await fetch('https://cubusfera.com/api/posts', {
+        next: { revalidate: 3600 } // Revalidar cada hora
+    });
+    const posts = await response.json();
 
-    return fileNames
-        .filter(fileName => fileName.endsWith('.md'))
-        .map(fileName => `/blog/${fileName.replace(/\.md$/, '')}`)
-}
+    // URLs estáticas principales
+    const routes = [
+        '',
+        '/blog',
+        '/miembros',
+        '/ranking',
+        '/formulario',
+    ].map(route => ({
+        url: `https://cubusfera.com${route}`,
+        lastModified: new Date(),
+        changeFrequency: 'daily' as const,
+        priority: route === '' ? 1 : 0.8,
+    }));
 
-export default function sitemap(): MetadataRoute.Sitemap {
-    const appDirectory = path.join(process.cwd(), 'app')
-    const appPaths = getPathsFromDir(appDirectory)
-    const blogPaths = getBlogPaths()
+    // URLs de posts del blog
+    const postUrls = posts.map((post: Post) => ({
+        url: `https://cubusfera.com/blog/${post.slug}`,
+        lastModified: new Date(post.publishedAt),
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+    }));
 
-    const allPaths = [...appPaths, ...blogPaths]
-
-    const routes = allPaths
-        .filter(route => route !== '/blog/[slug]') // Excluir explícitamente /blog/[slug]
-        .map(route => {
-            let filePath: string
-            if (route.startsWith('/blog/')) {
-                filePath = path.join(process.cwd(), 'posts', `${route.split('/').pop()}.md`)
-            } else {
-                filePath = path.join(process.cwd(), route === '/' ? 'app' : `app${route}`)
-            }
-
-            let lastModified = new Date()
-            try {
-                const stat = fs.statSync(filePath)
-                lastModified = stat.mtime
-            } catch (error) {
-                // Si no se encuentra el archivo, usamos la fecha actual
-            }
-
-            return {
-                url: `${baseUrl}${route}`,
-                lastModified,
-                changeFrequency: 'daily' as const,
-                priority: route === '/' ? 1 : route.startsWith('/blog/') ? 0.8 : 0.9,
-            }
-        })
-
-    return routes
+    return [...routes, ...postUrls];
 }

@@ -6,26 +6,26 @@ interface LayoutProps {
 }
 
 export const metadata: Metadata = {
-    title: "Mapa",
-    description: "Mapa interactivo del servidor de Minecraft técnico Cubusfera. Explora nuestro mundo, bases y proyectos.",
+    title: "Iniciar Sesión",
+    description: "Inicia sesión con tu cuenta de Discord para acceder a todas las funcionalidades de Cubusfera.",
     openGraph: {
-        title: "Mapa",
-        description: "Mapa interactivo del servidor de Minecraft técnico Cubusfera. Explora nuestro mundo, bases y proyectos.",
+        title: "Iniciar Sesión",
+        description: "Inicia sesión con tu cuenta de Discord para acceder a todas las funcionalidades de Cubusfera.",
         type: 'website',
-        url: 'https://cubusfera.com/mapa',
+        url: 'https://cubusfera.com/login',
         images: [
             {
                 url: 'https://cubusfera.com/images/default-og.jpg',
                 width: 1200,
                 height: 630,
-                alt: 'Mapa de Cubusfera',
+                alt: 'Iniciar Sesión - Cubusfera',
             }
         ],
     },
     twitter: {
         card: 'summary_large_image',
-        title: "Mapa",
-        description: "Mapa interactivo del servidor de Minecraft técnico Cubusfera. Explora nuestro mundo, bases y proyectos.",
+        title: "Iniciar Sesión",
+        description: "Inicia sesión con tu cuenta de Discord para acceder a todas las funcionalidades de Cubusfera.",
         images: ['https://cubusfera.com/images/default-og.jpg'],
     },
 };

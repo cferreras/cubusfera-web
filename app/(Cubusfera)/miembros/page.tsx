@@ -1,5 +1,4 @@
 
-import { Metadata } from "next";
 import Container from "@/components/Container";
 import dotenv from "dotenv";
 import { createClient } from "@/utils/supabase/server";
@@ -7,10 +6,6 @@ import ServerStatsSection from "@/components/ServerStatsSection";
 import MemberList from "@/components/MemberList";
 
 dotenv.config();
-export const metadata: Metadata = {
-    title: 'Miembros – Cubusfera',
-    description: 'Miembros del servidor de Minecraft Cubusfera',
-}
 
 type SearchParams = {
     page?: string; // Define the expected query parameters

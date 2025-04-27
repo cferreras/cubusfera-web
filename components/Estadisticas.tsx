@@ -54,7 +54,6 @@ export default function Estadisticas(props: { name: string; isVip?: boolean; vip
                 // Actualizar el estado con las estadísticas obtenidas
                 setStats(data);
                 setError(false);
-                console.log('Estadísticas del jugador:', data);
             })
             .catch(error => {
                 setError(true);

@@ -5,6 +5,7 @@ description: '¡El momento de la descarga del mapa de 2023 ha llegado! Después 
 publishedAt: '11/11/2023'
 author: 'cferreras'
 image: ''
+category: 'noticias'
 ---
 
 El año 2023 fue un capítulo emocionante en la historia de nuestro servidor de Minecraft. Durante todo ese tiempo, nuestros jugadores talentosos han invertido su tiempo, creatividad y pasión en la creación de asombrosas construcciones y aventuras épicas. Sabemos lo valioso que es cada estructura y cada rincón del mundo que hemos construido juntos. Por eso, estamos emocionados de poner a tu disposición la descarga directa del mapa 2023. Así, podrás conservar tus obras maestras y seguir explorando incluso cuando una nueva temporada comience.

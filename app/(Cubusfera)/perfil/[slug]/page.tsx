@@ -13,8 +13,34 @@ type PageProps = {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     // Await the params Promise before accessing its properties
     const resolvedParams = await params;
+    const username = resolvedParams.slug;
+    
+    // Create avatar URL for the player
+    const avatarUrl = `https://mc-heads.net/avatar/${username}/1200`;
+    
     return {
-        title: `Perfil de ${resolvedParams.slug} - Cubusfera`,
+        title: `Perfil de ${username}`,
+        description: `Estadísticas, logros y perfil de ${username} en el servidor de Minecraft técnico Cubusfera.`,
+        openGraph: {
+            title: `Perfil de ${username}`,
+            description: `Estadísticas, logros y perfil de ${username} en el servidor de Minecraft técnico Cubusfera.`,
+            type: 'profile',
+            url: `https://cubusfera.com/perfil/${username}`,
+            images: [
+                {
+                    url: avatarUrl,
+                    width: 1200,
+                    height: 630,
+                    alt: `Avatar de Minecraft de ${username}`,
+                }
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `Perfil de ${username}`,
+            description: `Estadísticas, logros y perfil de ${username} en el servidor de Minecraft técnico Cubusfera.`,
+            images: [avatarUrl],
+        },
     };
 }
 

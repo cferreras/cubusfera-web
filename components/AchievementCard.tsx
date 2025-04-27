@@ -2,6 +2,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "./ui/card";
 import { Clock, Sword, Skull, Star, Map, PickaxeIcon } from "lucide-react";
 import { MonthlyAchievement } from "@/types/achievements";
 import Link from "next/link";
+import Image from "next/image";
 
 const iconMap = {
     Clock: Clock,
@@ -26,12 +27,13 @@ export default function AchievementCard({ achievement }: { achievement: MonthlyA
                 <div className="flex items-center gap-2 mt-2 text-sm text-muted-foreground">
                     <span>Ganador:</span>
                     <div className="flex items-center gap-2">
-                        <img 
+                        <Image 
                             src={`https://mc-heads.net/avatar/${achievement.winner}/24`}
                             alt={`${achievement.winner}'s avatar`}
-                            className="w-6 h-6 rounded"
+                            className="rounded"
                             width={24}
                             height={24}
+                            unoptimized
                         />
                         <Link href={achievement.profileUrl || '#'} className="hover:underline text-primary">
                             {achievement.winner}
