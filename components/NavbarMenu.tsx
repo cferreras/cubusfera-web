@@ -1,48 +1,48 @@
 "use client";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import CubusferaIconDark from "@/components/icon/cubusfera-icon-dark"
-import CubusferaIconLight from "@/components/icon/cubusfera-icon-light"
 import { HomeIcon, MapIcon, NotebookIcon, ScaleIcon, Trophy, UsersIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 export default function NavbarMenu() {
+    const pathname = usePathname();
+    
+    const isActive = (path: string) => pathname === path;
+    
+    const navItems = [
+        { href: "/", icon: <HomeIcon className="h-4 w-4" />, label: "Inicio" },
+        { href: "/mapa", icon: <MapIcon className="h-4 w-4" />, label: "Mapa" },
+        { href: "/blog", icon: <NotebookIcon className="h-4 w-4" />, label: "Blog" },
+        { href: "/normas", icon: <ScaleIcon className="h-4 w-4" />, label: "Normas" },
+        { href: "/miembros", icon: <UsersIcon className="h-4 w-4" />, label: "Miembros" },
+        { href: "/ranking", icon: <Trophy className="h-4 w-4" />, label: "Ranking" }
+    ];
+    
     return (
-        <div className="flex h-16 justify-between">
-            <div className="flex">
-                {/* Menú de escritorio */}
-                <div className="hidden lg:ml-6 lg:flex self-center">
-                    <Button asChild variant="ghost">
-                        <Link href="/" className="flex items-center gap-x-1">
-                            <HomeIcon className="h-4 w-4" /> Inicio
+        <div className="flex h-16 items-center justify-center">
+            {/* Menú de escritorio */}
+            <div className="hidden lg:flex space-x-1">
+                {navItems.map((item) => (
+                    <Button 
+                        key={item.href}
+                        asChild 
+                        variant={isActive(item.href) ? "default" : "ghost"}
+                        className={cn(
+                            "transition-all duration-200",
+                            isActive(item.href) 
+                                ? "bg-blue-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-800/60" 
+                                : "hover:bg-neutral-100 dark:hover:bg-neutral-800/60"
+                        )}
+                    >
+                        <Link href={item.href} className="flex items-center gap-x-1.5">
+                            {item.icon} {item.label}
                         </Link>
                     </Button>
-                    <Button asChild variant="ghost">
-                        <Link href="/mapa" className="flex items-center gap-x-1">
-                            <MapIcon className="h-4 w-4" /> Mapa
-                        </Link>
-                    </Button>
-                    <Button asChild variant="ghost">
-                        <Link href="/blog" className="flex items-center gap-x-1">
-                            <NotebookIcon className="h-4 w-4" /> Blog
-                        </Link>
-                    </Button>
-                    <Button asChild variant="ghost">
-                        <Link href="/normas" className="flex items-center gap-x-1">
-                            <ScaleIcon className="h-4 w-4" /> Normas
-                        </Link>
-                    </Button>
-                    <Button asChild variant="ghost">
-                        <Link href="/miembros" className="flex items-center gap-x-1">
-                            <UsersIcon className="h-4 w-4" /> Miembros
-                        </Link>
-                    </Button>
-                    <Button asChild variant="ghost">
-                        <Link href="/ranking" className="flex items-center gap-x-1">
-                            <Trophy className="h-4 w-4" /> Ranking
-                        </Link>
-                    </Button>
-                </div>
+                ))}
             </div>
+            
+            {/* Menú móvil - Podemos implementarlo más adelante */}
         </div>
     );
 }
