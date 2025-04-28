@@ -9,12 +9,6 @@ export default function NavbarMenu() {
     return (
         <div className="flex h-16 justify-between">
             <div className="flex">
-                {/* Logo */}
-                <Link href="/" className="flex flex-shrink-0 items-center gap-x-2 font-semibold">
-                    <CubusferaIconDark className="hidden h-9 w-auto dark:block" />
-                    <CubusferaIconLight className="block h-9 w-auto dark:hidden" />
-                    Cubusfera
-                </Link>
                 {/* Menú de escritorio */}
                 <div className="hidden lg:ml-6 lg:flex self-center">
                     <Button asChild variant="ghost">
