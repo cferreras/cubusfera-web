@@ -88,7 +88,11 @@ export default function MemberDisplay({ member, isOnline }: { member: Member, is
                     </div>
                     <div className="flex items-center gap-2">
                         {member.isPremium && <PremiumBadge />}
-                        {member.is_vip && <VipBadge size="md" />}
+                        {member.is_vip && (
+                            <div onClick={(e) => e.preventDefault()}>
+                                <VipBadge size="md" />
+                            </div>
+                        )}
                     </div>
                 </CardContent>
             </Card>
