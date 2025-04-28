@@ -12,8 +12,8 @@ export interface Member {
     registered: string;
     isPremium: boolean;
     is_vip: boolean;
-    vip_theme: string;
-    custom_banner_url: string;
+    vip_theme?: string;
+    custom_banner_url?: string;
     role: string;
 }
 
@@ -29,6 +29,10 @@ export default function MemberDisplay({ member, isOnline }: { member: Member, is
                 return "!bg-blue-50 dark:!bg-blue-400/30 !border-blue-300 dark:!border-blue-400";
             case 'theme-emerald':
                 return "!bg-emerald-50 dark:!bg-emerald-400/30 !border-emerald-300 dark:!border-emerald-400";
+            case 'theme-ruby':
+                return "!bg-red-50 dark:!bg-red-400/30 !border-red-300 dark:!border-red-400";
+            case 'theme-amethyst':
+                return "!bg-purple-50 dark:!bg-purple-400/30 !border-purple-300 dark:!border-purple-400";
             default:
                 return "";
         }
@@ -45,19 +49,15 @@ export default function MemberDisplay({ member, isOnline }: { member: Member, is
                 return "bg-blue-100 dark:bg-blue-600/50 text-blue-900 dark:text-blue-100";
             case 'theme-emerald':
                 return "bg-emerald-100 dark:bg-emerald-400/50 text-emerald-900 dark:text-emerald-100";
+            case 'theme-ruby':
+                return "bg-red-100 dark:bg-red-600/50 text-red-900 dark:text-red-100";
+            case 'theme-amethyst':
+                return "bg-purple-100 dark:bg-purple-600/50 text-purple-900 dark:text-purple-100";
             default:
                 return "bg-neutral-200 dark:bg-neutral-800 text-muted-foreground";
         }
     };
-
-    // Add console log to debug
-    console.log("Member VIP data:", { 
-        displayName: member.displayName,
-        is_vip: member.is_vip, 
-        theme: member.vip_theme,
-        classes: getThemeClasses()
-    });
-
+    
     return (
         <Link href={`/perfil/${member.displayName}`}>
             <Card className={`rounded-3xl transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-900 ${getThemeClasses()}`}>

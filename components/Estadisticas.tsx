@@ -3,7 +3,13 @@ import { PickaxeIcon, SwordIcon, DoorOpenIcon, UnplugIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { FaSkull, FaPersonWalking, FaClock, FaGhost, FaWandSparkles } from "react-icons/fa6";
 
-export default function Estadisticas(props: { name: string; isVip?: boolean; vipTheme?: string }) {
+interface EstadisticasProps {
+    name: string;
+    isVip?: boolean;
+    vipTheme?: string;
+}
+
+export default function Estadisticas({ name }: EstadisticasProps) {
     const [stats, setStats] = useState({
         playTime: "0s",
         distanceTraveled: "0 km",
@@ -17,25 +23,11 @@ export default function Estadisticas(props: { name: string; isVip?: boolean; vip
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    // Function to get text color classes based on VIP theme
-    const getTextColorClass = () => {
-        if (!props.isVip) return "text-neutral-600 dark:text-neutral-400";
-        
-        switch (props.vipTheme) {
-            case 'theme-gold':
-                return "text-yellow-800 dark:text-yellow-100";
-            case 'theme-diamond':
-                return "text-blue-800 dark:text-blue-100";
-            case 'theme-emerald':
-                return "text-emerald-800 dark:text-emerald-100";
-            default:
-                return "text-neutral-600 dark:text-neutral-400";
-        }
-    };
+    
 
     useEffect(() => {
         // Lógica para actualizar las estadísticas
-        fetch(`/api/stats/player?name=${props.name}`)
+        fetch(`/api/stats/player?name=${name}`)
             .then(async response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -61,30 +53,13 @@ export default function Estadisticas(props: { name: string; isVip?: boolean; vip
             }).finally(() => {
                 setLoading(false);
             });
-    }, [props.name]);
+    }, [name]);
 
-    const textColorClass = getTextColorClass();
-
-    // Add getIconColorClass function
-    const getIconColorClass = () => {
-        if (!props.isVip) return "";
-        
-        switch (props.vipTheme) {
-            case 'theme-gold':
-                return "text-yellow-400 [filter:drop-shadow(0_0_0.5rem_currentColor)] animate-shimmer";
-            case 'theme-diamond':
-                return "text-blue-400 [filter:drop-shadow(0_0_0.5rem_currentColor)] animate-shimmer";
-            case 'theme-emerald':
-                return "text-emerald-400 [filter:drop-shadow(0_0_0.5rem_currentColor)] animate-shimmer";
-            default:
-                return "";
-        }
-    };
 
     return (<>
         {!error ? (!loading ? (<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
             <div className="flex items-start gap-3">
-                <FaClock className={`w-5 h-5 mt-1 ${props.isVip ? getIconColorClass() : 'text-emerald-500'}`} />
+                <FaClock className="w-5 h-5 mt-1 text-emerald-500" />
                 <div>
                     <h4 className="font-medium mb-1">Tiempo de juego</h4>
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
@@ -94,18 +69,18 @@ export default function Estadisticas(props: { name: string; isVip?: boolean; vip
             </div>
 
             <div className="flex items-start gap-3">
-                <FaPersonWalking className={`w-5 h-5 mt-1 ${props.isVip ? getIconColorClass() : 'text-blue-500'}`} />
+                <FaPersonWalking className="w-5 h-5 mt-1 text-blue-500" />
                 <div>
                     <h4 className="font-medium mb-1">Distancia recorrida</h4>
-                    <p className={`text-sm ${textColorClass}`}>{stats.distanceTraveled}</p>
+                    <p className={'text-sm'}>{stats.distanceTraveled}</p>
                 </div>
             </div>
 
             <div className="flex items-start gap-3">
-                <FaGhost className={`w-5 h-5 mt-1 ${props.isVip ? getIconColorClass() : 'text-purple-500'}`} />
+                <FaGhost className="w-5 h-5 mt-1 text-purple-500" />
                 <div>
                     <h4 className="font-medium mb-1">Mobs eliminados</h4>
-                    <p className={`text-sm ${textColorClass}`}>
+                    <p className={'text-sm'}>
                         {stats.totalMobsKilled} totales
                         <br />
                         <span className="text-xs">
@@ -124,10 +99,10 @@ export default function Estadisticas(props: { name: string; isVip?: boolean; vip
             </div>
 
             <div className="flex items-start gap-3">
-                <PickaxeIcon className={`w-5 h-5 mt-1 ${props.isVip ? getIconColorClass() : 'text-amber-500'}`} />
+                <PickaxeIcon className="w-5 h-5 mt-1 text-amber-500" />
                 <div>
                     <h4 className="font-medium mb-1">Bloques minados</h4>
-                    <p className={`text-sm ${textColorClass}`}>
+                    <p className={'text-sm'}>
                         {stats.totalBlocksMined} total
                         <br />
                         <span className="text-xs">
@@ -146,34 +121,34 @@ export default function Estadisticas(props: { name: string; isVip?: boolean; vip
             </div>
 
             <div className="flex items-start gap-3">
-                <DoorOpenIcon className={`w-5 h-5 mt-1 ${props.isVip ? getIconColorClass() : 'text-orange-500'}`} />
+                <DoorOpenIcon className="w-5 h-5 mt-1 text-orange-500" />
                 <div>
                     <h4 className="font-medium mb-1">Inicios de sesión</h4>
-                    <p className={`text-sm ${textColorClass}`}>{stats.sessions} veces</p>
+                    <p className={'text-sm'}>{stats.sessions} veces</p>
                 </div>
             </div>
 
             <div className="flex items-start gap-3">
-                <FaWandSparkles className={`w-5 h-5 mt-1 ${props.isVip ? getIconColorClass() : 'text-green-500'}`} />
+                <FaWandSparkles className="w-5 h-5 mt-1 text-green-500" />
                 <div>
                     <h4 className="font-medium mb-1">Experiencia</h4>
-                    <p className={`text-sm ${textColorClass}`}>{stats.experienceGained} Niveles</p>
+                    <p className={'text-sm'}>{stats.experienceGained} Niveles</p>
                 </div>
             </div>
 
             <div className="flex items-start gap-3">
-                <SwordIcon className={`w-5 h-5 mt-1 ${props.isVip ? getIconColorClass() : 'text-red-500'}`} />
+                <SwordIcon className="w-5 h-5 mt-1 text-red-500" />
                 <div>
                     <h4 className="font-medium mb-1">PvP Kills</h4>
-                    <p className={`text-sm ${textColorClass}`}>{stats.pvpKills} jugadores</p>
+                    <p className={'text-sm'}>{stats.pvpKills} jugadores</p>
                 </div>
             </div>
 
             <div className="flex items-start gap-3">
-                <FaSkull className={`w-5 h-5 mt-1 ${props.isVip ? getIconColorClass() : 'text-gray-500'}`} />
+                <FaSkull className="w-5 h-5 mt-1 text-gray-500" />
                 <div>
                     <h4 className="font-medium mb-1">Muertes totales</h4>
-                    <p className={`text-sm ${textColorClass}`}>{stats.deaths} muertes</p>
+                    <p className={'text-sm'}>{stats.deaths} muertes</p>
                 </div>
             </div>
         </div>) : <div className="flex flex-col items-center justify-center self-center w-full h-32">

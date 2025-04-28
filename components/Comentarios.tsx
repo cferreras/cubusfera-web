@@ -184,38 +184,6 @@ export default function Comentarios({ profileId, postSlug, currentUser, isVip, v
         }
     };
 
-    // Add getVipTextareaClasses function
-    const getVipTextareaClasses = () => {
-        if (!isVip) return "bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-700";
-        
-        switch (vipTheme) {
-            case 'theme-gold':
-                return "bg-yellow-50/50 dark:bg-yellow-400/10 border-yellow-200 dark:border-yellow-400/30 focus:ring-2 focus:ring-yellow-200 dark:focus:ring-yellow-400/30";
-            case 'theme-diamond':
-                return "bg-blue-50/50 dark:bg-blue-400/10 border-blue-200 dark:border-blue-400/30 focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-400/30";
-            case 'theme-emerald':
-                return "bg-emerald-50/50 dark:bg-emerald-400/10 border-emerald-200 dark:border-emerald-400/30 focus:ring-2 focus:ring-emerald-200 dark:focus:ring-emerald-400/30";
-            default:
-                return "bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-700";
-        }
-    };
-
-    // Add getVipPlaceholderClasses function
-    const getVipPlaceholderClasses = () => {
-        if (!isVip) return "placeholder:text-neutral-500 dark:placeholder:text-neutral-400";
-        
-        switch (vipTheme) {
-            case 'theme-gold':
-                return "placeholder:text-yellow-600/70 dark:placeholder:text-yellow-400/70";
-            case 'theme-diamond':
-                return "placeholder:text-blue-600/70 dark:placeholder:text-blue-400/70";
-            case 'theme-emerald':
-                return "placeholder:text-emerald-600/70 dark:placeholder:text-emerald-400/70";
-            default:
-                return "placeholder:text-neutral-500 dark:placeholder:text-neutral-400";
-        }
-    };
-
     return (
         <div className="space-y-6">
             <div className="space-y-5">
@@ -233,7 +201,7 @@ export default function Comentarios({ profileId, postSlug, currentUser, isVip, v
                                 placeholder="Escribe un comentario..."
                                 value={newComment}
                                 onChange={(e) => setNewComment(e.target.value)}
-                                className={`min-h-[100px] resize-none rounded-xl transition-all ${getVipTextareaClasses()} ${getVipPlaceholderClasses()}`}
+                                className="min-h-[100px] resize-none rounded-xl transition-all bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-700 placeholder:text-neutral-500 dark:placeholder:text-neutral-400"
                             />
                             <Button
                                 onClick={handleSubmitComment}
@@ -244,11 +212,7 @@ export default function Comentarios({ profileId, postSlug, currentUser, isVip, v
                         </div>
                     </div>
                 ) : (
-                    <p className={`text-center ${!isVip ? 'text-neutral-600 dark:text-neutral-400' : 
-                        vipTheme === 'theme-gold' ? 'text-yellow-600/90 dark:text-yellow-400/90' :
-                        vipTheme === 'theme-diamond' ? 'text-blue-600/90 dark:text-blue-400/90' :
-                        vipTheme === 'theme-emerald' ? 'text-emerald-600/90 dark:text-emerald-400/90' :
-                        'text-neutral-600 dark:text-neutral-400'}`}>
+                    <p className="text-center text-neutral-600 dark:text-neutral-400">
                         Debes iniciar sesión para comentar
                     </p>
                 )}
