@@ -77,7 +77,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: error.message }, { status: 400 });
         }
 
-        console.log('VIP status updated successfully:', data);
+        console.log('VIP status updated successfully:');
 
         // Responder con los datos actualizados
         return NextResponse.json({
