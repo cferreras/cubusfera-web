@@ -6,27 +6,71 @@ import { FaDiscord, FaYoutube, FaXTwitter } from "react-icons/fa6";
 export default function Footer() {
     return (
         <footer className="w-full relative z-10 px-4 py-12 border-t dark:border-neutral-800 border-neutral-200 dark:bg-black/20 bg-white/20">
-            <div className="w-full flex flex-col items-center justify-center gap-12 relative z-20">
-                <Link href="/" className="h-12 flex items-center shrink-0 gap-3 px-4 text-2xl">
-                    <CubusferaIconDark className="hidden h-11 w-auto dark:block" />
-                    <CubusferaIconLight className="block h-11 w-auto dark:hidden" />
-                    Cubusfera
-                </Link>
-                <div className="flex items-center gap-2 p-2 dark:bg-neutral-800 bg-neutral-200 rounded-2xl">
-                    <a href="https://discord.com/invite/7uKEYACErc" className="w-16 h-12 flex items-center justify-center dark:hover:bg-white/5 hover:bg-black/5 rounded-xl">
-                        <FaDiscord className="w-6 h-6" />
-                    </a>
-                    <div className="w-[1px] h-2 dark:bg-white/10 bg-black/10"></div>
-                    <a href="https://www.youtube.com/@cubusfera" className="w-16 h-12 flex items-center justify-center dark:hover:bg-white/5 hover:bg-black/5 rounded-xl">
-                        <FaYoutube className="w-6 h-6" />
-                    </a>
-                    <div className="w-[1px] h-2 dark:bg-white/10 bg-black/10"></div>
-                    <a href="https://www.x.com/cubusfera" className="w-16 h-12 flex items-center justify-center dark:hover:bg-white/5 hover:bg-black/5 rounded-xl">
-                        <FaXTwitter className="w-6 h-6" />
-                    </a>
+            <div className="container mx-auto max-w-6xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                    {/* Columna 1: Logo e información */}
+                    <div className="flex flex-col gap-4">
+                        <Link href="/" className="h-12 flex items-center shrink-0 gap-3 text-2xl">
+                            <CubusferaIconDark className="hidden h-11 w-auto dark:block" />
+                            <CubusferaIconLight className="block h-11 w-auto dark:hidden" />
+                            Cubusfera
+                        </Link>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                            Servidor de Minecraft técnico en español dedicado a jugadores que disfrutan explorando las mecánicas avanzadas del juego.
+                        </p>
+                    </div>
+
+                    {/* Columna 2: Sobre Cubusfera */}
+                    <div className="flex flex-col gap-4">
+                        <h3 className="text-lg font-medium">Sobre Cubusfera</h3>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                            Nos especializamos en redstone, granjas eficientes, y sistemas automatizados, todo dentro de un entorno vanilla amigable y colaborativo.
+                        </p>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                            Nuestra comunidad está formada por jugadores apasionados que comparten conocimientos y colaboran en proyectos.
+                        </p>
+                    </div>
+
+                    {/* Columna 3: Enlaces útiles */}
+                    <div className="flex flex-col gap-4">
+                        <h3 className="text-lg font-medium">Enlaces útiles</h3>
+                        <div className="flex flex-col gap-2">
+                            <Link href="/mapa" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Mapa del servidor</Link>
+                            <Link href="/normas" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Normas</Link>
+                            <Link href="/ranking" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Ranking</Link>
+                            <Link href="/blog" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Blog</Link>
+                            <Link href="/contacto" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Contacto</Link>
+                        </div>
+                    </div>
+
+                    {/* Columna 4: Redes sociales */}
+                    <div className="flex flex-col gap-4">
+                        <h3 className="text-lg font-medium">Síguenos</h3>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                            Únete a nosotros y lleva tus habilidades de Minecraft al siguiente nivel.
+                        </p>
+                        <div className="flex items-center justify-evenly gap-2 p-2 dark:bg-neutral-800 bg-neutral-200 rounded-xl">
+                            <a href="https://discord.com/invite/7uKEYACErc" className="w-12 h-10 flex items-center justify-center dark:hover:bg-white/5 hover:bg-black/5 rounded-lg" aria-label="Discord">
+                                <FaDiscord className="w-5 h-5" />
+                            </a>
+                            <div className="w-[1px] h-2 dark:bg-white/10 bg-black/10"></div>
+                            <a href="https://www.youtube.com/@cubusfera" className="w-12 h-10 flex items-center justify-center dark:hover:bg-white/5 hover:bg-black/5 rounded-lg" aria-label="YouTube">
+                                <FaYoutube className="w-5 h-5" />
+                            </a>
+                            <div className="w-[1px] h-2 dark:bg-white/10 bg-black/10"></div>
+                            <a href="https://www.x.com/cubusfera" className="w-12 h-10 flex items-center justify-center dark:hover:bg-white/5 hover:bg-black/5 rounded-lg" aria-label="Twitter">
+                                <FaXTwitter className="w-5 h-5" />
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex flex-col items-center gap-2">
-                    <span className="text-xs dark:text-neutral-300 text-neutral-700">© 2025 Cubusfera</span>
+
+                {/* Línea divisoria */}
+                <div className="w-full h-px bg-neutral-200 dark:bg-neutral-800 my-6"></div>
+
+                {/* Pie de página */}
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <span className="text-xs dark:text-neutral-400 text-neutral-600">© 2025 Cubusfera - Servidor de Minecraft Técnico</span>
                     <div className="flex items-center gap-3">
                         <a href="/legal/privacidad" className="dark:text-neutral-400 text-neutral-600 text-xs hover:underline">Privacidad</a>
                         <span className="dark:text-neutral-400 text-neutral-600 text-sm">·</span>
