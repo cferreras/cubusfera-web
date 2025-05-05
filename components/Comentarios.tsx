@@ -35,7 +35,7 @@ interface CommentData {
     post_slug?: string;
 }
 
-export default function Comentarios({ profileId, postSlug, currentUser, isVip, vipTheme }: CommentProps) {
+export default function Comentarios({ profileId, postSlug, currentUser }: CommentProps) {
     const { toast } = useToast()
     const [comments, setComments] = useState<Comment[]>([]);
     const [newComment, setNewComment] = useState('');

@@ -1,7 +1,6 @@
 import NavbarMenu from './NavbarMenu';
 import AuthenticationButton from './AuthenticationButton';
 import DarkmodeToggle from './DarkmodeToggle';
-import { Crown } from 'lucide-react';
 import Link from 'next/link';
 import CubusferaIconDark from './icon/cubusfera-icon-dark';
 import CubusferaIconLight from './icon/cubusfera-icon-light';

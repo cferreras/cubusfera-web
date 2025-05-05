@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Crown, Sparkles, Star, Trophy, Gem, X } from "lucide-react";
+import { Crown, Sparkles, Star, Trophy, Gem } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

@@ -66,7 +66,7 @@ export async function POST(request: Request) {
         }
 
         // Actualizar el estado VIP del usuario
-        const { data, error } = await supabase
+        const { error } = await supabase
             .from('profiles')
             .update({ is_vip: is_vip })
             .eq('id', userData.id)

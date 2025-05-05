@@ -10,7 +10,6 @@ import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ReactMarkdown from 'react-markdown';
 import { FaDiscord, FaInstagram, FaLocationDot, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useParams } from 'next/navigation';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import PremiumBadge from "@/components/PremiumBadge";
 import { ChevronRightIcon, Palette } from "lucide-react";
@@ -21,7 +20,7 @@ import Comentarios from "@/components/Comentarios";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import VipBadge from "./VipBadge";
 import { Button } from "./ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 
@@ -47,7 +46,7 @@ interface ProfileData {
 }
 
 export default function ProfileClient({ initialData }: { initialData: ProfileData }) {
-    const params = useParams<{ slug: string }>();
+    // const params = useParams<{ slug: string }>();
     const [user, setUser] = useState<User | null>(null);
     const [bio, setBio] = useState(initialData?.bio || "No se ha proporcionado una biografía.");
     const [twitter, setTwitter] = useState(initialData?.twitter_username || "");
