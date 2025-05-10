@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { HomeIcon, MapIcon, NotebookIcon, ScaleIcon, Trophy, UsersIcon } from "lucide-react";
+import { HomeIcon, MapIcon, NotebookIcon, ScaleIcon, Trophy, UsersIcon, ShoppingCartIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 
@@ -16,7 +16,8 @@ export default function NavbarMenu() {
         { href: "/blog", icon: <NotebookIcon className="h-4 w-4" />, label: "Blog" },
         { href: "/normas", icon: <ScaleIcon className="h-4 w-4" />, label: "Normas" },
         { href: "/miembros", icon: <UsersIcon className="h-4 w-4" />, label: "Miembros" },
-        { href: "/ranking", icon: <Trophy className="h-4 w-4" />, label: "Ranking" }
+        { href: "/ranking", icon: <Trophy className="h-4 w-4" />, label: "Ranking" },
+        { href: "https://cubusfera.tebex.io/", icon: <ShoppingCartIcon className="h-4 w-4" />, label: "Tienda" }
     ];
     
     return (

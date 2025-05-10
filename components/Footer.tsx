@@ -5,7 +5,7 @@ import { FaDiscord, FaYoutube, FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
     return (
-        <footer className="w-full relative z-10 px-4 py-12 border-t dark:border-neutral-800 border-neutral-200 dark:bg-black/20 bg-white/20">
+        <footer className="w-full relative z-10 px-4 py-12 border-t dark:border-neutral-800 border-neutral-200 dark:bg-black/40 bg-white/40">
             <div className="container mx-auto max-w-6xl">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                     {/* Columna 1: Logo e información */}
@@ -40,6 +40,7 @@ export default function Footer() {
                             <Link href="/ranking" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Ranking</Link>
                             <Link href="/blog" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Blog</Link>
                             <Link href="/contacto" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Contacto</Link>
+                            <a href="https://cubusfera.tebex.io/" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Tienda</a>
                         </div>
                     </div>
 
@@ -66,7 +67,7 @@ export default function Footer() {
                 </div>
 
                 {/* Línea divisoria */}
-                <div className="w-full h-px bg-neutral-200 dark:bg-neutral-800 my-6"></div>
+                <div className="w-full h-px bg-neutral-200 dark:bg-neutral-800/80 my-6"></div>
 
                 {/* Pie de página */}
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">

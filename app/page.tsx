@@ -59,7 +59,7 @@ export default function Home() {
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-4xl mx-auto">
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-800/50 shadow-sm"
+                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-900 shadow-sm border"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
@@ -69,7 +69,7 @@ export default function Home() {
                             <p className="text-muted-foreground">Jugadores activos</p>
                         </motion.div>
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-800/50 shadow-sm"
+                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-900 shadow-sm border"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
@@ -79,7 +79,7 @@ export default function Home() {
                             <p className="text-muted-foreground">Proyectos técnicos</p>
                         </motion.div>
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-800/50 shadow-sm"
+                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-900 shadow-sm border"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.3 }}
@@ -130,7 +130,7 @@ export default function Home() {
                     </motion.div>
                     <div className="max-w-3xl mx-auto space-y-4 md:space-y-6">
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-800/50 shadow-sm"
+                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.1 }}
@@ -143,7 +143,7 @@ export default function Home() {
                             </p>
                         </motion.div>
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-800/50 shadow-sm"
+                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.2 }}
@@ -156,7 +156,7 @@ export default function Home() {
                             </p>
                         </motion.div>
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-800/50 shadow-sm"
+                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.3 }}
@@ -169,7 +169,7 @@ export default function Home() {
                             </p>
                         </motion.div>
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-800/50 shadow-sm"
+                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.5, delay: 0.4 }}

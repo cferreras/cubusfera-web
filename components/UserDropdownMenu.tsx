@@ -1,6 +1,6 @@
 "use client"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { LogOutIcon, HomeIcon, MapIcon, NotebookIcon, ScaleIcon, UsersIcon, UserIcon, Trophy } from "lucide-react";
+import { LogOutIcon, HomeIcon, MapIcon, NotebookIcon, ScaleIcon, UsersIcon, UserIcon, Trophy, ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
 import { logout, signInWithDiscord } from "@/app/actions";
 
@@ -85,6 +85,19 @@ export default function UserDropdownMenu({
                 <Trophy className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
                 Ranking
             </Link>
+
+            <a
+                href="https://cubusfera.tebex.io/"
+                onClick={(e) => {
+                    e.preventDefault();
+                    window.open("https://cubusfera.tebex.io/", "_blank", "noopener,noreferrer");
+                    onClose();
+                }}
+                className="flex items-center gap-4 px-4 py-5 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 rounded-2xl outline-none cursor-pointer"
+            >
+                <ShoppingCartIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
+                Tienda
+            </a>
 
             {discordUser !== 'Invitado' ? (<form action={logout} className="rounded-2xl py-0 px-0 bg-neutral-100 dark:hover:bg-neutral-700 dark:focus-visible:bg-neutral-700 hover:bg-neutral-200 focus-visible:bg-neutral-300 border border-neutral-200 dark:border-neutral-700 dark:bg-neutral-800 outline-none">
                 <button

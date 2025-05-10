@@ -8,10 +8,8 @@ export async function POST(request: Request) {
     try {
         // Debug all headers
         const headers = Object.fromEntries(request.headers.entries());
-        console.log('All received headers:', headers);
         
         const authHeader = request.headers.get('authorization');
-        console.log('Auth header specifically:', authHeader);
         
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return NextResponse.json({ error: 'Token de autorización no proporcionado' }, { status: 401 });
