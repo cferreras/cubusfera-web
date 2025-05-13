@@ -83,16 +83,10 @@ export default function VipBadge({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <div className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full 
-          bg-gradient-to-r ${getThemeColor()}
-          font-medium 
-          shadow-sm 
-          overflow-visible
-          cursor-pointer
-          ${size === "sm" ? "text-[10px]" : size === "lg" ? "text-sm" : "text-xs"}`}>
-          <Crown className={`${size === "sm" ? "w-3 h-3" : size === "lg" ? "w-4 h-4" : "w-3.5 h-3.5"}`} />
-          <span>VIP</span>
-        </div>
+      <div className="text-xs px-1.5 py-0.5 rounded-md bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-700 flex items-center gap-1">
+        <Crown className="h-3 w-3"/>
+        <span>VIP</span>
+      </div>
       </DialogTrigger>
       
       <DialogPortal>

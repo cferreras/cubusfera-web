@@ -8,6 +8,7 @@ import { User } from '@supabase/supabase-js';
 import { Trash2 } from "lucide-react";
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
+import VipBadge from './VipBadge';
 
 interface Comment {
     id: string;
@@ -17,6 +18,9 @@ interface Comment {
     minecraft_username: string;
     profile_minecraft_username?: string;
     post_slug?: string;
+    profiles?: {
+        is_vip: boolean;
+    };
 }
 
 interface CommentProps {
@@ -44,7 +48,7 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
 
     useEffect(() => {
         fetchComments();
-    });
+    }, [profileId, postSlug]); // Añadir dependencias para evitar bucle infinito
 
     useEffect(() => {
         const fetchUserProfile = async () => {
@@ -72,7 +76,10 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
             console.log('Fetching comments for profile:', profileId);
             const { data, error } = await supabase
                 .from('comments')
-                .select('*')
+                .select(`
+                    *,
+                    profiles:profile_minecraft_username(is_vip)
+                `)
                 .eq('profile_minecraft_username', profileId)
                 .order('created_at', { ascending: false });
 
@@ -86,7 +93,10 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
             console.log('Fetching comments for blog post:', postSlug);
             const { data, error } = await supabase
                 .from('comments')
-                .select('*')
+                .select(`
+                    *,
+                    profiles:minecraft_username(is_vip)
+                `)
                 .eq('post_slug', postSlug)
                 .order('created_at', { ascending: false });
 
@@ -233,7 +243,11 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
                                     <div className='flex flex-col'>
                                         <div className="flex items-center gap-2">
                                             <Link href={`/perfil/${comment.minecraft_username}`}>
-                                                <h4 className="font-semibold">{comment.minecraft_username}</h4></Link>
+                                                <h4 className="font-semibold">{comment.minecraft_username}</h4>
+                                            </Link>
+                                            {comment.profiles?.is_vip && (
+                                                    <VipBadge />
+                                            )}
                                             <time className="text-sm text-black/60 dark:text-white/60">
                                                 {new Date(comment.created_at).toLocaleDateString()} {new Date(comment.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                             </time>
