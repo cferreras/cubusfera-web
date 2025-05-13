@@ -3,7 +3,13 @@ import { PickaxeIcon, SwordIcon, DoorOpenIcon, UnplugIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { FaSkull, FaPersonWalking, FaClock, FaGhost, FaWandSparkles } from "react-icons/fa6";
 
-export default function Estadisticas(props: { name: string }) {
+interface EstadisticasProps {
+    name: string;
+    isVip?: boolean;
+    vipTheme?: string;
+}
+
+export default function Estadisticas({ name }: EstadisticasProps) {
     const [stats, setStats] = useState({
         playTime: "0s",
         distanceTraveled: "0 km",
@@ -17,9 +23,11 @@ export default function Estadisticas(props: { name: string }) {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
 
+    
+
     useEffect(() => {
         // Lógica para actualizar las estadísticas
-        fetch(`/api/stats/player?name=${props.name}`)
+        fetch(`/api/stats/player?name=${name}`)
             .then(async response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -45,7 +53,8 @@ export default function Estadisticas(props: { name: string }) {
             }).finally(() => {
                 setLoading(false);
             });
-    }, [props.name]);
+    }, [name]);
+
 
     return (<>
         {!error ? (!loading ? (<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
@@ -63,7 +72,7 @@ export default function Estadisticas(props: { name: string }) {
                 <FaPersonWalking className="w-5 h-5 mt-1 text-blue-500" />
                 <div>
                     <h4 className="font-medium mb-1">Distancia recorrida</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">{stats.distanceTraveled}</p>
+                    <p className={'text-sm'}>{stats.distanceTraveled}</p>
                 </div>
             </div>
 
@@ -71,7 +80,7 @@ export default function Estadisticas(props: { name: string }) {
                 <FaGhost className="w-5 h-5 mt-1 text-purple-500" />
                 <div>
                     <h4 className="font-medium mb-1">Mobs eliminados</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p className={'text-sm'}>
                         {stats.totalMobsKilled} totales
                         <br />
                         <span className="text-xs">
@@ -90,10 +99,10 @@ export default function Estadisticas(props: { name: string }) {
             </div>
 
             <div className="flex items-start gap-3">
-                <PickaxeIcon className="w-5 h-5 mt-1 text-yellow-500" />
+                <PickaxeIcon className="w-5 h-5 mt-1 text-amber-500" />
                 <div>
                     <h4 className="font-medium mb-1">Bloques minados</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    <p className={'text-sm'}>
                         {stats.totalBlocksMined} total
                         <br />
                         <span className="text-xs">
@@ -115,7 +124,7 @@ export default function Estadisticas(props: { name: string }) {
                 <DoorOpenIcon className="w-5 h-5 mt-1 text-orange-500" />
                 <div>
                     <h4 className="font-medium mb-1">Inicios de sesión</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">{stats.sessions} veces</p>
+                    <p className={'text-sm'}>{stats.sessions} veces</p>
                 </div>
             </div>
 
@@ -123,7 +132,7 @@ export default function Estadisticas(props: { name: string }) {
                 <FaWandSparkles className="w-5 h-5 mt-1 text-green-500" />
                 <div>
                     <h4 className="font-medium mb-1">Experiencia</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">{stats.experienceGained} Niveles</p>
+                    <p className={'text-sm'}>{stats.experienceGained} Niveles</p>
                 </div>
             </div>
 
@@ -131,7 +140,7 @@ export default function Estadisticas(props: { name: string }) {
                 <SwordIcon className="w-5 h-5 mt-1 text-red-500" />
                 <div>
                     <h4 className="font-medium mb-1">PvP Kills</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">{stats.pvpKills} jugadores</p>
+                    <p className={'text-sm'}>{stats.pvpKills} jugadores</p>
                 </div>
             </div>
 
@@ -139,7 +148,7 @@ export default function Estadisticas(props: { name: string }) {
                 <FaSkull className="w-5 h-5 mt-1 text-gray-500" />
                 <div>
                     <h4 className="font-medium mb-1">Muertes totales</h4>
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">{stats.deaths} muertes</p>
+                    <p className={'text-sm'}>{stats.deaths} muertes</p>
                 </div>
             </div>
         </div>) : <div className="flex flex-col items-center justify-center self-center w-full h-32">
