@@ -40,7 +40,7 @@ export async function POST(req: Request): Promise<Response> {
             {
                 method: 'POST',
                 headers: {
-                    'X-Cubusfera-Auth': `${process.env.MINECRAFT_WHITELISTING_TOKEN}`,
+                    'X-Cubusfera-Auth': `${process.env.SERVICE_TOKEN}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ 
