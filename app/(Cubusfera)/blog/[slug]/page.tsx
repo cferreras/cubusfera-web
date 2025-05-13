@@ -137,7 +137,12 @@ export default async function Post({ params }: Props) {
                     {/* Comments section */}
                     <div className="mt-16 p-8 bg-white dark:bg-neutral-900 border rounded-xl border-neutral-200 dark:border-neutral-800 ">
                         <h2 className="text-xl font-semibold mb-6">Comentarios</h2>
-                        <Comentarios postSlug={slug} currentUser={user} />
+                        <Comentarios 
+                          postSlug={slug} 
+                          currentUser={user} 
+                          isVip={false} // Add default value or get from user profile
+                          vipTheme="" // Add default value or get from user profile
+                        />
                     </div>
                 </div>
                 
