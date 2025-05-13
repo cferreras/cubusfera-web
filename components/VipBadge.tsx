@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { Crown, Sparkles, Star, Trophy, Gem } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
@@ -20,7 +19,6 @@ interface VipBadgeProps {
 }
 
 export default function VipBadge({ 
-  size = "md", 
   theme = "default",
   username = ""
 }: VipBadgeProps) {
@@ -199,7 +197,7 @@ export default function VipBadge({
                       </div>
                       <div>
                         <h4 className="font-medium">Comandos exclusivos</h4>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">Acceso a comandos especiales como /hat, /nick y más</p>
+                        <p className="text-sm text-neutral-600 dark:text-neutral-400">Acceso a comandos especiales como /nick, más funcionalidades próximamente.</p>
                       </div>
                     </div>
                     
@@ -284,10 +282,10 @@ export default function VipBadge({
                 </div>
                 <div className="p-6 text-center">
                   <p className="mb-4 max-w-2xl mx-auto">Únete a nuestro programa VIP y disfruta de todas estas ventajas exclusivas. Puedes adquirir tu membresía VIP desde nuestra tienda.</p>
-                  <Button className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-medium text-base">
+                  <a href="https://cubusfera.tebex.io/category/1704918" className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-medium text-base">
                     <Crown className="w-4 h-4 mr-2" />
                     Obtener VIP
-                  </Button>
+                  </a>
                 </div>
               </div>
             </div>

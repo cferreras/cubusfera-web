@@ -5,10 +5,7 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export async function POST(request: Request) {
-    try {
-        // Debug all headers
-        const headers = Object.fromEntries(request.headers.entries());
-        
+    try {    
         const authHeader = request.headers.get('authorization');
         
         if (!authHeader || !authHeader.startsWith('Bearer ')) {

@@ -8,7 +8,6 @@ import { User } from '@supabase/supabase-js';
 import { Trash2 } from "lucide-react";
 import { useToast } from '@/hooks/use-toast';
 import Link from 'next/link';
-import VipBadge from './VipBadge';
 
 interface Comment {
     id: string;
@@ -246,7 +245,9 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
                                                 <h4 className="font-semibold">{comment.minecraft_username}</h4>
                                             </Link>
                                             {comment.profiles?.is_vip && (
-                                                    <VipBadge />
+                                                <span className="text-xs px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-800 border border-amber-300">
+                                                    VIP
+                                                </span>
                                             )}
                                             <time className="text-sm text-black/60 dark:text-white/60">
                                                 {new Date(comment.created_at).toLocaleDateString()} {new Date(comment.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
