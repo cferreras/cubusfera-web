@@ -3,11 +3,11 @@ import { useState } from "react";
 import { Crown, Sparkles, Star, Trophy, Gem } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  Dialog, 
-  DialogContent, 
-  DialogOverlay, 
-  DialogPortal, 
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
   DialogTrigger,
   DialogTitle
 } from "@/components/ui/dialog";
@@ -18,115 +18,62 @@ interface VipBadgeProps {
   username?: string;
 }
 
-export default function VipBadge({ 
+export default function VipBadge({
   theme = "default",
   username = ""
 }: VipBadgeProps) {
   const [isOpen, setIsOpen] = useState(false);
-  
-  // Función para obtener el color del tema
-  const getThemeColor = () => {
-    switch (theme) {
-      case 'theme-gold':
-        return 'from-yellow-300 to-amber-400 dark:from-yellow-500 dark:to-amber-600 text-yellow-900 dark:text-yellow-100 shadow-yellow-300/20 dark:shadow-yellow-500/30';
-      case 'theme-diamond':
-        return 'from-blue-300 to-sky-400 dark:from-blue-500 dark:to-sky-600 text-blue-900 dark:text-blue-100 shadow-blue-300/20 dark:shadow-blue-500/30';
-      case 'theme-emerald':
-        return 'from-emerald-300 to-green-400 dark:from-emerald-500 dark:to-green-600 text-emerald-900 dark:text-emerald-100 shadow-emerald-300/20 dark:shadow-emerald-500/30';
-      case 'theme-ruby':
-        return 'from-red-300 to-rose-400 dark:from-red-500 dark:to-rose-600 text-red-900 dark:text-red-100 shadow-red-300/20 dark:shadow-red-500/30';
-      case 'theme-amethyst':
-        return 'from-purple-300 to-violet-400 dark:from-purple-500 dark:to-violet-600 text-purple-900 dark:text-purple-100 shadow-purple-300/20 dark:shadow-purple-500/30';
-      default:
-        return 'from-yellow-300 to-amber-400 dark:from-yellow-500 dark:to-amber-600 text-yellow-900 dark:text-yellow-100 shadow-yellow-300/20 dark:shadow-yellow-500/30';
-    }
-  };
 
-  // Función para obtener el color de borde según el tema
-  const getBorderColor = () => {
-    switch (theme) {
-      case 'theme-gold':
-        return 'border-yellow-400 dark:border-yellow-500';
-      case 'theme-diamond':
-        return 'border-blue-400 dark:border-blue-500';
-      case 'theme-emerald':
-        return 'border-emerald-400 dark:border-emerald-500';
-      case 'theme-ruby':
-        return 'border-red-400 dark:border-red-500';
-      case 'theme-amethyst':
-        return 'border-purple-400 dark:border-purple-500';
-      default:
-        return 'border-yellow-400 dark:border-yellow-500';
-    }
-  };
-
-  // Función para obtener el icono del tema
-  const getThemeIcon = () => {
-    switch (theme) {
-      case 'theme-gold':
-        return <Crown className="w-6 h-6 text-yellow-600" />;
-      case 'theme-diamond':
-        return <Sparkles className="w-6 h-6 text-blue-600" />;
-      case 'theme-emerald':
-        return <Gem className="w-6 h-6 text-emerald-600" />;
-      case 'theme-ruby':
-        return <Star className="w-6 h-6 text-red-600" />;
-      case 'theme-amethyst':
-        return <Trophy className="w-6 h-6 text-purple-600" />;
-      default:
-        return <Crown className="w-6 h-6 text-yellow-600" />;
-    }
-  };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-      <div className="text-xs px-1.5 py-0.5 rounded-md bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-700 flex items-center gap-1">
-        <Crown className="h-3 w-3"/>
-        <span>VIP</span>
-      </div>
+        <div className="text-xs px-1.5 py-0.5 rounded-md bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 border border-amber-300 dark:border-amber-700 flex items-center gap-1">
+          <Crown className="h-3 w-3" />
+          <span>VIP</span>
+        </div>
       </DialogTrigger>
-      
+
       <DialogPortal>
-       
+
         <DialogContent className="fixed inset-0 sm:inset-auto sm:left-1/2 sm:top-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 bg-transparent border-none shadow-none p-0 w-full max-w-4xl max-h-[90vh] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95">
           <DialogTitle className="sr-only">Beneficios VIP</DialogTitle>
-          
+
           <div className="bg-white dark:bg-neutral-900 rounded-xl shadow-xl w-full max-h-[90vh] overflow-y-auto border border-neutral-200 dark:border-neutral-800 relative">
             {/* Eliminamos el botón de cierre personalizado ya que DialogContent ya incluye uno */}
-            
+
             {/* Encabezado con gradiente - Mejorado espaciado vertical y centrado */}
-            <div className={`h-40 sm:h-48 bg-gradient-to-r ${getThemeColor()} flex items-center justify-center relative py-8`}>
+            <div className="h-40 sm:h-48 bg-gradient-to-r from-amber-300 to-yellow-400 dark:from-yellow-600 dark:to-amber-700 text-neutral-800 dark:text-white flex items-center justify-center relative py-8">
               <div className="absolute inset-0 bg-[url('/images/pattern-vip.png')] opacity-10 bg-repeat"></div>
               <div className="flex flex-col items-center justify-center gap-3 p-4">
                 <div className="flex items-center gap-3">
                   <Crown className="w-9 h-9 drop-shadow-md" />
-                  <h2 className="text-2xl sm:text-3xl font-bold dark:text-white drop-shadow-md">Beneficios VIP</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold dark:text-white">Beneficios VIP</h2>
                 </div>
                 <p className="text-center max-w-lg dark:text-white font-medium drop-shadow-sm">Descubre todas las ventajas exclusivas para miembros VIP</p>
               </div>
             </div>
-            
+
             <div className="p-6 sm:p-8">
               {/* Información del usuario */}
               {username && (
                 <div className="flex flex-col sm:flex-row items-center gap-4 mb-8 p-4 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700">
                   <div className="flex items-center gap-4">
-                    <Avatar className={`h-16 w-16 rounded-sm ring-4 ${getBorderColor()} shadow-lg`}>
+                    <Avatar className="h-16 w-16 rounded-sm ring-4 border-yellow-400 dark:border-yellow-500 shadow-lg">
                       <AvatarImage src={`https://mc-heads.net/avatar/${username}/128`} alt={`Avatar de ${username}`} />
                       <AvatarFallback className="rounded-sm">{username[0] || ''}</AvatarFallback>
                     </Avatar>
                     <div>
                       <div className="flex items-center gap-2">
                         <h3 className="text-xl font-semibold">{username}</h3>
-                        {getThemeIcon()}
+                        <Crown className="w-6 h-6 text-yellow-600" />
                       </div>
                       <p className="text-sm text-neutral-500 dark:text-neutral-400">Miembro VIP desde 2023</p>
                     </div>
                   </div>
                 </div>
               )}
-              
+
               {/* Secciones de beneficios */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Beneficios en la web */}
@@ -148,7 +95,7 @@ export default function VipBadge({
                         <p className="text-sm text-neutral-600 dark:text-neutral-400">Personaliza tu perfil con banners, colores y temas exclusivos</p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-start gap-3">
                       <div className="mt-1 bg-blue-100 dark:bg-blue-900/30 p-1.5 rounded-full">
                         <Crown className="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -158,7 +105,7 @@ export default function VipBadge({
                         <p className="text-sm text-neutral-600 dark:text-neutral-400">Muestra tu estatus con una insignia exclusiva en tu perfil y comentarios</p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-start gap-3">
                       <div className="mt-1 bg-blue-100 dark:bg-blue-900/30 p-1.5 rounded-full">
                         <Trophy className="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -170,7 +117,7 @@ export default function VipBadge({
                     </div>
                   </CardContent>
                 </Card>
-                
+
                 {/* Beneficios en el servidor */}
                 <Card className="border-2 border-emerald-400 dark:border-emerald-600 rounded-xl overflow-hidden">
                   <CardHeader className="bg-emerald-50 dark:bg-emerald-900/30">
@@ -190,7 +137,7 @@ export default function VipBadge({
                         <p className="text-sm text-neutral-600 dark:text-neutral-400">Acceso garantizado incluso cuando el servidor está lleno</p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-start gap-3">
                       <div className="mt-1 bg-emerald-100 dark:bg-emerald-900/30 p-1.5 rounded-full">
                         <Crown className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
@@ -200,7 +147,7 @@ export default function VipBadge({
                         <p className="text-sm text-neutral-600 dark:text-neutral-400">Acceso a comandos especiales como /nick, más funcionalidades próximamente.</p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-start gap-3">
                       <div className="mt-1 bg-emerald-100 dark:bg-emerald-900/30 p-1.5 rounded-full">
                         <Trophy className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
@@ -237,7 +184,7 @@ export default function VipBadge({
                           <p className="text-sm text-neutral-600 dark:text-neutral-400">Insignia VIP visible en Discord con un color distintivo</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start gap-3">
                         <div className="mt-1 bg-indigo-100 dark:bg-indigo-900/30 p-1.5 rounded-full">
                           <Star className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
@@ -247,7 +194,7 @@ export default function VipBadge({
                           <p className="text-sm text-neutral-600 dark:text-neutral-400">Acceso a canales privados solo para miembros VIP</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start gap-3">
                         <div className="mt-1 bg-indigo-100 dark:bg-indigo-900/30 p-1.5 rounded-full">
                           <Crown className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
@@ -257,7 +204,7 @@ export default function VipBadge({
                           <p className="text-sm text-neutral-600 dark:text-neutral-400">Atención prioritaria en canales de soporte y ayuda</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start gap-3">
                         <div className="mt-1 bg-indigo-100 dark:bg-indigo-900/30 p-1.5 rounded-full">
                           <Trophy className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
@@ -271,7 +218,7 @@ export default function VipBadge({
                   </CardContent>
                 </Card>
               </div>
-              
+
               {/* Sección de cómo obtener VIP - Texto centrado y sin sombras */}
               <div className="mt-6 border-2 border-amber-400 dark:border-amber-600 rounded-xl overflow-hidden">
                 <div className="bg-amber-50 dark:bg-amber-900/30 p-4">
@@ -282,11 +229,11 @@ export default function VipBadge({
                 </div>
                 <div className="p-6 text-center">
                   <p className="mb-4 max-w-2xl mx-auto">Únete a nuestro programa VIP y disfruta de todas estas ventajas exclusivas. Puedes adquirir tu membresía VIP desde nuestra tienda.</p>
-                  <a 
-                    href="https://cubusfera.tebex.io/category/1704918" 
+                  <a
+                    href="https://cubusfera.tebex.io/category/1704918"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-medium text-base transition-colors duration-200"
+                    className="inline-flex items-center px-4 py-2 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-medium text-base transition-colors duration-200"
                   >
                     <Crown className="w-4 h-4 mr-2" />
                     Obtener VIP
@@ -298,4 +245,5 @@ export default function VipBadge({
         </DialogContent>
       </DialogPortal>
     </Dialog>
-  );}
+  );
+}
