@@ -32,7 +32,7 @@ export default function NavbarMenu() {
                         className={cn(
                             "transition-all duration-200",
                             isActive(item.href) 
-                                ? "bg-blue-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-800/60" 
+                                ? "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-800/60" 
                                 : "hover:bg-neutral-100 dark:hover:bg-neutral-800/60"
                         )}
                     >
