@@ -6,7 +6,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import {
   Dialog,
   DialogContent,
-  DialogOverlay,
   DialogPortal,
   DialogTrigger,
   DialogTitle
@@ -19,7 +18,6 @@ interface VipBadgeProps {
 }
 
 export default function VipBadge({
-  theme = "default",
   username = ""
 }: VipBadgeProps) {
   const [isOpen, setIsOpen] = useState(false);
