@@ -282,7 +282,12 @@ export default function VipBadge({
                 </div>
                 <div className="p-6 text-center">
                   <p className="mb-4 max-w-2xl mx-auto">Únete a nuestro programa VIP y disfruta de todas estas ventajas exclusivas. Puedes adquirir tu membresía VIP desde nuestra tienda.</p>
-                  <a href="https://cubusfera.tebex.io/category/1704918" className="bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-medium text-base">
+                  <a 
+                    href="https://cubusfera.tebex.io/category/1704918" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-4 py-2 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 text-white font-medium text-base transition-colors duration-200"
+                  >
                     <Crown className="w-4 h-4 mr-2" />
                     Obtener VIP
                   </a>
