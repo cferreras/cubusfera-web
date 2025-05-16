@@ -15,7 +15,7 @@ export default function FeatureCard({ title, description, imageSrc, imageAlt, }:
         <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: "linear" }}
             viewport={{ once: true, margin: "-100px" }}
         >
             <Card className="bg-transparent border-none shadow-none">

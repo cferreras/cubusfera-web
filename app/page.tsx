@@ -8,16 +8,17 @@ import CTACard from "@/components/CTACard";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { MINECRAFT_VERSION } from "@/constants";
+import Image from "next/image";
 
 export default function Home() {
     return (
-
-        <Container className="py-8 md:py-12">
+        <Container className="py-8 md:py-12 relative">
             {/* TheHeader now contains all header content with a single h1 */}
             <TheHeader />
             <div className="space-y-16 md:space-y-24 lg:space-y-32">
                 {/* Features section with semantic HTML */}
-                <section className="space-y-16 md:space-y-24 lg:space-y-32 mt-8 md:mt-12" aria-labelledby="features-heading">
+                <section className="space-y-16 md:space-y-24 lg:space-y-32 mt-8 md:mt-12 relative" aria-labelledby="features-heading">
+                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-neutral-50/30 to-transparent dark:via-neutral-900/30 -z-10 rounded-3xl opacity-70" />
                     <h2 id="features-heading" className="sr-only">Características de nuestro servidor</h2>
 
                     <FeatureCard
@@ -43,12 +44,14 @@ export default function Home() {
                 </section>
 
                 {/* Community section - New addition */}
-                <section className="py-12 md:py-16 lg:py-20 px-4 md:px-8  rounded-2xl" aria-labelledby="community-heading">
+                <section className="py-12 md:py-16 lg:py-20 px-4 md:px-8 rounded-3xl bg-gradient-to-br from-neutral-50/50 via-neutral-100/50 to-neutral-50/50 dark:from-neutral-900/50 dark:via-neutral-800/50 dark:to-neutral-900/50 border border-neutral-200/50 dark:border-neutral-800/50 shadow-sm relative overflow-hidden" aria-labelledby="community-heading">
+                    <div className="absolute -right-24 -top-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10" />
+                    <div className="absolute -left-24 -bottom-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10" />
                     <motion.div
                         className="text-center mb-10 md:mb-14"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7 }}
+                        transition={{ duration: 0.7, ease: "linear" }}
                         viewport={{ once: true }}
                     >
                         <h2 id="community-heading" className="text-3xl font-bold mb-4">Una comunidad activa y colaborativa</h2>
@@ -59,68 +62,76 @@ export default function Home() {
                     </motion.div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 max-w-4xl mx-auto">
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-900 shadow-sm border"
+                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 hover:border-primary/20 dark:hover:border-primary/20 transition-all duration-300 hover:shadow-md"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
+                            transition={{ duration: 0.5, delay: 0.1, ease: "linear" }}
                             viewport={{ once: true }}
                         >
-                            <div className="text-4xl font-bold mb-2">100+</div>
+                            <div className="text-4xl font-bold mb-2 bg-gradient-to-br from-neutral-950 to-neutral-500 dark:from-white dark:to-neutral-400 bg-clip-text text-transparent">100+</div>
                             <p className="text-muted-foreground">Jugadores activos</p>
                         </motion.div>
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-900 shadow-sm border"
+                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 hover:border-primary/20 dark:hover:border-primary/20 transition-all duration-300 hover:shadow-md"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{ duration: 0.5, delay: 0.2, ease: "linear" }}
                             viewport={{ once: true }}
                         >
-                            <div className="text-4xl font-bold mb-2">50+</div>
+                            <div className="text-4xl font-bold mb-2 bg-gradient-to-br from-neutral-950 to-neutral-500 dark:from-white dark:to-neutral-400 bg-clip-text text-transparent">50+</div>
                             <p className="text-muted-foreground">Proyectos técnicos</p>
                         </motion.div>
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-900 shadow-sm border"
+                            className="rounded-xl p-6 md:p-8 text-center bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 hover:border-primary/20 dark:hover:border-primary/20 transition-all duration-300 hover:shadow-md"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
+                            transition={{ duration: 0.5, delay: 0.3, ease: "linear" }}
                             viewport={{ once: true }}
                         >
-                            <div className="text-4xl font-bold mb-2">24/7</div>
+                            <div className="text-4xl font-bold mb-2 bg-gradient-to-br from-neutral-950 to-neutral-500 dark:from-white dark:to-neutral-400 bg-clip-text text-transparent">24/7</div>
                             <p className="text-muted-foreground">Servidor disponible</p>
                         </motion.div>
                     </div>
                 </section>
 
-                <section className="relative py-12 md:py-16 lg:py-20" aria-labelledby="testimonials-heading">
-                    <div className="absolute inset-0 via-neutral-100/10 to-transparent dark:via-neutral-900/10 -z-10" />
-                    <motion.h2
-                        id="testimonials-heading"
-                        className="text-3xl font-bold text-center mb-10 md:mb-14"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7 }}
-                        viewport={{ once: true }}
-                    >
-                        Lo que dicen nuestros jugadores
-                    </motion.h2>
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, delay: 0.2 }}
-                        viewport={{ once: true }}
-                        className="max-w-4xl mx-auto px-4 md:px-0"
-                    >
-                        <TestimonialCard />
-                    </motion.div>
-                </section>
-
-                {/* FAQ Section - New addition */}
-                <section className="py-12 md:py-16 lg:py-20 px-4 md:px-8  rounded-2xl" aria-labelledby="faq-heading">
+                <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden" aria-labelledby="testimonials-heading">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-neutral-100/30 to-transparent dark:via-neutral-900/30 -z-10 rounded-3xl" />
+                    <div className="absolute -left-10 top-1/4 w-40 h-40 bg-primary/5 rounded-full blur-3xl -z-10" />
+                    <div className="absolute -right-10 bottom-1/4 w-40 h-40 bg-primary/5 rounded-full blur-3xl -z-10" />
                     <motion.div
                         className="text-center mb-10 md:mb-14"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7 }}
+                        transition={{ duration: 0.7, ease: "linear" }}
+                        viewport={{ once: true }}
+                    >
+                        <h2 id="testimonials-heading" className="text-3xl font-bold mb-4 bg-gradient-to-br from-neutral-950 to-neutral-500 dark:from-white dark:to-neutral-400 bg-clip-text text-transparent inline-block">Lo que dicen nuestros jugadores</h2>
+                        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                            Descubre las experiencias de quienes ya forman parte de nuestra comunidad
+                        </p>
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: 0.2, ease: "linear" }}
+                        viewport={{ once: true }}
+                        className="max-w-4xl mx-auto px-4 md:px-0"
+                    >
+                        <div className="bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 rounded-3xl p-8 md:p-10">
+                            <TestimonialCard />
+                        </div>
+                    </motion.div>
+                </section>
+
+                {/* FAQ Section - New addition */}
+                <section className="py-12 md:py-16 lg:py-20 px-4 md:px-8 rounded-3xl bg-gradient-to-br from-neutral-50/50 via-neutral-100/50 to-neutral-50/50 dark:from-neutral-900/50 dark:via-neutral-800/50 dark:to-neutral-900/50 border border-neutral-200/50 dark:border-neutral-800/50 shadow-sm relative overflow-hidden" aria-labelledby="faq-heading">
+                    <div className="absolute -left-24 -top-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10" />
+                    <div className="absolute -right-24 -bottom-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10" />
+                    <motion.div
+                        className="text-center mb-10 md:mb-14"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, ease: "linear" }}
                         viewport={{ once: true }}
                     >
                         <h2 id="faq-heading" className="text-3xl font-bold mb-4">Preguntas frecuentes</h2>
@@ -130,23 +141,23 @@ export default function Home() {
                     </motion.div>
                     <div className="max-w-3xl mx-auto space-y-4 md:space-y-6">
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border"
+                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 hover:border-primary/20 dark:hover:border-primary/20 transition-all duration-300 hover:shadow-md"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
+                            transition={{ duration: 0.5, delay: 0.1, ease: "linear" }}
                             viewport={{ once: true }}
                         >
                             <h3 className="text-xl font-semibold mb-3">¿Cómo puedo unirme al servidor?</h3>
                             <p className="text-muted-foreground">
-                                Para unirte a Cubusfera, necesitas completar nuestro <Link href="/formulario" className="text-primary hover:underline">formulario de solicitud</Link> y ser aceptado por nuestro equipo.
-                                Visita la <Link href="/formulario" className="text-primary hover:underline">sección de Unirse</Link> para más detalles.
+                                Para unirte a Cubusfera, necesitas completar nuestro <Link href="/formulario" className="text-primary hover:underline hover:text-primary/80 transition-colors">formulario de solicitud</Link> y ser aceptado por nuestro equipo.
+                                Visita la <Link href="/formulario" className="text-primary hover:underline hover:text-primary/80 transition-colors">sección de Unirse</Link> para más detalles.
                             </p>
                         </motion.div>
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border"
+                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 hover:border-primary/20 dark:hover:border-primary/20 transition-all duration-300 hover:shadow-md"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{ duration: 0.5, delay: 0.2, ease: "linear" }}
                             viewport={{ once: true }}
                         >
                             <h3 className="text-xl font-semibold mb-3">¿Qué versión de Minecraft necesito?</h3>
@@ -156,10 +167,10 @@ export default function Home() {
                             </p>
                         </motion.div>
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border"
+                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 hover:border-primary/20 dark:hover:border-primary/20 transition-all duration-300 hover:shadow-md"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.3 }}
+                            transition={{ duration: 0.5, delay: 0.3, ease: "linear" }}
                             viewport={{ once: true }}
                         >
                             <h3 className="text-xl font-semibold mb-3">¿Qué tipo de proyectos puedo construir?</h3>
@@ -169,23 +180,23 @@ export default function Home() {
                             </p>
                         </motion.div>
                         <motion.div
-                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border"
+                            className="rounded-xl p-6 md:p-8 bg-white dark:bg-neutral-900 shadow-sm border border-neutral-200 dark:border-neutral-800 hover:border-primary/20 dark:hover:border-primary/20 transition-all duration-300 hover:shadow-md"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.4 }}
+                            transition={{ duration: 0.5, delay: 0.4, ease: "linear" }}
                             viewport={{ once: true }}
                         >
                             <h3 className="text-xl font-semibold mb-3">¿Es obligatorio unirse al servidor de Discord?</h3>
                             <p className="text-muted-foreground">
                                 Sí, es necesario unirse a nuestro servidor de Discord para formar parte de Cubusfera. Discord es nuestra principal vía de comunicación,
                                 donde compartimos anuncios importantes, coordinamos proyectos y creamos una comunidad activa.
-                                Puedes unirte a través de <Link href="https://discord.com/invite/7uKEYACErc" className="text-primary hover:underline">este enlace</Link>.
+                                Puedes unirte a través de <Link href="https://discord.com/invite/7uKEYACErc" className="text-primary hover:underline hover:text-primary/80 transition-colors">este enlace</Link>.
                             </p>
                         </motion.div>
                     </div>
                 </section>
 
-                <section className="py-12 md:py-16 lg:py-20 mt-4 md:mt-8">
+                <section className="py-12 md:py-16 lg:py-20 mt-4 md:mt-8 relative overflow-hidden">
                     <CTACard />
                 </section>
             </div>
