@@ -8,7 +8,6 @@ import CTACard from "@/components/CTACard";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { MINECRAFT_VERSION } from "@/constants";
-import Image from "next/image";
 
 export default function Home() {
     return (
