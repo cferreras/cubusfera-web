@@ -17,7 +17,7 @@ export default function Home() {
             <div className="space-y-16 md:space-y-24 lg:space-y-32">
                 {/* Features section with semantic HTML */}
                 <section className="space-y-16 md:space-y-24 lg:space-y-32 mt-8 md:mt-12 relative" aria-labelledby="features-heading">
-                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-neutral-50/30 to-transparent dark:via-neutral-900/30 -z-10 rounded-3xl opacity-70" />
+                    
                     <h2 id="features-heading" className="sr-only">Características de nuestro servidor</h2>
 
                     <FeatureCard
@@ -44,8 +44,6 @@ export default function Home() {
 
                 {/* Community section - New addition */}
                 <section className="py-12 md:py-16 lg:py-20 px-4 md:px-8 rounded-3xl bg-gradient-to-br from-neutral-50/50 via-neutral-100/50 to-neutral-50/50 dark:from-neutral-900/50 dark:via-neutral-800/50 dark:to-neutral-900/50 border border-neutral-200/50 dark:border-neutral-800/50 shadow-sm relative overflow-hidden" aria-labelledby="community-heading">
-                    <div className="absolute -right-24 -top-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10" />
-                    <div className="absolute -left-24 -bottom-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10" />
                     <motion.div
                         className="text-center mb-10 md:mb-14"
                         initial={{ opacity: 0, y: 20 }}
@@ -94,9 +92,7 @@ export default function Home() {
                 </section>
 
                 <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden" aria-labelledby="testimonials-heading">
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-neutral-100/30 to-transparent dark:via-neutral-900/30 -z-10 rounded-3xl" />
-                    <div className="absolute -left-10 top-1/4 w-40 h-40 bg-primary/5 rounded-full blur-3xl -z-10" />
-                    <div className="absolute -right-10 bottom-1/4 w-40 h-40 bg-primary/5 rounded-full blur-3xl -z-10" />
+
                     <motion.div
                         className="text-center mb-10 md:mb-14"
                         initial={{ opacity: 0, y: 20 }}
