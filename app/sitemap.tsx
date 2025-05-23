@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next';
+import { getSortedPostsData } from '@/lib/posts';
 
 // Define an interface for the post structure
 interface Post {
@@ -7,11 +8,8 @@ interface Post {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    // Obtén todos los posts para el sitemap
-    const response = await fetch('https://cubusfera.com/api/posts', {
-        next: { revalidate: 3600 } // Revalidar cada hora
-    });
-    const posts = await response.json();
+    // Obtén todos los posts para el sitemap directamente desde la función
+    const posts = getSortedPostsData();
 
     // URLs estáticas principales
     const routes = [
