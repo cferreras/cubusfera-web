@@ -1,10 +1,8 @@
 "use client";
 
 import { Accordion, AccordionContent, AccordionItem as BaseAccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import Link from "next/link";
 import { ReactNode, forwardRef } from "react";
 import { cn } from "@/lib/utils";
-import { ChevronDown } from "lucide-react";
 
 // Componente personalizado que extiende AccordionItem pero sin el borde inferior predeterminado
 const AccordionItem = ({ className, ...props }: React.ComponentPropsWithoutRef<typeof BaseAccordionItem>) => (

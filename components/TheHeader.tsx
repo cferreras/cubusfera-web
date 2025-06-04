@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useServerStatus } from '@/hooks/useServerStatus';
-import RotatingText from './RotatingText';
 import { MINECRAFT_VERSION } from "@/constants";
 
 export default function TheHeader() {

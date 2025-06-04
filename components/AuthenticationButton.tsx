@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { createClient } from '@/utils/supabase/server';
 import { Button } from "@/components/ui/button";
-import { LogInIcon } from "lucide-react";
 import UserMenuButton from "./UserMenuButton"
 
 export default async function LoginProfileButton() {

@@ -2,8 +2,6 @@ import NavbarMenu from './NavbarMenu';
 import AuthenticationButton from './AuthenticationButton';
 import DarkmodeToggle from './DarkmodeToggle';
 import Link from 'next/link';
-import Image from 'next/image';
-import CubusferaIcon from './icon/cubusfera-icon-dark';
 import CubusferaIconDark from './icon/cubusfera-icon-dark';
 import CubusferaIconLight from './icon/cubusfera-icon-light';
 

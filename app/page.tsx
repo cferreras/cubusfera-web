@@ -4,7 +4,6 @@ import Container from "@/components/Container";
 import TheHeader from "@/components/TheHeader";
 import FeatureCard from "@/components/FeatureCard";
 import TestimonialCard from "@/components/TestimonialCard";
-import CTACard from "@/components/CTACard";
 import Link from "next/link";
 import { MINECRAFT_VERSION } from "@/constants";
 import FAQAccordion from "@/components/FAQAccordion";
