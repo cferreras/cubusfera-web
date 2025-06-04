@@ -30,7 +30,7 @@ export default function NavbarMenu() {
                         asChild 
                         variant="ghost"
                         className={cn(
-                            "transition-all duration-200",
+                            "transition-all duration-200 dark:hover:bg-[#21364A80] rounded-xl",
                             isActive(item.href)             
                                 ? "" 
                                 : ""
