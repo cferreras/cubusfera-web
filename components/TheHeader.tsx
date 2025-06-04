@@ -44,13 +44,13 @@ export default function TheHeader() {
                     <div className="flex flex-wrap gap-3 mt-5 justify-center text-sm font-medium">
                         <Link
                             href="/miembros"
-                            className="px-6 py-2.5 bg-[#3B82F6] text-white rounded-xl transition-colors hover:bg-[#60A5FA]"
+                            className="px-6 py-2.5 text-black dark:bg-[#0D80F2] bg-[#DBE8F2] dark:text-white rounded-xl transition-colors hover:saturate-150"
                         >
                             Explora nuestra comunidad
                         </Link>
                         <Link
                             href="/blog"
-                            className="px-6 py-2.5 bg-white text-[#3B82F6] border border-[#E5E7EB] rounded-xl transition-colors hover:bg-gray-50"
+                            className="px-6 py-2.5 bg-[#EBEDF2] dark:bg-[#21364A] text-black dark:text-white rounded-xl transition-colors hover:saturate-150"
                         >
                             Explora nuestro blog
                         </Link>

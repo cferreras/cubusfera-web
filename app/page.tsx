@@ -106,7 +106,7 @@ export default function Home() {
                                 <>
                                     Sí, es necesario unirse a nuestro servidor de Discord para formar parte de Cubusfera. Discord es nuestra principal vía de comunicación,
                                     donde compartimos anuncios importantes, coordinamos proyectos y creamos una comunidad activa.
-                                    Puedes unirte a través de <Link href="https://discord.com/invite/7uKEYACErc" className="text-primary hover:underline hover:text-primary/80 transition-colors">este enlace</Link>.
+                                    Puedes unirte a través de <Link href="https://discord.com/invite/7uKEYACErc" className="underline">este enlace</Link>.
                                 </>
                             )
                         }

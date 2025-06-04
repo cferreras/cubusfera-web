@@ -26,21 +26,23 @@ export default function DarkmodeToggle() {
 
     if (!mounted) {
         return (
-            <button className="hidden md:flex rounded-xl border-[#E5E7EB] dark:border-neutral-800 bg-[#F9FAFB] dark:bg-[#21364A]">
-                <div className="relative w-[1.2rem] h-[1.2rem]"></div>
+            <Button className="aspect-square items-center border-none dark:bg-[#21364A] !bg-gray-100 hover:saturate-150 rounded-xl z-[1]">
+                <div className="relative w-[1rem] h-[1rem] mx-auto">
+                <ComputerIcon className="w-4 h-4 flex items-center justify-center text-sm text-black dark:text-white" />
+                </div>
                 <span className="sr-only">Cambiar tema</span>
-            </button>
+            </Button>
         )
     }
 
     return (
-        <Button onClick={() => cycleTheme()} className="aspect-square items-center border-none dark:bg-[#21364A] bg-[#F9FAFB] hover:bg-[#F3F4F6] dark:hover:saturate-150 rounded-xl z-[1] backdrop-blur-md">
+        <Button onClick={() => cycleTheme()} className="aspect-square items-center border-none bg-gray-100 hover:bg-gray-100 dark:bg-[#21364A] hover:saturate-150 rounded-xl z-[1]">
             <div className="relative w-[1rem] h-[1rem] mx-auto">
                 {theme === 'dark' && (
-                    <MoonIcon className="w-4 h-4 flex items-center justify-center text-sm text-[#3B82F6] dark:text-neutral-300" />
+                    <MoonIcon className="w-4 h-4 flex items-center justify-center text-sm text-black dark:text-white" />
                 )}
-                {theme === 'light' && <SunIcon className="w-4 h-4 flex items-center justify-center text-sm text-[#3B82F6] dark:text-neutral-300" />}
-                {theme === 'system' && <ComputerIcon className="w-4 h-4 flex items-center justify-center text-sm text-[#3B82F6] dark:text-neutral-300" />}
+                {theme === 'light' && <SunIcon className="w-4 h-4 flex items-center justify-center text-sm text-black dark:text-white" />}
+                {theme === 'system' && <ComputerIcon className="w-4 h-4 flex items-center justify-center text-sm text-black dark:text-white" />}
             </div>
             <span className="sr-only">Cambiar tema</span>
         </Button>

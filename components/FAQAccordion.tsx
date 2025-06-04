@@ -18,7 +18,7 @@ const CustomAccordionTrigger = forwardRef<
 >(({ className, children, ...props }, ref) => (
   <AccordionTrigger 
     ref={ref} 
-    className={cn("text-md font-normal text-[#1F2937] dark:text-white hover:no-underline [&>svg]:h-6 [&>svg]:w-6 [&>svg]:text-[#3B82F6] dark:[&>svg]:text-white", className)} 
+    className={cn("text-md font-normal hover:no-underline [&>svg]:h-6 [&>svg]:w-6", className)} 
     {...props}
   >
     {children}
@@ -49,10 +49,15 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
           <AccordionItem
             key={item.id}
             value={item.id}
-            className="border border-[#E5E7EB] dark:border-[#304D69] rounded-lg p-4 md:p-6 bg-white dark:bg-[#172633]"
+            className={cn(
+              "rounded-lg border-[#D4DBE3] dark:border-[#304D69] border p-4",
+              "border-b-[#D4DBE3] dark:border-b-[#304D69] !border-b !border-solid"
+            )}
           >
-            <CustomAccordionTrigger>{item.question}</CustomAccordionTrigger>
-            <AccordionContent className="text-[#4B5563] dark:text-[#8FADCC] pt-2">
+            <CustomAccordionTrigger>
+              {item.question}
+            </CustomAccordionTrigger>
+            <AccordionContent className="text-[#5C738A] dark:text-[#8FADCC]">
               {item.answer}
             </AccordionContent>
           </AccordionItem>
