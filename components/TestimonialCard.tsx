@@ -3,18 +3,11 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function TestimonialCard() {
     return (
-        <Card className="bg-transparent border-none shadow-none">
-            <CardContent className="text-center max-w-4xl mx-auto space-y-8">
-                <div className="space-y-4">
-                    <blockquote className="text-2xl md:text-3xl font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
-                    &quot;Me encanta la comunidad técnica de Cubusfera. He aprendido muchísimo sobre redstone y granjas, y siempre hay alguien dispuesto a ayudar.&quot;
-                    </blockquote>
-                    <div className="text-neutral-600 dark:text-neutral-400">
-                        <p className="font-medium">Jugador anónimo</p>
-                        <p className="text-sm">+500 horas jugadas</p>
-                    </div>
-                </div>
-            </CardContent>
-        </Card>
+        <div className="h-80 bg-[url(/images/testimonial-bg.webp)] bg-cover rounded-lg p-8 flex flex-col justify-end">
+            <div>
+            <p className="font-medium text-2xl max-w-md">Me encanta la comunidad técnica de Cubusfera. He aprendido mucho sobre redstone y granjas, y siempre hay alguien dispuesto a ayudar.</p>
+            <div className="mt-3">Jugador Anónimo, +500 horas jugadas</div>
+            </div>
+        </div>
     );
 }

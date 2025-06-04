@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
+    --background: 210 33% 98%;
+    --foreground: 210 33% 15%;
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
+    --card-foreground: 210 33% 15%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
+    --popover-foreground: 210 33% 15%;
+    --primary: 210 100% 50%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --secondary: 210 33% 96%;
+    --secondary-foreground: 210 33% 15%;
+    --muted: 210 33% 96%;
+    --muted-foreground: 210 33% 45%;
+    --accent: 210 33% 96%;
+    --accent-foreground: 210 33% 15%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --border: 210 33% 90%;
+    --input: 210 33% 90%;
+    --ring: 210 100% 50%;
     --radius: 0.5rem;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -59,58 +59,13 @@
   }
 }
 
-@layer base {
 
-  body[data-pattern="cross"],
-  body [data-pattern="cross"] {
-    --rgb: 0 0 0;
-    --opacity: 0.03;
-    --size: 20px;
-    background-image: linear-gradient(
-        to right,
-        rgb(var(--rgb) / var(--opacity)) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        to bottom,
-        rgb(var(--rgb) / var(--opacity)) 1px,
-        transparent 1px
-      );
-    background-size: var(--size) var(--size);
-  }
-
-  .dark body[data-pattern="cross"],
-  .dark body [data-pattern="cross"] {
-    --rgb: 255 255 255;
-    --opacity: 0.03;
-  }
-}
 
 
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-    position: relative;
-    z-index: 0;
-  }
-  
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: -1;
-    background-image: url('/pattern.webp');
-    background-size: 700px 700px; /* Increased size for a larger pattern */
-    background-repeat: repeat;
-    opacity: 0.05; /* Adjust for subtlety */
-    background-blend-mode: multiply;
   }
   
 }

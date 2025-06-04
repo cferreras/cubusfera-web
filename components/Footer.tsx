@@ -5,8 +5,8 @@ import { FaDiscord, FaYoutube, FaXTwitter } from "react-icons/fa6";
 
 export default function Footer() {
     return (
-        <footer className="w-full relative z-10 px-4 py-12 border-t dark:border-neutral-800 border-neutral-200 dark:bg-black/40 bg-white/40">
-            <div className="container mx-auto max-w-6xl">
+        <footer className="w-full relative z-10 py-8">
+            <div className="container mx-auto max-w-screen-lg">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                     {/* Columna 1: Logo e información */}
                     <div className="flex flex-col gap-4">
@@ -15,7 +15,7 @@ export default function Footer() {
                             <CubusferaIconLight className="block h-11 w-auto dark:hidden" />
                             Cubusfera
                         </Link>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        <p className="text-sm text-neutral-600 dark:text-[#8FADCC]">
                             Servidor de Minecraft técnico en español dedicado a jugadores que disfrutan explorando las mecánicas avanzadas del juego.
                         </p>
                     </div>
@@ -23,10 +23,10 @@ export default function Footer() {
                     {/* Columna 2: Sobre Cubusfera */}
                     <div className="flex flex-col gap-4">
                         <h3 className="text-lg font-medium">Sobre Cubusfera</h3>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        <p className="text-sm text-neutral-600 dark:text-[#8FADCC]">
                             Nos especializamos en redstone, granjas eficientes, y sistemas automatizados, todo dentro de un entorno vanilla amigable y colaborativo.
                         </p>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        <p className="text-sm text-neutral-600 dark:text-[#8FADCC]">
                             Nuestra comunidad está formada por jugadores apasionados que comparten conocimientos y colaboran en proyectos.
                         </p>
                     </div>
@@ -35,22 +35,22 @@ export default function Footer() {
                     <div className="flex flex-col gap-4">
                         <h3 className="text-lg font-medium">Enlaces útiles</h3>
                         <div className="flex flex-col gap-2">
-                            <Link href="/mapa" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Mapa del servidor</Link>
-                            <Link href="/normas" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Normas</Link>
-                            <Link href="/ranking" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Ranking</Link>
-                            <Link href="/blog" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Blog</Link>
-                            <Link href="/contacto" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Contacto</Link>
-                            <a href="https://cubusfera.tebex.io/" className="text-sm text-neutral-600 dark:text-neutral-400 hover:underline">Tienda</a>
+                            <Link href="/mapa" className="text-sm text-neutral-600 dark:text-[#8FADCC] hover:underline">Mapa del servidor</Link>
+                            <Link href="/normas" className="text-sm text-neutral-600 dark:text-[#8FADCC] hover:underline">Normas</Link>
+                            <Link href="/ranking" className="text-sm text-neutral-600 dark:text-[#8FADCC] hover:underline">Ranking</Link>
+                            <Link href="/blog" className="text-sm text-neutral-600 dark:text-[#8FADCC] hover:underline">Blog</Link>
+                            <Link href="/contacto" className="text-sm text-neutral-600 dark:text-[#8FADCC] hover:underline">Contacto</Link>
+                            <a href="https://cubusfera.tebex.io/" className="text-sm text-neutral-600 dark:text-[#8FADCC] hover:underline">Tienda</a>
                         </div>
                     </div>
 
                     {/* Columna 4: Redes sociales */}
                     <div className="flex flex-col gap-4">
                         <h3 className="text-lg font-medium">Síguenos</h3>
-                        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                        <p className="text-sm text-neutral-600 dark:text-[#8FADCC]">
                             Únete a nosotros y lleva tus habilidades de Minecraft al siguiente nivel.
                         </p>
-                        <div className="flex items-center justify-evenly gap-2 p-2 dark:bg-neutral-800 bg-neutral-200 rounded-xl">
+                        <div className="flex items-center justify-evenly gap-2 p-2 dark:bg-[#172633] bg-neutral-200 rounded-xl">
                             <a href="https://discord.com/invite/7uKEYACErc" className="w-12 h-10 flex items-center justify-center dark:hover:bg-white/5 hover:bg-black/5 rounded-lg" aria-label="Discord">
                                 <FaDiscord className="w-5 h-5" />
                             </a>
@@ -67,17 +67,17 @@ export default function Footer() {
                 </div>
 
                 {/* Línea divisoria */}
-                <div className="w-full h-px bg-neutral-200 dark:bg-neutral-800/80 my-6"></div>
+                <div className="w-full h-px bg-neutral-200 dark:bg-[#304D69] my-6"></div>
 
                 {/* Pie de página */}
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <span className="text-xs dark:text-neutral-400 text-neutral-600">© 2025 Cubusfera - Servidor de Minecraft Técnico</span>
+                    <span className="text-xs dark:text-[#8FADCC] text-neutral-600">© 2025 Cubusfera - Servidor de Minecraft Técnico</span>
                     <div className="flex items-center gap-3">
-                        <a href="/legal/privacidad" className="dark:text-neutral-400 text-neutral-600 text-xs hover:underline">Privacidad</a>
-                        <span className="dark:text-neutral-400 text-neutral-600 text-sm">·</span>
-                        <a href="/legal/terminos" className="dark:text-neutral-400 text-neutral-600 text-xs hover:underline">Términos</a>
-                        <span className="dark:text-neutral-400 text-neutral-600 text-sm">·</span>
-                        <a href="/contacto" className="dark:text-neutral-400 text-neutral-600 text-xs hover:underline">Contacto</a>
+                        <a href="/legal/privacidad" className="dark:text-[#8FADCC] text-neutral-600 text-xs hover:underline">Privacidad</a>
+                        <span className="dark:text-[#8FADCC] text-neutral-600 text-sm">·</span>
+                        <a href="/legal/terminos" className="dark:text-[#8FADCC] text-neutral-600 text-xs hover:underline">Términos</a>
+                        <span className="dark:text-[#8FADCC] text-neutral-600 text-sm">·</span>
+                        <a href="/contacto" className="dark:text-[#8FADCC] text-neutral-600 text-xs hover:underline">Contacto</a>
                     </div>
                 </div>
             </div>
