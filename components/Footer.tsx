@@ -6,7 +6,7 @@ import { FaDiscord, FaYoutube, FaXTwitter } from "react-icons/fa6";
 export default function Footer() {
     return (
         <footer className="w-full relative z-10 py-8">
-            <div className="container mx-auto max-w-screen-lg">
+            <div className="container mx-auto max-w-screen-xl">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                     {/* Columna 1: Logo e información */}
                     <div className="flex flex-col gap-4">
