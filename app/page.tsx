@@ -17,7 +17,7 @@ export default function Home() {
                 {/* Features section with semantic HTML */}
                 <section className="mt-8 md:mt-12 relative" aria-labelledby="features-heading">
                     
-                    <h2 id="features-heading" className="sr-only">Características de nuestro servidor</h2>
+                    <h2 id="features-heading" className="text-xl mb-4 font-medium" >Características</h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <FeatureCard
