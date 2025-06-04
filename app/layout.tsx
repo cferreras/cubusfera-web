@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import { ReactNode } from 'react'
-import { Rubik } from "next/font/google";
-const rubik = Rubik({ subsets: ['latin'] })
+import { Space_Grotesk } from "next/font/google";
+const space = Space_Grotesk({ subsets: ['latin'] })
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster";
 import { ToastTrigger } from "@/components/ToastTrigger";
@@ -33,7 +33,7 @@ export default function GlobalLayout({ children }: { children: ReactNode }) {
                     type="image/x-icon"
                 />
             </head>
-            <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] dark:bg-[#0F1A24] bg-white ${rubik.className}`}>
+            <body className={`bg-fixed min-h-screen grid grid-rows-[auto_1fr_auto] dark:bg-[#0F1A24] bg-white ${space.className}`}>
                 <main>
                     <ThemeProvider
                         attribute="class"
