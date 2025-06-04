@@ -33,7 +33,7 @@ export default function UserMenuButton({ discordUser, discordAvatar, email, mine
             <div className="flex grow items-center">
                 <Button 
                     variant="ghost" 
-                    className="flex grow items-center justify-center gap-3"
+                    className="flex grow items-center justify-center gap-3 !rounded-xl bg-gray-100 hover:bg-gray-100 dark:bg-[#21364A] hover:saturate-150"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     {!isMobile && (
