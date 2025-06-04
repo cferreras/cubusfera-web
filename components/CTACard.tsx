@@ -1,42 +1,46 @@
-"use client";
-import { Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
-import { motion } from "framer-motion";
-import Link from "next/link";
+import Link from 'next/link';
 
-export default function CTACard() {
+interface CTACardProps {
+    title: string;
+    description: string;
+    primaryButtonText: string;
+    primaryButtonHref: string;
+    secondaryButtonText?: string;
+    secondaryButtonHref?: string;
+}
+
+export default function CTACard({
+    title,
+    description,
+    primaryButtonText,
+    primaryButtonHref,
+    secondaryButtonText,
+    secondaryButtonHref
+}: CTACardProps) {
     return (
-        <Card className="bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800/80 shadow-lg rounded-3xl overflow-hidden relative">
-            
-            <CardContent className="text-center max-w-4xl mx-auto space-y-8 p-8 md:p-12 lg:p-16">
-                <motion.div 
-                    className="space-y-6"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, ease: "linear" }}
-                    viewport={{ once: true }}
-                >
-                    <CardTitle className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-br from-neutral-950 to-neutral-500 dark:from-white dark:to-neutral-400 bg-clip-text text-transparent">
-                        ¿Estás listo para unirte?
-                    </CardTitle>
-                    <CardDescription className="text-lg md:text-xl dark:text-neutral-300 text-neutral-700 max-w-2xl mx-auto">
-                        Únete a nuestra comunidad y comienza tu aventura en Cubusfera
-                    </CardDescription>
-                    <motion.div 
-                        className="flex justify-center gap-4 pt-4"
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2, ease: "linear" }}
-                        viewport={{ once: true }}
+        <div className="w-full bg-white dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 rounded-xl p-8 md:p-10 shadow-sm">
+            <div className="flex flex-col items-center text-center">
+                <h2 className="text-2xl md:text-3xl font-bold mb-4">{title}</h2>
+                <p className="text-neutral-600 dark:text-neutral-400 mb-8 max-w-2xl">{description}</p>
+                
+                <div className="flex flex-wrap gap-4 justify-center">
+                    <Link 
+                        href={primaryButtonHref} 
+                        className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium transition-colors hover:bg-primary/90"
                     >
+                        {primaryButtonText}
+                    </Link>
+                    
+                    {secondaryButtonText && secondaryButtonHref && (
                         <Link 
-                            href="/formulario" 
-                            className="px-8 py-4 bg-primary text-primary-foreground rounded-full font-medium transition-all duration-300 hover:bg-primary/90 hover:shadow-md hover:scale-105 active:scale-100"
+                            href={secondaryButtonHref} 
+                            className="px-6 py-3 bg-secondary text-secondary-foreground rounded-lg font-medium transition-colors hover:bg-secondary/90"
                         >
-                            Empezar ahora
+                            {secondaryButtonText}
                         </Link>
-                    </motion.div>
-                </motion.div>
-            </CardContent>
-        </Card>
+                    )}
+                </div>
+            </div>
+        </div>
     );
 }

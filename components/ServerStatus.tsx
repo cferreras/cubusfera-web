@@ -1,124 +1,62 @@
-"use client"
-import { useEffect, useState } from "react";
-import { FaEarthAfrica, FaUserGroup } from "react-icons/fa6";
-import { motion } from "framer-motion";
-
-interface ServerStatus {
-    online: boolean;
-    players: {
-        online: string;
-        list?: string[];
-    };
-}
+"use client";
+import { useServerStatus } from '@/hooks/useServerStatus';
+import { Copy } from 'lucide-react';
+import { useState } from 'react';
 
 export default function ServerStatus() {
-    const [serverStatus, setServerStatus] = useState<ServerStatus>({ online: false, players: { online: "?" } });
-    const [isLoading, setIsLoading] = useState(true);
-    
-    useEffect(() => {
-        const fetchServerStatus = async () => {
-            try {
-                setIsLoading(true);
-                const response = await fetch('https://api.mcsrvstat.us/2/cubusfera.com');
-                const data = await response.json();
-                setServerStatus({
-                    online: data.online,
-                    players: {
-                        online: data.players?.online ?? "0",
-                        list: data.players?.list ?? []
-                    }
-                });
-            } catch (error) {
-                console.error('Error fetching server status:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        fetchServerStatus();
-    }, []);
+    const serverStatus = useServerStatus();
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyIP = () => {
+        navigator.clipboard.writeText('cubusfera.com');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     return (
-        <div className="hidden md:flex items-center text-sm space-x-4">
-        <motion.div 
-            className=" py-2 text-sm text-balance sm:text-nowrap flex items-center"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-        >
-            <motion.span
-                animate={{ rotate: [0, 10, 0, -10, 0] }}
-                transition={{ 
-                    repeat: Infinity,
-                    duration: 5,
-                    repeatType: "loop",
-                    ease: "easeInOut",
-                    repeatDelay: 2
-                }}
-            >
-                <FaEarthAfrica className='h-4 w-4 mr-1.5'/>
-            </motion.span>
-            <div>
-                IP del servidor:{" "}
-                <motion.span 
-                    className="underline cursor-pointer text-neutral-700 dark:text-neutral-300"
-                    whileHover={{ scale: 1.05, color: "#6366f1" }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => {
-                        navigator.clipboard.writeText("cubusfera.com");
-                    }}
-                >
-                    cubusfera.com
-                </motion.span>
-            </div>
-        </motion.div>
-        <motion.div 
-            className='py-2 text-sm text-balance sm:text-nowrap flex items-center'
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-        >
-            <motion.span
-                animate={{ 
-                    scale: [1, 1.2, 1],
-                    opacity: serverStatus.online ? 1 : 0.5
-                }}
-                transition={{ 
-                    repeat: Infinity, 
-                    duration: 2,
-                    repeatType: "loop"
-                }}
-            >
-                <FaUserGroup className={`h-4 w-4 mr-1 ${serverStatus.online ? 'text-green-400' : 'text-red-400'}`}/>
-            </motion.span>
+        <div className="w-full max-w-md mx-auto bg-white dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700 rounded-xl p-6 shadow-sm">
+            <h2 className="text-xl font-semibold mb-4">Estado del servidor</h2>
             
-            {isLoading ? (
-                <motion.span
-                    animate={{ opacity: [0.5, 1, 0.5] }}
-                    transition={{ repeat: Infinity, duration: 1.5 }}
-                    className='mr-2 text-sm'
-                >
-                    Cargando...
-                </motion.span>
-            ) : (
-                <>
-                    <motion.span 
-                        className='mr-2 text-sm'
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.3 }}
-                    >
-                        {serverStatus.players.online}
-                    </motion.span>
-                    <motion.span
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                    >
-                        jugadores en línea
-                    </motion.span>
-                </>
+            <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                    <span className="text-neutral-600 dark:text-neutral-400">Estado:</span>
+                    <div className="flex items-center gap-2">
+                        <div className={`h-2 w-2 rounded-full ${serverStatus?.online ? 'bg-green-500' : 'bg-red-500'} animate-pulse`} />
+                        <span className="font-medium">
+                            {serverStatus?.online ? 'Online' : 'Offline'}
+                        </span>
+                    </div>
+                </div>
+                
+                <div className="flex items-center justify-between">
+                    <span className="text-neutral-600 dark:text-neutral-400">Jugadores:</span>
+                    <span className="font-medium">
+                        {serverStatus?.players.online ?? '...'} / {serverStatus?.players.max ?? '...'}
+                    </span>
+                </div>
+                
+                <div className="flex items-center justify-between">
+                    <span className="text-neutral-600 dark:text-neutral-400">IP del servidor:</span>
+                    <div className="flex items-center gap-2">
+                        <code className="font-mono bg-neutral-100 dark:bg-neutral-700 px-2 py-1 rounded text-sm">
+                            cubusfera.com
+                        </code>
+                        <button 
+                            onClick={handleCopyIP}
+                            className="p-1 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-md transition-colors"
+                            aria-label="Copiar IP del servidor"
+                        >
+                            <Copy size={16} />
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            {copied && (
+                <div className="mt-4 text-center text-sm text-green-600 dark:text-green-400">
+                    ¡IP copiada al portapapeles!
+                </div>
             )}
-        </motion.div>
         </div>
-    )
+    );
 }

@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
@@ -31,21 +30,11 @@ export default function AuthErrorPage() {
 
     return (
         <div className="min-h-screen flex items-center justify-center px-4">
-            <motion.div 
-                className="max-w-md w-full space-y-8 text-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-            >
+            <div className="max-w-md w-full space-y-8 text-center">
                 <div>
-                    <motion.div
-                        initial={{ scale: 0.5 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                        className="flex justify-center mb-6"
-                    >
+                    <div className="flex justify-center mb-6">
                         <XCircle className="w-16 h-16 text-red-500" />
-                    </motion.div>
+                    </div>
                     <h2 className="text-3xl font-bold text-neutral-900 dark:text-white">
                         Error de autenticación
                     </h2>
@@ -67,7 +56,7 @@ export default function AuthErrorPage() {
                         Volver al inicio
                     </Link>
                 </div>
-            </motion.div>
+            </div>
         </div>
     );
 }

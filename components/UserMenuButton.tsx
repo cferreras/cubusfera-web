@@ -29,11 +29,11 @@ export default function UserMenuButton({ discordUser, discordAvatar, email, mine
     }, [])
 
     return (
-        <div ref={dropdownRef} className="h-12 items-center gap-4 border dark:border-neutral-700 backdrop-blur-sm hover:bg-white/5 rounded-xl z-[1]">
-            <div className="h-full flex grow items-center">
+        <div ref={dropdownRef} className=" items-center gap-4 backdrop-blur-sm hover:bg-white/5 rounded-xl z-[1]">
+            <div className="flex grow items-center">
                 <Button 
                     variant="ghost" 
-                    className="min-w-20 flex grow items-center justify-center gap-3 px-4 h-full"
+                    className="flex grow items-center justify-center gap-3"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     {!isMobile && (
@@ -48,8 +48,8 @@ export default function UserMenuButton({ discordUser, discordAvatar, email, mine
                             </AvatarFallback>
                         </Avatar>
                     )}
-                    {!isOpen ? <HamburgerMenuIcon className="w-4 h-4 items-center justify-center" /> :
-                    <Cross1Icon className="w-4 h-4 items-center justify-center" />}
+                    {!isOpen ? <HamburgerMenuIcon className=" items-center justify-center" /> :
+                    <Cross1Icon className=" items-center justify-center" />}
                 </Button>
                 <UserDropdownMenu 
                     discordUser={discordUser}

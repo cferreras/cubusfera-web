@@ -37,11 +37,10 @@ export default async function LoginProfileButton() {
                     <Button 
                         variant="outline" 
                         asChild 
-                        className="hidden md:flex rounded-xl border-neutral-200 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900"
+                        className="hidden md:flex rounded-lg bg-blue-500 hover:text-white border-none text-white dark:text-white hover:bg-blue-600"
                     >
                         <Link href="/login" className="flex items-center gap-x-2">
-                            <LogInIcon className="h-4 w-4 text-neutral-600 dark:text-neutral-400"/>
-                            <span className="text-neutral-900 dark:text-neutral-100">Iniciar sesión</span>
+                            <span>Iniciar Sesión</span>
                         </Link>
                     </Button>
                     <div className="md:hidden">

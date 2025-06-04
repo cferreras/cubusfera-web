@@ -14,7 +14,7 @@ export default function NavbarMenu() {
         { href: "/", icon: <HomeIcon className="h-4 w-4" />, label: "Inicio" },
         { href: "/mapa", icon: <MapIcon className="h-4 w-4" />, label: "Mapa" },
         { href: "/blog", icon: <NotebookIcon className="h-4 w-4" />, label: "Blog" },
-        { href: "/normas", icon: <ScaleIcon className="h-4 w-4" />, label: "Normas" },
+        { href: "/normas", icon: <ScaleIcon className="h-4 w-4" />, label: "Reglas" },
         { href: "/miembros", icon: <UsersIcon className="h-4 w-4" />, label: "Miembros" },
         { href: "/ranking", icon: <Trophy className="h-4 w-4" />, label: "Ranking" },
         { href: "https://cubusfera.tebex.io/", icon: <ShoppingCartIcon className="h-4 w-4" />, label: "Tienda" }
@@ -28,16 +28,16 @@ export default function NavbarMenu() {
                     <Button 
                         key={item.href}
                         asChild 
-                        variant={isActive(item.href) ? "default" : "ghost"}
+                        variant="ghost"
                         className={cn(
                             "transition-all duration-200",
-                            isActive(item.href) 
-                                ? "bg-neutral-100 text-neutral-700 hover:bg-neutral-200 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-800/60" 
-                                : "hover:bg-neutral-100 dark:hover:bg-neutral-800/60"
+                            isActive(item.href)             
+                                ? "" 
+                                : ""
                         )}
                     >
                         <Link href={item.href} className="flex items-center gap-x-1.5">
-                            {item.icon} {item.label}
+                            {item.href === "https://cubusfera.tebex.io/" ? item.icon : null} {item.label}
                         </Link>
                     </Button>
                 ))}

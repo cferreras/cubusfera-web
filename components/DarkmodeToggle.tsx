@@ -3,6 +3,8 @@
 import * as React from "react"
 import { ComputerIcon, MoonIcon, SunIcon } from "lucide-react"
 import { useTheme } from "next-themes"
+import Image from "next/image"
+import { Button } from "./ui/button"
 
 export default function DarkmodeToggle() {
     const { theme, setTheme } = useTheme()
@@ -33,13 +35,15 @@ export default function DarkmodeToggle() {
     }
 
     return (
-        <button onClick={() => cycleTheme()} className="flex h-12 items-center border hover:bg-black/5 dark:hover:bg-white/10 dark:border-neutral-700 backdrop-blur-sm rounded-xl z-[1] w-12">
+        <Button onClick={() => cycleTheme()} className="aspect-square items-center border-none dark:bg-white/15 bg-black/10 hover:bg-black/15 dark:hover:bg-white/20  rounded-lg z-[1] backdrop-blur-md">
             <div className="relative w-[1rem] h-[1rem] mx-auto">
-                {theme === 'dark' && <MoonIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
+                {theme === 'dark' && (
+                    <MoonIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />
+                )}
                 {theme === 'light' && <SunIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
                 {theme === 'system' && <ComputerIcon className="w-4 h-4 flex items-center justify-center text-sm dark:text-neutral-300 text-neutral-700" />}
             </div>
             <span className="sr-only">Cambiar tema</span>
-        </button>
+        </Button>
     )
 }
