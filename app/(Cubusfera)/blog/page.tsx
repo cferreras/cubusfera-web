@@ -124,7 +124,7 @@ function BlogContent() {
                             href={`/blog/${post?.slug}`}
                             key={post?.slug}
                         >
-                            <article className="group relative overflow-hidden rounded-3xl bg-card border p-8 dark:hover:bg-neutral-800 hover:bg-neutral-200 transition-colors">
+                            <article className="group relative overflow-hidden rounded-3xl bg-card border p-8 dark:hover:bg-gray-800 hover:bg-gray-200 transition-colors">
                                 <div className="relative z-10 flex h-full flex-col">
                                     <div className="flex-1">
                                         <div className="flex justify-between items-start mb-3">
@@ -135,11 +135,11 @@ function BlogContent() {
                                                 </Badge>
                                             )}
                                         </div>
-                                        <p className="dark:text-neutral-400 text-neutral-600 mb-4 line-clamp-3">
+                                        <p className="dark:text-gray-400 text-gray-600 mb-4 line-clamp-3">
                                             {post?.description}
                                         </p>
                                     </div>
-                                    <time dateTime={post?.publishedAt} className="text-sm text-neutral-500">
+                                    <time dateTime={post?.publishedAt} className="text-sm text-gray-500">
                                         {format(new Date(post?.publishedAt), 'MMM d, yyyy', { locale: es })}
                                     </time>
                                 </div>
@@ -199,7 +199,7 @@ function BlogContent() {
             )}
             
             {/* SEO-friendly content section */}
-            <section className="mt-16 border-t pt-8 dark:border-neutral-800 border-neutral-200">
+            <section className="mt-16 border-t pt-8 dark:border-gray-800 border-gray-200">
                 <h2 className="text-2xl font-semibold mb-4">Sobre nuestro blog de Minecraft Técnico</h2>
                 <div className="prose dark:prose-invert max-w-none">
                     <p>

@@ -135,7 +135,7 @@ export default async function Post({ params }: Props) {
                     </article>
                     
                     {/* Comments section */}
-                    <div className="mt-16 p-8 bg-white dark:bg-neutral-900 border rounded-xl border-neutral-200 dark:border-neutral-800 ">
+                    <div className="mt-16 p-8 bg-white dark:bg-transparent border rounded-xl border-gray-200 dark:border-gray-800 ">
                         <h2 className="text-xl font-semibold mb-6">Comentarios</h2>
                         <Comentarios 
                           postSlug={slug} 

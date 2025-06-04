@@ -211,7 +211,7 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
                                 placeholder="Escribe un comentario..."
                                 value={newComment}
                                 onChange={(e) => setNewComment(e.target.value)}
-                                className="min-h-[100px] resize-none rounded-xl transition-all bg-neutral-50 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700 focus:ring-2 focus:ring-neutral-200 dark:focus:ring-neutral-700 placeholder:text-neutral-500 dark:placeholder:text-neutral-400"
+                                className="min-h-[100px] resize-none rounded-xl transition-all bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-700 placeholder:text-gray-500 dark:placeholder:text-gray-400"
                             />
                             <Button
                                 onClick={handleSubmitComment}
@@ -222,7 +222,7 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
                         </div>
                     </div>
                 ) : (
-                    <p className="text-center text-neutral-600 dark:text-neutral-400">
+                    <p className="text-center text-gray-600 dark:text-gray-400">
                         Debes iniciar sesión para comentar
                     </p>
                 )}
@@ -252,7 +252,7 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
                                                 {new Date(comment.created_at).toLocaleDateString()} {new Date(comment.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                             </time>
                                         </div>
-                                        <div className="mt-1 text-neutral-700 dark:text-neutral-300">
+                                        <div className="mt-1 text-gray-700 dark:text-gray-300">
                                             {comment.content}
                                         </div></div>
                                     {currentUser?.id === comment.user_id && (
@@ -260,7 +260,7 @@ export default function Comentarios({ profileId, postSlug, currentUser }: Commen
                                             variant="ghost"
                                             size="icon"
                                             onClick={() => handleDeleteComment(comment.id, comment.user_id)}
-                                            className="h-8 w-8 text-neutral-500 hover:text-red-500"
+                                            className="h-8 w-8 text-gray-500 hover:text-red-500"
                                         >
                                             <Trash2 className="h-4 w-4" />
                                         </Button>

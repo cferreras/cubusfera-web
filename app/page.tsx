@@ -10,7 +10,7 @@ import FAQAccordion from "@/components/FAQAccordion";
 
 export default function Home() {
     return (
-        <Container className="py-8 md:py-12 relative !max-w-screen-lg">
+        <Container className="py-8 md:py-12 relative">
             {/* TheHeader now contains all header content with a single h1 */}
             <TheHeader />
 
@@ -48,11 +48,11 @@ export default function Home() {
                     </div>
                     <div className="bg-white dark:bg-[#21364A] border border-[#E5E7EB] dark:border-[#304D69] p-6 rounded-lg space-y-2">
                         <p className="text-[#4B5563] dark:text-white">Proyectos técnicos</p>
-                        <div className="text-2xl font-medium mb-2 text-[#4B5563] dark:bg-gradient-to-br dark:from-white dark:to-neutral-400 dark:bg-clip-text dark:text-transparent">50+</div>
+                        <div className="text-2xl font-medium">50+</div>
                     </div>
                     <div className="bg-white dark:bg-[#21364A] border border-[#E5E7EB] dark:border-[#304D69] p-6 rounded-lg space-y-2">
                         <p className="text-[#4B5563] dark:text-white">Servidor disponible</p>
-                        <div className="text-2xl font-medium mb-2 text-[#4B5563] dark:bg-gradient-to-br dark:from-white dark:to-neutral-400 dark:bg-clip-text dark:text-transparent">24/7</div>
+                        <div className="text-2xl font-medium">24/7</div>
                     </div>
                 </div>
             </section>
