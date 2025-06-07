@@ -65,7 +65,7 @@ export default function MemberList({
                     <PaginationContent>
                         {currentPage > 1 && (
                             <PaginationItem>
-                                <PaginationPrevious href={`/miembros?page=${currentPage - 1}`} />
+                                <PaginationPrevious  href={`/miembros?page=${currentPage - 1}`} />
                             </PaginationItem>
                         )}
 
@@ -77,7 +77,7 @@ export default function MemberList({
                             ) {
                                 return (
                                     <PaginationItem key={page}>
-                                        <PaginationLink
+                                        <PaginationLink className={page === currentPage ? "dark:bg-gray-900 dark:border-gray-700 dark:hover:bg-black" : "dark:hover:bg-black"}
                                             href={`/miembros?page=${page}`}
                                             isActive={page === currentPage}
                                         >
@@ -103,7 +103,7 @@ export default function MemberList({
 
                         {currentPage < totalPages && (
                             <PaginationItem>
-                                <PaginationNext href={`/miembros?page=${currentPage + 1}`} />
+                                <PaginationNext className="dark:hover:bg-black" href={`/miembros?page=${currentPage + 1}`} />
                             </PaginationItem>
                         )}
                     </PaginationContent>

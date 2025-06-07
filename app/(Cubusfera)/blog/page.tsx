@@ -124,7 +124,7 @@ function BlogContent() {
                             href={`/blog/${post?.slug}`}
                             key={post?.slug}
                         >
-                            <article className="group relative overflow-hidden rounded-3xl bg-card border p-8 dark:hover:bg-gray-800 hover:bg-gray-200 transition-colors">
+                            <article className="group relative overflow-hidden rounded-3xl bg-white dark:bg-[#21364A] border border-[#E5E7EB] dark:border-[#304D69] p-8 hover:bg-gray-100 dark:hover:bg-[#2b4057] transition-colors">
                                 <div className="relative z-10 flex h-full flex-col">
                                     <div className="flex-1">
                                         <div className="flex justify-between items-start mb-3">

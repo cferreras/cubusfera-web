@@ -20,7 +20,7 @@ export interface Member {
 export default function MemberDisplay({ member, isOnline }: { member: Member, isOnline: boolean }) {
     // Function to get theme classes based on VIP theme
     const getThemeClasses = () => {
-        if (!member.is_vip) return "";
+        if (!member.is_vip) return "bg-white dark:bg-[#21364A] border border-[#E5E7EB] dark:border-[#304D69]";
         
         switch (member.vip_theme) {
             case 'theme-gold':
@@ -34,7 +34,7 @@ export default function MemberDisplay({ member, isOnline }: { member: Member, is
             case 'theme-amethyst':
                 return "!bg-purple-50 dark:!bg-purple-400/30 !border-purple-300 dark:!border-purple-400";
             default:
-                return "";
+                return "bg-white dark:bg-[#21364A] border border-[#E5E7EB] dark:border-[#304D69]";
         }
     };
 
@@ -60,7 +60,7 @@ export default function MemberDisplay({ member, isOnline }: { member: Member, is
     
     return (
         <Link href={`/perfil/${member.displayName}`}>
-            <Card className={`rounded-3xl transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-900 ${getThemeClasses()}`}>
+            <Card className={`rounded-3xl transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-105 ${getThemeClasses()}`}>
                 <CardContent className="flex items-center justify-between p-6">
                     <div className="flex items-center gap-4">
                         <div className="relative">
