@@ -69,3 +69,16 @@
   }
   
 }
+
+.prose code::before,
+.prose code::after {
+  content: "";
+}
+
+.prose code {
+  @apply bg-neutral-100 dark:bg-gray-800 px-1 py-0.5 rounded-md font-mono text-sm;
+  /* Opcional: si quieres quitar los backticks visualmente pero mantenerlos para copiar/pegar */
+  /* letter-spacing: -0.1em; */ /* Ajusta este valor si es necesario */
+  /* padding-left: 0.4em; */ /* Ajusta para compensar el letter-spacing */
+  /* padding-right: 0.4em; */ /* Ajusta para compensar el letter-spacing */
+}
