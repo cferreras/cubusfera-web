@@ -24,7 +24,7 @@ Gracias a los últimos cambios en nuestro proxy, **ya puedes conectarte a Cubusf
 
 ### 🔗 ¿Cómo sincronizo mi cuenta Bedrock y Java?
 
-1. Ve a [link.geysermc.org](https://link.geysermc.org)
+1. Ve a [link.geysermc.org](https://link.geysermc.org/method/server)
 2. Conéctate **al mismo tiempo** al servidor desde Java y Bedrock
 3. El sitio te dará un **código numérico**
 4. Escribe ese código en el chat del servidor con el comando que te indique
