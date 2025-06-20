@@ -1,7 +1,6 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
 import OnlineStatus from "./OnlineStatus";
-import PremiumBadge from "./PremiumBadge";
 import VipBadge from "./VipBadge";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -87,7 +86,6 @@ export default function MemberDisplay({ member, isOnline }: { member: Member, is
                         </div>
                     </div>
                     <div className="flex items-center gap-2">
-                        {member.isPremium && <PremiumBadge />}
                         {member.is_vip && (
                             <div onClick={(e) => e.preventDefault()}>
                                 <VipBadge size="md" />

@@ -1,15 +1,15 @@
 "use client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Clock, ShieldCheckIcon, PickaxeIcon } from "lucide-react";
+import { Users, Clock, FileText, PickaxeIcon } from "lucide-react";
 
 interface ServerStatsProps {
     totalPlayers: number;
     totalPlaytime: string;
-    totalBlocksMined: string;  // Changed from totalAchievements
-    premiumPlayers: number;
+    totalBlocksMined: string;
+    totalForms: string; // Cambiar de premiumPlayers a totalForms
 }
 
-export default function ServerStats({ totalPlayers, totalPlaytime, totalBlocksMined, premiumPlayers }: ServerStatsProps) {
+export default function ServerStats({ totalPlayers, totalPlaytime, totalBlocksMined, totalForms }: ServerStatsProps) {
     return (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <Card className="rounded-3xl bg-white dark:bg-[#21364A] border border-[#E5E7EB] dark:border-[#304D69]">
@@ -41,11 +41,11 @@ export default function ServerStats({ totalPlayers, totalPlaytime, totalBlocksMi
             </Card>
             <Card className="rounded-3xl bg-white dark:bg-[#21364A] border border-[#E5E7EB] dark:border-[#304D69]">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Cuentas Premium</CardTitle>
-                    <ShieldCheckIcon className="h-4 w-4 text-muted-foreground" />
+                    <CardTitle className="text-sm font-medium">Formularios Enviados</CardTitle>
+                    <FileText className="h-4 w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
-                    <div className="text-2xl font-bold">{premiumPlayers}</div>
+                    <div className="text-2xl font-bold">{totalForms}</div>
                 </CardContent>
             </Card>
         </div>

@@ -23,26 +23,21 @@ export default function Rules() {
         },
         {
             "id": 5,
-            "title": "Respeta el espacio de los demás y el entorno",
-            "body": "Antes de construir algo asegúrate de alejarte lo suficiente de los terrenos de otros jugadores y el spawn, así mismo no modifiques el terreno de formas extremas que puedan resultar chocantes. Tampoco construyas o crees granjas que puedan mermar el rendimiento del servidor."
+            "title": "Sigue la planificación del servidor",
+            "body": "Todas las construcciones deben seguir la planificación establecida del servidor. No puedes construir libremente donde quieras. Debes colaborar en proyectos comunes y seguir las directrices de construcción.\n\nLas bases individuales están completamente prohibidas. Todo debe ser parte de la planificación comunitaria del servidor."
         },
         {
             "id": 6,
-            "title": "Respeta la propiedad de otros jugadores",
-            "body": "No robes de cofres de otros jugadores. Aunque un cofre esté desprotegido, no significa que puedas tomar su contenido sin permiso. Tampoco abuses cogiendo cosas de cofres de las granjas comunitarias."
+            "title": "Comunica y repara los daños",
+            "body": "Si rompes algo accidentalmente, debes avisar inmediatamente y repararlo. No dejes estructuras dañadas sin comunicarlo.\n\nSi no puedes reparar el daño tú mismo, informa a los moderadores para que puedan solucionarlo."
         },
         {
             "id": 7,
-            "title": "PvP consentido y justo",
-            "body": "No realices PvP a menos que ambos jugadores tengan /pvp activado. En cualquier caso, está prohibido intentar robar los drops de los jugadores mediante bugs o exploits durante el combate."
+            "title": "Prohibido duplicar items renovables",
+            "body": "Está completamente prohibido duplicar items que son renovables por medios legítimos en el juego. Esto incluye cualquier método de duplicación mediante bugs, exploits o mecánicas no intencionadas.\n\nSi un item se puede obtener de forma renovable (granjas, generadores naturales, etc.), no debe ser duplicado artificialmente."
         },
         {
             "id": 8,
-            "title": "Juega en comunidad",
-            "body": "Todos jugamos por un bien común, y es necesario apoyarnos para poder conseguirlo. No explotes ítems de alto valor perjudicando su obtención a los demás, ni te adueñes de ellos. Las ventas o intercambios están prohibidos, si puedes colaborar, plantéate hacerlo, es un servidor comunitario."
-        },
-        {
-            "id": 9,
             "title": "Practica el sentido común",
             "body": "Por favor, intenta mantener la comunidad sana, no podemos (y no deberíamos) explicar todo punto por punto."
         }

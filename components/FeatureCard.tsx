@@ -11,7 +11,7 @@ export default function FeatureCard({ title, description, icon }: FeatureCardPro
     return (
         <div className="flex flex-col items-start p-6 bg-white dark:bg-[#172633] border border-[#E5E7EB] dark:border-[#304D69] rounded-lg">
             <div className="mb-4 invert dark:invert-0">
-                <Image className='w-6 h-6'
+                <Image className='w-6 h-6 select-none'
                     src={icon as string}
                     width={24}
                     height={24}

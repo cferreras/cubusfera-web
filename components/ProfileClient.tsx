@@ -221,7 +221,6 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
                             <h1 className="text-2xl font-semibold flex items-center gap-2">
                                 {minecraftUsername || ""}
                                 <div className="flex items-center gap-1">
-                                    {isAdmin && <PremiumBadge />}
                                     {initialData.is_vip && <VipBadge />}
                                 </div>
                             </h1>

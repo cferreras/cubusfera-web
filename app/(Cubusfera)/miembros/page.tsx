@@ -95,7 +95,6 @@ export default async function Miembros({
 
             <ServerStatsSection 
                 totalPlayers={totalPlayers}
-                premiumPlayers={premiumPlayers}
             />
 
             <MemberList members={adminMembers} title="Administradores" showPagination={false} />

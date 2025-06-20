@@ -5,12 +5,14 @@ import ServerStats from "@/components/ServerStats";
 interface ServerStatsData {
     totalPlaytime: string;
     totalBlocksMined: string;
+    totalForms: string;
 }
 
-export default function ServerStatsSection({ totalPlayers, premiumPlayers }: { totalPlayers: number, premiumPlayers: number }) {
+export default function ServerStatsSection({ totalPlayers }: { totalPlayers: number }) {
     const [statsData, setStatsData] = useState<ServerStatsData>({
         totalPlaytime: "...",
-        totalBlocksMined: "..."
+        totalBlocksMined: "...",
+        totalForms: "..."
     });
     const [isLoading, setIsLoading] = useState(true);
 
@@ -38,7 +40,7 @@ export default function ServerStatsSection({ totalPlayers, premiumPlayers }: { t
                     totalPlayers={totalPlayers}
                     totalPlaytime="..."
                     totalBlocksMined="..."
-                    premiumPlayers={premiumPlayers}
+                    totalForms="..."
                 />
             </div>
         );
@@ -51,7 +53,7 @@ export default function ServerStatsSection({ totalPlayers, premiumPlayers }: { t
                 totalPlayers={totalPlayers}
                 totalPlaytime={statsData.totalPlaytime}
                 totalBlocksMined={statsData.totalBlocksMined}
-                premiumPlayers={premiumPlayers}
+                totalForms={statsData.totalForms}
             />
         </div>
     );

@@ -36,16 +36,16 @@ interface FAQAccordionProps {
 
 export default function FAQAccordion({ items }: FAQAccordionProps) {
   return (
-    <div className="">
-      <Accordion 
-        type="single" 
-        collapsible 
-        className="space-y-4 divide-none md:space-y-6"
-        defaultValue={items.length > 0 ? items[0].id : undefined}
-      >
-        {items.map((item) => (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+      {items.map((item, index) => (
+        <Accordion 
+          key={item.id}
+          type="single" 
+          collapsible 
+          className="space-y-0"
+          defaultValue={index === 0 ? item.id : undefined}
+        >
           <AccordionItem
-            key={item.id}
             value={item.id}
             className={cn(
               "rounded-lg border-[#D4DBE3] dark:border-[#304D69] border p-4",
@@ -59,8 +59,8 @@ export default function FAQAccordion({ items }: FAQAccordionProps) {
               {item.answer}
             </AccordionContent>
           </AccordionItem>
-        ))}
-      </Accordion>
+        </Accordion>
+      ))}
     </div>
   );
 }

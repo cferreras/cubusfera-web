@@ -26,12 +26,13 @@ export default function Home() {
                     />
                     <FeatureCard
                         title="Vanilla"
-                        description="Jugabilidad pura de Minecraft sin modificaciones que alteren la experiencia original."
+                        description="Jugabilidad pura de Minecraft sin modificaciones que alteren la experiencia original.
+"
                         icon="/images/feature-icon-2.svg"
                     />
                     <FeatureCard
                         title="Seguro"
-                        description="Protección contra griefing y un entorno seguro para todos los jugadores."
+                        description="Backups automáticos y logs detallados para máxima seguridad."
                         icon="/images/feature-icon-3.svg"
                     />
                 </div>
@@ -39,16 +40,16 @@ export default function Home() {
 
             {/* Community section - New addition */}
             <section className="mt-8" aria-labelledby="community-heading">
-                <h2 id="community-heading" className="text-2xl mb-4 font-medium">Comunidad activa</h2>
+                <h2 id="community-heading" className="text-2xl mb-4 font-medium">Números que importan</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
                     <div className="bg-white dark:bg-[#21364A] border border-[#E5E7EB] dark:border-[#304D69] p-6 rounded-lg space-y-2">
-                        <p className="text-[#4B5563] dark:text-white">Jugadores activos</p>
+                        <p className="text-[#4B5563] dark:text-white">Miembros en Discord</p>
                         <div className="text-2xl font-medium">100+</div>
                     </div>
                     <div className="bg-white dark:bg-[#21364A] border border-[#E5E7EB] dark:border-[#304D69] p-6 rounded-lg space-y-2">
-                        <p className="text-[#4B5563] dark:text-white">Proyectos técnicos</p>
-                        <div className="text-2xl font-medium">50+</div>
+                        <p className="text-[#4B5563] dark:text-white">Buen rendimiento</p>
+                        <div className="text-2xl font-medium">20 TPS</div>
                     </div>
                     <div className="bg-white dark:bg-[#21364A] border border-[#E5E7EB] dark:border-[#304D69] p-6 rounded-lg space-y-2">
                         <p className="text-[#4B5563] dark:text-white">Servidor disponible</p>
@@ -73,8 +74,10 @@ export default function Home() {
                             question: "¿Cómo puedo unirme al servidor?",
                             answer: (
                                 <>
-                                    Para unirte a Cubusfera, necesitas completar nuestro <Link href="/formulario" className="underline">formulario de solicitud</Link> y ser aceptado por nuestro equipo.
-                                    Visita la <Link href="/formulario" className="underline">sección de Unirse</Link> para más detalles.
+                                    Para unirte a Cubusfera, necesitas completar nuestro <Link href="/formulario" className="underline">formulario de solicitud</Link> y 
+                                    unirte a nuestro <Link href="https://discord.com/invite/7uKEYACErc" className="underline">servidor de Discord</Link>. 
+                                    Una vez enviado el formulario, es muy probable que necesites realizar una entrevista por Discord con nuestro equipo 
+                                    para evaluar tu solicitud.
                                 </>
                             )
                         },
@@ -84,27 +87,47 @@ export default function Home() {
                             answer: (
                                 <>
                                     Actualmente el servidor funciona en la versión Java {MINECRAFT_VERSION}. Recomendamos usar la versión más reciente para
-                                    disfrutar de todas las características.
+                                    disfrutar de todas las características técnicas.
                                 </>
                             )
                         },
                         {
                             id: "item-3",
-                            question: "¿Qué tipo de proyectos puedo construir?",
+                            question: "¿Puedo construir mi propia base?",
                             answer: (
                                 <>
-                                    En Cubusfera puedes construir todo tipo de proyectos técnicos, desde granjas eficientes hasta
-                                    complejos sistemas de redstone. Fomentamos la creatividad y la colaboración entre jugadores.
+                                    No, las bases individuales están prohibidas en Cubusfera. Todas las construcciones deben seguir la planificación establecida del servidor
+                                    y formar parte de proyectos comunitarios. Debes colaborar en los proyectos técnicos existentes.
                                 </>
                             )
                         },
                         {
                             id: "item-4",
+                            question: "¿Qué pasa si rompo algo accidentalmente?",
+                            answer: (
+                                <>
+                                    Si rompes algo accidentalmente, debes avisar inmediatamente y repararlo. No dejes estructuras dañadas sin comunicarlo.
+                                    Si no puedes reparar el daño tú mismo, informa a los moderadores para que puedan solucionarlo.
+                                </>
+                            )
+                        },
+                        {
+                            id: "item-5",
+                            question: "¿Puedo duplicar items renovables?",
+                            answer: (
+                                <>
+                                    No, está completamente prohibido duplicar items que son renovables por medios legítimos en el juego.
+                                    Si un item se puede obtener de forma renovable (granjas, generadores naturales, etc.), no debe ser duplicado artificialmente.
+                                </>
+                            )
+                        },
+                        {
+                            id: "item-6",
                             question: "¿Es obligatorio unirse al servidor de Discord?",
                             answer: (
                                 <>
                                     Sí, es necesario unirse a nuestro servidor de Discord para formar parte de Cubusfera. Discord es nuestra principal vía de comunicación,
-                                    donde compartimos anuncios importantes, coordinamos proyectos y creamos una comunidad activa.
+                                    donde compartimos anuncios importantes, coordinamos proyectos técnicos y creamos una comunidad activa.
                                     Puedes unirte a través de <Link href="https://discord.com/invite/7uKEYACErc" className="underline">este enlace</Link>.
                                 </>
                             )
