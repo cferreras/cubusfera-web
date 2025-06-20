@@ -17,12 +17,14 @@ import { createClient } from '@/utils/supabase/client';
 type Question = {
     title: string;
     subtitle: string;
-    type: 'text' | 'radio' | 'textarea' | 'slider' | 'checkbox';
+    type: 'text' | 'radio' | 'textarea' | 'slider' | 'checkbox' | 'input';
     options?: string[];
     min?: number;
     max?: number;
     checkboxes?: string[];
     requireAll?: boolean;
+    placeholder?: string;
+    required?: boolean;
     apiRef: string;
 };
 
@@ -258,6 +260,20 @@ export default function Form(props: { questions: Question[] }) {
                     </div>
 
                     {/* Input types remain the same, just updating their styling classes */}
+                    {props.questions[currentQuestion].type === 'input' && (
+                        <div className="space-y-2">
+                            <Input
+                                type="text"
+                                value={answers[currentQuestion]?.toString() || ''}
+                                onChange={(e) => handleAnswerChange(e.target.value)}
+                                onKeyDown={handleKeyPress}
+                                placeholder={props.questions[currentQuestion].placeholder || "Escribe tu respuesta aquí"}
+                                autoFocus
+                                className="w-full rounded-xl bg-white dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700"
+                            />
+                        </div>
+                    )}
+
                     {props.questions[currentQuestion].type === 'text' && (
                         <div className="space-y-2">
                             <Input
@@ -265,7 +281,7 @@ export default function Form(props: { questions: Question[] }) {
                                 value={answers[currentQuestion]?.toString() || ''}
                                 onChange={(e) => handleAnswerChange(e.target.value)}
                                 onKeyDown={handleKeyPress}
-                                placeholder="Escribe tu respuesta aquí"
+                                placeholder={props.questions[currentQuestion].placeholder || "Escribe tu respuesta aquí"}
                                 autoFocus
                                 disabled={currentQuestion === 0}
                                 className="w-full rounded-xl bg-white dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700"

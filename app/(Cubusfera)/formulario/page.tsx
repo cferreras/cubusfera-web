@@ -13,9 +13,10 @@ export default function Formulario() {
         options?: string[];
         min?: number;
         max?: number;
+        placeholder?: string;
         checkboxes?: string[];
         apiRef: string;
-        requireAll?: boolean; // Nueva propiedad para indicar si todas las checkboxes son requeridas
+        requireAll?: boolean;
     };
 
     const questions: Question[] = [
@@ -39,102 +40,62 @@ export default function Formulario() {
         },
         {
             title: "¿Utilizas Minecraft en versión Premium?",
-            subtitle: "",
+            subtitle: "Requerido para acceder al servidor.",
             type: 'radio',
             options: ['Sí', 'No'],
             apiRef: 'premium_minecraft'
         },
         {
-            title: "¿Dispones de micrófono?",
-            subtitle: "",
-            type: 'radio',
-            options: ['Sí', 'No'],
-            apiRef: 'mic_available'
-        },
-        {
-            title: "¿Te sientes cómodo/a usando micrófono para comunicarte con otros miembros mientras juegas?",
-            subtitle: "",
+            title: "¿Dispones de micrófono y te sientes cómodo/a usándolo para comunicarte?",
+            subtitle: "Importante para coordinar proyectos técnicos complejos.",
             type: 'radio',
             options: ['Sí', 'No'],
             apiRef: 'uses_mic'
         },
         {
             title: "¿Has experimentado problemas de conexión recientemente?",
-            subtitle: "Retrasos, ping alto, desconexiones u otras dificultades con tu red.",
+            subtitle: "Los proyectos técnicos requieren estabilidad de conexión.",
             type: 'radio',
             options: ['Sí', 'No'],
             apiRef: 'connectivity_issues'
         },
         {
-            title: "¿Sabes jugar a Minecraft?",
-            subtitle: "Selecciona tu nivel de experiencia.",
-            type: 'slider',
-            min: 1,
-            max: 5,
-            apiRef: 'minecraft_knowledge'
-        },
-        // Nuevas preguntas sobre Minecraft y Minecraft técnico
-        {
-            title: "Conocimientos de Minecraft",
-            subtitle: "Selecciona todas las opciones que conozcas y hayas utilizado:",
-            type: 'checkbox',
-            checkboxes: [
-                "Redstone básica (puertas lógicas, circuitos simples)",
-                "Redstone avanzada (sistemas de memoria, contadores)",
-                "Granjas automáticas",
-                "Sistemas de clasificación de items",
-                "Comandos y funciones",
-                "Datapacks",
-            ],
-            apiRef: 'minecraft_skills',
-            requireAll: false // No requiere que todas estén marcadas
+            title: "¿Qué tipo de jugador eres?",
+            subtitle: "Describe tu estilo de juego y especialidades:",
+            type: 'text',
+            placeholder: "Ej: Me especializo en redstone, construcción técnica, granjas automáticas...",
+            apiRef: 'player_type',
         },
         {
-            title: "¿Qué tipo de granjas has construido?",
-            subtitle: "Selecciona todas las que apliquen:",
-            type: 'checkbox',
-            checkboxes: [
-                "Granjas de mobs hostiles",
-                "Granjas de hierro",
-                "Granjas de XP",
-                "Granjas de cultivos",
-                "Granjas de recursos del Nether/End",
-                "Granjas técnicas complejas (TNT duping, etc.)",
-            ],
-            apiRef: 'farm_experience',
-            requireAll: false // No requiere que todas estén marcadas
-        },
-        {
-            title: "Los aldeanos necesitan acceso a sus estaciones de trabajo para reabastecerse",
-            subtitle: "Pregunta técnica de Minecraft (1/2)",
+            title: "¿Cuál es el límite de bloques que puede empujar un pistón?",
+            subtitle: "Pregunta técnica (1/4)",
             type: 'radio',
-            options: ['Verdadero', 'Falso'],
+            options: ['10 bloques', '12 bloques', '15 bloques', '16 bloques'],
             apiRef: 'technical_question_1'
         },
         {
-            title: "Un pistón puede empujar hasta 12 bloques",
-            subtitle: "Pregunta técnica de Minecraft (2/4)",
-            type: 'radio',
-            options: ['Verdadero', 'Falso'],
-            apiRef: 'technical_question_2'
+            title: "¿Qué causa que los golems de hierro dejen de spawnear en una granja?",
+            subtitle: "Pregunta técnica (2/4)",
+            type: 'textarea',
+            apiRef: 'iron_golem_mechanics'
         },
         {
-            title: "¿Qué es el 'update suppression' en Minecraft?",
-            subtitle: "Pregunta técnica de Minecraft (3/4)",
+            title: "Explica qué es el 'update suppression' y menciona un uso práctico",
+            subtitle: "Pregunta técnica (3/4)",
             type: 'textarea',
             apiRef: 'update_suppression_knowledge'
         },
         {
-            title: "Explica brevemente cómo funciona una granja de hierro",
-            subtitle: "Pregunta técnica de Minecraft (4/4)",
+            title: "¿Cómo optimizarías una granja que está causando lag en el servidor?",
+            subtitle: "Pregunta técnica (4/4) - Menciona al menos 3 estrategias específicas",
             type: 'textarea',
-            apiRef: 'iron_farm_knowledge'
+            apiRef: 'lag_optimization'
         },
         {
-            title: "Cuéntanos tus motivaciones para unirte al servidor y comparte tus ideas o proyectos específicos que te gustaría desarrollar aquí.",
-            subtitle: "Buscamos respuestas detalladas que muestren tu verdadero interés y objetivos, no solo respuestas simples o genéricas.",
+            title: "Proyecto técnico que te gustaría desarrollar",
+            subtitle: "Describe un proyecto técnico específico que planeas construir. Incluye detalles sobre mecánicas, escala y propósito.",
             type: 'textarea',
-            apiRef: 'killer_question'
+            apiRef: 'technical_project_plan'
         },
         {
             title: "Términos y condiciones",
@@ -142,20 +103,21 @@ export default function Formulario() {
             type: 'checkbox',
             checkboxes: [
                 "He ingresado en la comunidad de Discord del servidor",
-                "Respetaré las normas del servidor",
-                "Voy a jugar un mínimo de 3 horas semanales",
-                "Avisaré de mis ausencias cuando no pueda jugar",
+                "Respetaré las normas del servidor y las áreas técnicas",
+                "Compartiré conocimientos técnicos con otros miembros",
+                "Avisaré de mis ausencias cuando no pueda jugar"
             ],
-            apiRef: 'already_submitted',
-            requireAll: true // Requiere que todas estén marcadas
+            apiRef: 'terms_acceptance',
+            requireAll: true
         }
     ];
+
     return (
         <Container className='py-20'>
             <div className="flex flex-col gap-1 mb-12">
-                <h1 className="text-lg">Formulario</h1>
+                <h1 className="text-lg">Formulario de Ingreso - Servidor Técnico</h1>
                 <p className="text-base text-muted-foreground">
-                    Formulario de inscripción al servidor de Minecraft.
+                    Formulario especializado para jugadores técnicos de Minecraft. Evaluamos conocimientos en redstone, granjas automáticas y mecánicas avanzadas.
                 </p>
             </div>
             <Form questions={questions} />
