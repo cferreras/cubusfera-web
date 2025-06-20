@@ -46,7 +46,6 @@ export default async function Miembros({
 
     // Calculate stats
     const totalPlayers = allMembers?.length || 0;
-    const premiumPlayers = premiumCount || 0;
 
     // Format all members
     const formattedMembers = await Promise.all(allMembers?.map(async (member: {
