@@ -194,25 +194,6 @@ const FormsTable = () => {
         }
     };
 
-    // Función para renderizar los conocimientos de Minecraft
-    const renderMinecraftSkills = (skills: boolean[] | null | undefined, options: string[]) => {
-        if (!skills) return <span className="text-muted-foreground">No especificado</span>;
-
-        const selectedSkills = skills
-            .map((selected, index) => selected ? options[index] : null)
-            .filter(Boolean);
-
-        if (selectedSkills.length === 0) return <span className="text-muted-foreground">Ninguno seleccionado</span>;
-
-        return (
-            <ul className="list-disc pl-5">
-                {selectedSkills.map((skill, index) => (
-                    <li key={index}>{skill}</li>
-                ))}
-            </ul>
-        );
-    };
-
     // Toggle expanded row
     const toggleExpandRow = (id: string) => {
         setExpandedRow(expandedRow === id ? null : id);
@@ -226,24 +207,8 @@ const FormsTable = () => {
     const totalPages = Math.ceil(forms.length / itemsPerPage);
     const paginatedForms = forms.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 
-    // Opciones para los checkboxes
-    const minecraftSkillsOptions = [
-        "Redstone básica (puertas lógicas, circuitos simples)",
-        "Redstone avanzada (sistemas de memoria, contadores)",
-        "Granjas automáticas",
-        "Sistemas de clasificación de items",
-        "Comandos y funciones",
-        "Datapacks",
-    ];
 
-    const farmExperienceOptions = [
-        "Granjas de mobs hostiles",
-        "Granjas de hierro",
-        "Granjas de XP",
-        "Granjas de cultivos",
-        "Granjas de recursos del Nether/End",
-        "Granjas técnicas complejas (TNT duping, etc.)",
-    ];
+
 
     return (
         <div className="space-y-8">
@@ -391,7 +356,7 @@ const FormsTable = () => {
                                                                                 <p className="whitespace-pre-wrap">{form.iron_golem_mechanics || 'No respondido'}</p>
                                                                             </div>
                                                                             <div>
-                                                                                <h3 className="font-semibold">¿Qué es el 'update suppression' en Minecraft?</h3>
+                                                                                <h3 className="font-semibold">¿Qué es el &apos;update suppression&apos; en Minecraft?</h3>
                                                                                 <p className="whitespace-pre-wrap">{form.update_suppression_knowledge || 'No respondido'}</p>
                                                                             </div>
                                                                             <div>

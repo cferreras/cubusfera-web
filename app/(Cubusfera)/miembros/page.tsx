@@ -37,12 +37,6 @@ export default async function Miembros({
                 .data?.map(form => form.id) || []
         );
 
-    // Get premium players count
-    const { count: premiumCount } = await supabase
-        .from('forms')
-        .select('*', { count: 'exact' })
-        .eq('status', 'accepted')
-        .eq('premium_minecraft', 'Sí');
 
     // Calculate stats
     const totalPlayers = allMembers?.length || 0;

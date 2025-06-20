@@ -11,7 +11,6 @@ import ReactMarkdown from 'react-markdown';
 import { FaDiscord, FaInstagram, FaLocationDot, FaXTwitter, FaYoutube } from "react-icons/fa6";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
-import PremiumBadge from "@/components/PremiumBadge";
 import { ChevronRightIcon, Palette } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import Estadisticas from "@/components/Estadisticas";
@@ -56,7 +55,6 @@ export default function ProfileClient({ initialData }: { initialData: ProfileDat
     const [youtube, setYoutube] = useState(initialData?.youtube_channel_url || "");
     const [location, setLocation] = useState(initialData?.location || "");
     const [isOwner, setIsOwner] = useState(false);
-    const [isAdmin] = useState(initialData?.isPremium);
     const [isVipSettingsOpen, setIsVipSettingsOpen] = useState(false);
     const [vipSettings, setVipSettings] = useState({
         custom_banner_url: initialData?.custom_banner_url || '',
