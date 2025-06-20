@@ -22,19 +22,24 @@ interface Form {
     id: string;
     name: string;
     minecraft_username: string;
-    connectivity_issues: boolean;
-    minecraft_knowledge: number;
+    connectivity_issues: string;
+    minecraft_knowledge: string;
     killer_question: string;
     mic_available: boolean;
     uses_mic: string;
-    status: 'pending' | 'accepted' | 'rejected';
+    status: string;
     revision_date: string;
     premium_minecraft: string;
-    discord_full_name?: string;
-    // Nuevos campos
+    discord_full_name: string;
     minecraft_skills: boolean[];
     farm_experience: boolean[];
     technical_question_1: string;
+    iron_golem_mechanics: string; // Nuevo campo
+
+    lag_optimization: string; // Nuevo campo
+    technical_project_plan: string; // Nuevo campo
+    terms_acceptance: boolean[]; // Nuevo campo
+    player_type: string; // Campo existente que faltaba
     technical_question_2: string;
     update_suppression_knowledge: string;
     iron_farm_knowledge: string;
@@ -300,8 +305,7 @@ const FormsTable = () => {
                                             {form.minecraft_knowledge}<span className='text-muted-foreground'>/5</span>
                                         </TableCell>
                                         <TableCell>
-                                            {form.mic_available ? 'Sí' : 'No'}
-                                            {form.uses_mic === "Sí" ? ' 😊' : ' 😔'}
+                                            {form.uses_mic ? 'Sí' : 'No'}
                                         </TableCell>
                                         <TableCell>
                                             <div className="flex gap-2">
@@ -360,10 +364,6 @@ const FormsTable = () => {
                                                                     <AccordionContent>
                                                                         <div className="grid grid-cols-2 gap-4">
                                                                             <div>
-                                                                                <h3 className="font-semibold">Micrófono disponible</h3>
-                                                                                <p>{form.mic_available ? 'Sí' : 'No'}</p>
-                                                                            </div>
-                                                                            <div>
                                                                                 <h3 className="font-semibold">Usa micrófono</h3>
                                                                                 <p>{form.uses_mic}</p>
                                                                             </div>
@@ -378,21 +378,6 @@ const FormsTable = () => {
                                                                         </div>
                                                                     </AccordionContent>
                                                                 </AccordionItem>
-                                                                <AccordionItem value="minecraft-skills">
-                                                                    <AccordionTrigger>Habilidades de Minecraft</AccordionTrigger>
-                                                                    <AccordionContent>
-                                                                        <div className="space-y-4">
-                                                                            <div>
-                                                                                <h3 className="font-semibold">Conocimientos de Minecraft</h3>
-                                                                                {renderMinecraftSkills(form.minecraft_skills, minecraftSkillsOptions)}
-                                                                            </div>
-                                                                            <div>
-                                                                                <h3 className="font-semibold">Experiencia con granjas</h3>
-                                                                                {renderMinecraftSkills(form.farm_experience, farmExperienceOptions)}
-                                                                            </div>
-                                                                        </div>
-                                                                    </AccordionContent>
-                                                                </AccordionItem>
                                                                 <AccordionItem value="technical-questions">
                                                                     <AccordionTrigger>Preguntas Técnicas</AccordionTrigger>
                                                                     <AccordionContent>
@@ -402,16 +387,20 @@ const FormsTable = () => {
                                                                                 <p>{form.technical_question_1 || 'No respondido'}</p>
                                                                             </div>
                                                                             <div>
-                                                                                <h3 className="font-semibold">Un pistón puede empujar hasta 12 bloques</h3>
-                                                                                <p>{form.technical_question_2 || 'No respondido'}</p>
+                                                                                <h3 className="font-semibold">Explica cómo funcionan los Iron Golems en las granjas de hierro</h3>
+                                                                                <p className="whitespace-pre-wrap">{form.iron_golem_mechanics || 'No respondido'}</p>
                                                                             </div>
                                                                             <div>
-                                                                                <h3 className="font-semibold">¿Qué es el &apos;update suppression&apos; en Minecraft?</h3>
+                                                                                <h3 className="font-semibold">¿Qué es el 'update suppression' en Minecraft?</h3>
                                                                                 <p className="whitespace-pre-wrap">{form.update_suppression_knowledge || 'No respondido'}</p>
                                                                             </div>
                                                                             <div>
-                                                                                <h3 className="font-semibold">Explica brevemente cómo funciona una granja de hierro</h3>
-                                                                                <p className="whitespace-pre-wrap">{form.iron_farm_knowledge || 'No respondido'}</p>
+                                                                                <h3 className="font-semibold">¿Cómo optimizarías una granja que está causando lag?</h3>
+                                                                                <p className="whitespace-pre-wrap">{form.lag_optimization || 'No respondido'}</p>
+                                                                            </div>
+                                                                            <div>
+                                                                                <h3 className="font-semibold">Proyecto técnico que te gustaría desarrollar</h3>
+                                                                                <p className="whitespace-pre-wrap">{form.technical_project_plan || 'No respondido'}</p>
                                                                             </div>
                                                                         </div>
                                                                     </AccordionContent>
