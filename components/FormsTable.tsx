@@ -17,32 +17,26 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
+import React from 'react';
 
 interface Form {
     id: string;
-    name: string;
+    created_at: string;
+    connectivity_issues: boolean;
     minecraft_username: string;
-    connectivity_issues: string;
-    minecraft_knowledge: string;
-    killer_question: string;
-    mic_available: boolean;
-    uses_mic: string;
-    status: string;
-    revision_date: string;
     premium_minecraft: string;
+    revision_date: string;
+    uses_mic: string;
+    already_submitted: boolean;
+    name: string;
+    status: string;
     discord_full_name: string;
-    minecraft_skills: boolean[];
-    farm_experience: boolean[];
     technical_question_1: string;
-    iron_golem_mechanics: string; // Nuevo campo
-
-    lag_optimization: string; // Nuevo campo
-    technical_project_plan: string; // Nuevo campo
-    terms_acceptance: boolean[]; // Nuevo campo
-    player_type: string; // Campo existente que faltaba
-    technical_question_2: string;
     update_suppression_knowledge: string;
-    iron_farm_knowledge: string;
+    player_type: string;
+    iron_golem_mechanics: string;
+    lag_optimization: string;
+    technical_project_plan: string;
 }
 
 const FormsTable = () => {
@@ -227,7 +221,7 @@ const FormsTable = () => {
                         <TableRow className="hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50">
                             <TableHead className="font-medium">Nombre</TableHead>
                             <TableHead className="font-medium">Usuario de Minecraft</TableHead>
-                            <TableHead className="font-medium">Conocimiento MC</TableHead>
+                            <TableHead className="font-medium">Problemas de Conexión</TableHead>
                             <TableHead className="font-medium">Micrófono</TableHead>
                             <TableHead className="font-medium">Detalles</TableHead>
                             <TableHead className="font-medium">Acciones</TableHead>
@@ -248,9 +242,8 @@ const FormsTable = () => {
                             </TableRow>
                         ) : (
                             paginatedForms.map((form) => (
-                                <>
+                                <React.Fragment key={form.id}>
                                     <TableRow
-                                        key={form.id}
                                         className={`hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 ${expandedRow === form.id ? 'bg-neutral-200/30 dark:bg-neutral-800/30' : ''}`}
                                     >
                                         <TableCell>
@@ -267,7 +260,7 @@ const FormsTable = () => {
                                             }
                                         </TableCell>
                                         <TableCell>
-                                            {form.minecraft_knowledge}<span className='text-muted-foreground'>/5</span>
+                                            {form.connectivity_issues ? 'Sí' : 'No'}
                                         </TableCell>
                                         <TableCell>
                                             {form.uses_mic ? 'Sí' : 'No'}
@@ -337,8 +330,8 @@ const FormsTable = () => {
                                                                                 <p>{form.connectivity_issues ? 'Sí' : 'No'}</p>
                                                                             </div>
                                                                             <div>
-                                                                                <h3 className="font-semibold">Conocimiento de Minecraft</h3>
-                                                                                <p>{form.minecraft_knowledge}/5</p>
+                                                                                <h3 className="font-semibold">Tipo de jugador</h3>
+                                                                                <p>{form.player_type || 'No especificado'}</p>
                                                                             </div>
                                                                         </div>
                                                                     </AccordionContent>
@@ -367,15 +360,6 @@ const FormsTable = () => {
                                                                                 <h3 className="font-semibold">Proyecto técnico que te gustaría desarrollar</h3>
                                                                                 <p className="whitespace-pre-wrap">{form.technical_project_plan || 'No respondido'}</p>
                                                                             </div>
-                                                                        </div>
-                                                                    </AccordionContent>
-                                                                </AccordionItem>
-                                                                <AccordionItem value="motivation">
-                                                                    <AccordionTrigger>Motivación</AccordionTrigger>
-                                                                    <AccordionContent>
-                                                                        <div>
-                                                                            <h3 className="font-semibold">Motivación para unirse al servidor</h3>
-                                                                            <p className="whitespace-pre-wrap">{form.killer_question}</p>
                                                                         </div>
                                                                     </AccordionContent>
                                                                 </AccordionItem>
@@ -444,26 +428,25 @@ const FormsTable = () => {
                                                         <p>{form.connectivity_issues ? 'Sí' : 'No'}</p>
                                                     </div>
                                                     <div>
-                                                        <h3 className="font-semibold">Motivación</h3>
-                                                        <p className="truncate max-w-xs">{form.killer_question}</p>
+                                                        <h3 className="font-semibold">Tipo de jugador</h3>
+                                                        <p>{form.player_type || 'No especificado'}</p>
                                                     </div>
                                                     <div>
                                                         <h3 className="font-semibold">Conocimientos técnicos</h3>
                                                         <div className="text-sm">
                                                             <p>Aldeanos: {form.technical_question_1 || 'No respondido'}</p>
-                                                            <p>Pistones: {form.technical_question_2 || 'No respondido'}</p>
+                                                            <p>Iron Golems: {form.iron_golem_mechanics || 'No respondido'}</p>
                                                         </div>
                                                     </div>
                                                     <div>
-                                                        <h3 className="font-semibold">Habilidades</h3>
-                                                        <p className="text-sm">{form.minecraft_skills ? `${form.minecraft_skills.filter(Boolean).length} habilidades` : 'No especificado'}</p>
-                                                        <p className="text-sm">{form.farm_experience ? `${form.farm_experience.filter(Boolean).length} tipos de granjas` : 'No especificado'}</p>
+                                                        <h3 className="font-semibold">Fecha de revisión</h3>
+                                                        <p className="text-sm">{new Date(form.revision_date).toLocaleDateString()}</p>
                                                     </div>
                                                 </div>
                                             </TableCell>
                                         </TableRow>
                                     )}
-                                </>
+                                </React.Fragment>
                             ))
                         )}
                     </TableBody>
